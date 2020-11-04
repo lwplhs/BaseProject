@@ -1,0 +1,71 @@
+﻿<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='后台管理',active='home'">
+<header th:replace="/admin/header::headerFragment(${title},${active})"></header>
+<head>
+	<link rel="stylesheet" type="text/css" th:href="@{/static/admin/n_n/carousel/imageShow.css}"></link>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 图片管理 <span class="c-gray en">&gt;</span> 图片列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+	<!--<div class="text-c"> 日期范围：
+		<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="logmin" class="input-text Wdate" style="width:120px;">
+		-
+		<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'logmin\')}',maxDate:'%y-%M-%d' })" id="logmax" class="input-text Wdate" style="width:120px;">
+		<input type="text" name="" id="" placeholder=" 图片名称" style="width:250px" class="input-text">
+		<button name="" id="btn-search" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜图片</button>
+	</div>-->
+    <div id="list" th:fragment="list" style="overflow:hidden;zoom:1;">
+        <div class="cl pd-5 bg-1 bk-gray">
+            <span class="l">
+                <a href="javascript:;" id="btn-delete" onclick="btn_delete()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
+                <a href="javascript:;" id="btn-update" onclick="btn_update()"  class="btn btn-warning radius"><i class="Hui-iconfont">&#xe601;</i>批量启用/停用</a>
+                <a class="btn btn-primary radius" onclick="picture_add('添加首页轮播图','/admin/carousel/carousel-add')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加首页轮播图</a>
+            </span>
+            <span class="r">共有数据：<strong th:text="${total}"></strong> 条</span>
+        </div>
+        <input th:hidden="true" id="total" th:value="${total}" />
+        <!--	<div class="menu">
+                <div id="search">
+                    <input type="text" id="key" placeholder="输入名称搜索">
+                    <input class="button" type="button" id="btn-search" value="搜索">
+                    <input class="button ml100 pass-btn" type="button" id="btn-pass" value="审核">
+                    <input class="button del-btn" type="button" id="btn-delete" value="删除">
+                </div>
+            </div>-->
+        <div class="row" id="container">
+            <th:block th:each="pic : ${picList}">
+                <div class="img-block">
+                    <div class="thumbnail" th:id="${pic.id}" th:title="${pic.name}">
+                        <input hidden="hidden" th:value="${pic.id}" name="carousel-id"/>
+                        <img th:src="${pic.path}" th:alt="${pic.name}"/>
+<!--                        <div class="caption">
+                            <h4 th:text="${pic.name}">null</h4>
+                        </div>-->
+                        <div class="b">
+                            <div class="c"></div>
+                            <span class="span1" th:if="${pic.status} eq '1'">启用中</span>
+                            <span class="span2" th:if="${pic.status} ne '1'">未启用</span>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+    </div>
+    <div id="laypage"></div>
+    <div id="dataNull" style="text-align: center" hidden="hidden">
+        <img width="300px" height="300px" th:src="@{/static/admin/images/dataNull.png}"/>
+    </div>
+</div>
+<div class="contextMenu" id="carouselMenu" hidden="hidden">
+    <ul>
+        <li id="updateStatus">启用/停用 </li>
+        <li id="updateDelete">删除 </li>
+        <li id="viewCarousel">查看 </li>
+        <li id="editCarousel">编辑 </li>
+    </ul>
+</div>
+
+<div th:replace="/admin/footer::footer_carousel-list"></div>
+<div th:replace="/admin/footer::footer-content"></div>
+</body>
+</html>

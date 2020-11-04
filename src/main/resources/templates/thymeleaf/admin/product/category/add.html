@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='后台管理',active='home'">
+<header th:replace="/admin/header::headerFragment(${title},${active})"></header>
+<body>
+<div class="page-container">
+	<form action="" method="post" class="form form-horizontal" id="form-category-add">
+		<input hidden="hidden" id="level" name="level" th:value="${category.level}" />
+		<input hidden="hidden" id="id" name="id" th:value="${category.id}" />
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">
+				<span class="c-red">*</span>
+				分类名称：</label>
+			<div class="formControls col-xs-6 col-sm-6">
+				<input type="text" class="input-text" th:value="${category.name}" placeholder="" id="name" name="name">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">
+				<span class="c-red">*</span>
+				父亲节点：</label>
+			<div class="formControls col-xs-6 col-sm-6">
+				<input hidden="hidden" type="text" class="input-text" th:value="${category.parentId}" placeholder="" id="parentId" name="parentId">
+				<input disabled="disabled" type="text" class="input-text" th:value="${parentName}" placeholder="" id="parentName" name="parentName">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">
+                <span class="c-red">*</span>
+                启用：</label>
+			<div class="formControls col-xs-6 col-sm-6">
+				<span class="select-box">
+				<select class="select" id="status" name="status">
+					<option th:selected="${category.status}=='1'" value="1">是</option>
+					<option th:selected="${category.status}=='0'" value="0">否</option>
+				</select>
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">备注：</label>
+			<div class="formControls col-xs-6 col-sm-6">
+				<textarea name="remark" id="remark" th:value="${category.remark}" cols="" rows="" class="textarea"  placeholder="说点什么..." onKeyUp="$.Huitextarealength(this,100)"></textarea>
+				<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+			</div>
+		</div>
+		<!--/*@thymesVar id="path" type=""*/-->
+		<input type="hidden" id="path" name="path" th:value="${path}">
+		<input type="hidden" id="attachmentId" name="attachmentId" th:value="${category.attachmentId}">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>图片上传：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<div class="uploader-list-container">
+					<div class="queueList">
+						<div id="dndArea" class="placeholder">
+							<div id="filePicker-2"></div>
+							<p>或将照片拖到这里，最多可选1张</p>
+						</div>
+					</div>
+					<div class="statusBar" style="display:none;">
+						<div class="progress"> <span class="text">0%</span> <span class="percentage"></span> </div>
+						<div class="info"></div>
+						<div class="btns">
+							<div id="filePicker2"></div>
+							<div class="uploadBtn" style="display:none;">开始上传</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<button onClick="category_save_submit();" class="btn btn-primary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+				<button onClick="quxiao()" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<div th:replace="/admin/footer::footer_product-category-add"></div>
+<div th:replace="/admin/footer::footer-content"></div>
+<!--请在下方写此页面业务相关的脚本-->
+
+<script type="text/javascript">
+	function category_save_submit(){
+		var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+		var jsondata = $("#form-category-add").serialize();
+		console.log(jsondata);
+		$.ajax({
+			type:"POST",
+			data:jsondata,
+			url:"/admin/productCategory/saveCategory",
+			success: function(data){
+				if(data && data.success){
+					layer.msg(data.msg);
+					setTimeout(function (){
+						parent.layer.close(index);
+					},500);
+				}else {
+					layer.alert(data.msg || "保存失败，请刷新后重试");
+				}
+			}
+
+		});
+	}
+	function quxiao(){
+		var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+		parent.layer.close(index);
+	}
+	$(function(){
+
+	});
+</script>
+</body>
+</html>

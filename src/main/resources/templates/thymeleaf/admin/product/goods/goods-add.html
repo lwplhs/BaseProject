@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='商品管理',active='article'">
+<header th:replace="/admin/header::headerFragment(${title},${active})"></header>
+<body>
+<div class="page-container">
+	<form class="form form-horizontal" id="form-goods-add">
+		<input hidden="hidden" id="id" name="id"/>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>商品名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" placeholder="" id="name" name="name">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">启用：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box">
+						<ll:combo dictType="是否" class="select" id="ad" name="1"></ll:combo>
+				</span>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+<div th:replace="/admin/footer::footer_goods-add"></div>
+<div th:replace="/admin/footer::footer-content"></div>
+</body>
+</html>

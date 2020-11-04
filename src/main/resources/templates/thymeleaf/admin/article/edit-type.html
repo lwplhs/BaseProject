@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='后台管理',active='home'">
+<header th:replace="/admin/header::headerFragment(${title},${active})"></header>
+<head>
+  <link rel="stylesheet" type="text/css" th:href="@{/static/admin/n_n/csdn/csdn.css}" />
+</head>
+<body>
+  <div class="view-container">
+    <div data-v-3995129c="" class="contentRelease view">
+<!--      <ul data-v-3995129c="">
+        <li data-v-3995129c="" class="router-link-exact-active router-link-active">
+          <span data-v-3995129c="">写博文</span>
+        </li>
+        <li data-v-3995129c="" class="">
+          <span data-v-3995129c="">上传资源</span>
+        </li>
+      </ul>-->
+      <div data-v-7ada2266="" data-v-3995129c="" class="Blog">
+        <div data-v-7ada2266="" class="blog-content">
+          <div data-v-7ada2266="" class="blog-top">
+            <p data-v-7ada2266="">选择使用的编辑器</p>
+          </div>
+        <div data-v-7ada2266="" class="blog-bottom">
+          <p data-v-7ada2266="" th:onclick="toPage('/admin/article/article-add')"  class="Richtext" data-report-click="{&quot;mod&quot;:&quot;1583722369_015&quot;}">
+           <!-- <a data-v-7ada2266="" th:href="@{/admin/getPage/article-add.html}"data-report-click="{&quot;mod&quot;:&quot;1583722369_016&quot;}">
+ -->             <svg data-v-7ada2266="" viewBox="0 0 20 18" xmlns="http://www.w3.org/2000/svg" class="">
+                <g data-v-7ada2266="" fill-rule="nonzero">
+                  <path data-v-7ada2266="" d="M20 .025a28.502 28.502 0 01-1.575 1.76c-.088.091-4.53.558-5.17 1.317-.64.759 3.564.206 3.443.31a26.057 26.057 0 01-1.923 1.508c-.124.088-4.111-.01-4.803.778-.691.79 2.803.508 2.642.599-1.853 1.052-3.462 1.807-5.848 2.624-1.586.542-3.35 3.722-4.03 5.007-.681 1.285-.832 1.976-1.036 2.581-.075.227-.396.804-1.075.585-.678-.22-.672-.864-.582-1.163C1.948 10.223 4.983 5.73 8.445 2.387c.777-.75 1.888-1.338 2.794-1.564C15.037-.122 17.518-.015 20 .025z"></path>
+                  <path data-v-7ada2266="" d="M.5 15.714h14.714a.5.5 0 01.5.5v.429a.5.5 0 01-.5.5H.5a.5.5 0 01-.5-.5v-.429a.5.5 0 01.5-.5z"></path>
+                </g>
+              </svg> Markdown编辑器
+            <!--</a>-->
+          </p>
+          <p data-v-7ada2266="" th:onclick="toPage('/admin/article/article-add')"  class="Richtext" data-report-click="{&quot;mod&quot;:&quot;1583722369_015&quot;}">
+            <svg data-v-7ada2266="" viewBox="0 0 20 18" xmlns="http://www.w3.org/2000/svg" class="">
+              <g data-v-7ada2266="" fill-rule="nonzero">
+                <path data-v-7ada2266="" d="M20 .025a28.502 28.502 0 01-1.575 1.76c-.088.091-4.53.558-5.17 1.317-.64.759 3.564.206 3.443.31a26.057 26.057 0 01-1.923 1.508c-.124.088-4.111-.01-4.803.778-.691.79 2.803.508 2.642.599-1.853 1.052-3.462 1.807-5.848 2.624-1.586.542-3.35 3.722-4.03 5.007-.681 1.285-.832 1.976-1.036 2.581-.075.227-.396.804-1.075.585-.678-.22-.672-.864-.582-1.163C1.948 10.223 4.983 5.73 8.445 2.387c.777-.75 1.888-1.338 2.794-1.564C15.037-.122 17.518-.015 20 .025z"></path>
+                <path data-v-7ada2266="" d="M.5 15.714h14.714a.5.5 0 01.5.5v.429a.5.5 0 01-.5.5H.5a.5.5 0 01-.5-.5v-.429a.5.5 0 01.5-.5z"></path>
+              </g>
+            </svg> 富文本</p>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div th:replace="/admin/footer::footer-content"></div>
+<script type="text/javascript" th:inline="none">
+  function toPage(url) {
+    window.location.href = url;
+  }
+</script>
+</body>
+</html>

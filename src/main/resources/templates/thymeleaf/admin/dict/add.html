@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='数据字典',active='article'">
+<header th:replace="/admin/header::headerFragment(${title},${active})"></header>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div style="padding-top: 2%" />
+    <form class="layui-form layui-form-pane" id="form-dict-add" method="post">
+        <input hidden="hidden" id="lastId" name="lastId" th:value="${lastId}"/>
+        <input hidden="hidden" id="series" name="series" th:value="${series}"/>
+        <input hidden="hidden" id="id" name="id" th:value="${id}"/>
+        <div class="layui-form-item">
+            <label class="layui-form-label">父级名称：</label>
+            <div class="layui-input-block">
+                <input type="text" name="lastName" th:value="${lastName}" lay-verify="title" autocomplete="off" placeholder="父级名称" readonly class="layui-input" />
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">数据值：</label>
+            <div class="layui-input-block">
+                <input type="text" th:disabled="${action=='view'}" name="name" th:value="${name}" lay-verify="title" autocomplete="off" placeholder="请输入数据值" class="layui-input" />
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">数据描述：</label>
+            <div class="layui-input-block">
+                <input type="text" th:disabled="${action=='view'}" name="describe" th:value="${describe}" lay-verify="title" autocomplete="off" placeholder="请输入数据描述" class="layui-input" />
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">排列顺序：</label>
+            <div class="layui-input-block">
+                <input type="text" th:disabled="${action=='view'}" name="sort" th:value="${sort}" lay-verify="title" autocomplete="off" placeholder="请输入排列顺序" class="layui-input" />
+            </div>
+        </div>
+        <div class="layui-form-item" pane="">
+            <label class="layui-form-label">是否启用：</label>
+            <div class="layui-input-block">
+                <input type="radio" name="status" th:value="0" title="是" th:checked="${status==0}">
+                <input type="radio" name="status" th:value="1" title="否" th:checked="${status==1}">
+            </div>
+        </div>
+        <div style="text-align: center">
+            <HR style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="100%" color=#987cb9 SIZE=3 />
+        </div>
+        <div style="text-align: right;padding-right: 1%">
+            <input type="checkbox" th:if="${action=='new'}" id="isnew" lay-skin="primary" title="连续新增" checked="" />
+            <button type="button" th:if="${action!='view' }" onclick="submitDict()" class="layui-btn layui-btn-normal layui-btn-radius">确定</button>
+            <button type="button" onclick="quxiao()" class="layui-btn layui-btn-warm layui-btn-radius">取消</button>
+        </div>
+    </form>
+    <div th:replace="/admin/footer::footer_dict-add"></div>
+    <div th:replace="/admin/footer::footer-content"></div>
+</body>
+<script type="text/javascript">
+
+</script>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="footer-np">
+    <!--进度条-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/carousel/np.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/carousel/nprogress.js}"></script>
+</div>
+<div th:fragment="footer-content">
+    <style type="text/css">
+        html,body{margin:0;padding: 0;}
+        .header{background-color: #ffe4c4;}
+        .main{background-color: #bdb76b;}
+        /*        .footer{background-color: #ffc0cb;}*/
+
+        /* 动态为footer添加类fixed-bottom */
+        .fixed-bottom {position: fixed;bottom: 0;width:100%;}
+    </style>
+
+
+    <script type="text/javascript">
+        $(function(){
+            function footerPosition(){
+                $("footer").removeClass("fixed-bottom");
+                var contentHeight = document.body.scrollHeight,//网页正文全文高度
+                    winHeight = window.innerHeight;//可视窗口高度，不包括浏览器顶部工具栏
+                if(!(contentHeight > winHeight)){
+                    //当网页正文高度小于可视窗口高度时，为footer添加类fixed-bottom
+                    $("footer").addClass("fixed-bottom");
+                } else {
+                    $("footer").removeClass("fixed-bottom");
+                }
+            }
+            footerPosition();
+            $(window).resize(footerPosition);
+        });
+    </script>
+    <footer class="footer text-right" >
+        2020 © <a th:href="@{https://github.com/lwplhs}" target="_blank">My WebSite</a><div class=""></div>
+    </footer>
+    <div hidden="hidden" id="reflush"></div>
+</div>
+<div th:fragment="footer_main">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+</div>
+<div th:fragment="footer_common">
+    <!--jquery-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/jquery/1.9.1/jquery.min.js}"></script>
+    <!--$.tale-->
+    <script th:src="@{/static/admin/js/base.js}"></script>
+    <!--layui-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/layui/2.5.6/layui.all.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/layui/2.5.6/layui.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/laypage/1.2/laypage.js}"></script>
+    <!---h-ui-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/h-ui/js/H-ui.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/h-ui.admin/js/H-ui.admin.js}"></script>
+    <!--右键菜单-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/jquery.contextmenu/jquery.contextmenu.r2.js}"></script>
+    <!--工具js-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/utils/flyrise.util.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/utils/flyrise.constants.js}"></script>
+    <!--时间控件-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/My97DatePicker/4.8/WdatePicker.js}"></script>
+    <!--表格-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/datatables/1.10.0/jquery.dataTables.min.js}"></script>
+    <!--校验-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/jquery.validation/1.14.0/jquery.validate.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/jquery.validation/1.14.0/validate-methods.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/jquery.validation/1.14.0/messages_zh.js}"></script>
+    <!--uploader-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/webuploader/0.1.5/webuploader.min.js}"></script>
+    <!--ueditor-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/ueditor/1.4.3/ueditor.config.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/ueditor/1.4.3/ueditor.all.min.js}"> </script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/ueditor/1.4.3/lang/zh-cn/zh-cn.js}"></script>
+    <!--image展示-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/carousel/imageShow.js}"></script>
+    <!--ztree-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/zTree/v3/js/jquery.ztree.all-3.5.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/zTree/v3/js/jquery.ztree.exedit-3.5.js}"></script>
+    <!--cookie-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/jquery.cookie.1.4.1/jquery.cookie.js}"></script>
+    <!--nicescroll-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/jquery.nicescroll/jquery.nicescroll.js}"></script>
+    <!---plug-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/plug/js/plug.js}"></script>
+</div>
+<div th:fragment="footer_index">
+    <div th:replace="/admin/footer::footer_common"></div>
+</div>
+<div th:fragment="footer_article-list">
+    <!--请在下方写此页面业务相关的脚本-->
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+</div>
+<div th:fragment="footer_article-add">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+</div>
+<div th:fragment="footer_carousel-list">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <!--自定义业务-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/carousel/carousel_list.js}"></script>
+</div>
+
+<div th:fragment="footer_carousel-add">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <!--carousel-add页面业务相关的自定义脚本-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/carousel/carousel-add.js}"></script>
+</div>
+
+
+<div th:fragment="footer_carousel-edit">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <!--carousel-edit页面业务相关的自定义脚本-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/carousel/carousel-edit.js}"></script>
+</div>
+
+<div th:fragment="footer_carousel-view">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <!--carousel-add页面业务相关的自定义脚本-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/carousel/carousel_view.js}"></script>
+</div>
+
+<div th:fragment="footer_goods-list">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <!--页面业务相关的自定义脚本-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/goods/goods_list.js}"></script>
+</div>
+
+<div th:fragment="footer_goods-add">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <!--carousel-add页面业务相关的自定义脚本-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/goods/goods-add.js}"></script>
+</div>
+
+<div th:fragment="footer_goods-edit">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <!--carousel-edit页面业务相关的自定义脚本-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/goods/goods-edit.js}"></script>
+</div>
+
+<div th:fragment="footer_goods-view">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <!--carousel-add页面业务相关的自定义脚本-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/goods/goods_view.js}"></script>
+</div>
+<div th:fragment="footer_product-category-manage">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <!--业务脚本-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/category/js/manager.js}"></script>
+</div>
+<div th:fragment="footer_product-category-add">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+</div>
+<div th:fragment="footer_product-category-edit">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+</div>
+<div th:fragment="footer_product-category-view">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+</div>
+
+<div th:fragment="footer_dict-manager">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <!--业务脚本-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/dict/manager.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/dict/subDetail.js}"></script>
+</div>
+
+<div th:fragment="footer_dict-add">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/dict/add.js}"></script>
+</div>>
+
+<div th:fragment="footer_dict-subDetail">
+    <div th:replace="/admin/footer::footer_common"/>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/dict/subDetail.js}"></script>
+</div>
+</html>
