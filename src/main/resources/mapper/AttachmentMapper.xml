@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lwp.website.dao.AttachmentDao">
+    <resultMap id="BaseResultMap" type="com.lwp.website.entity.Vo.AttachmentVo">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="save_name" jdbcType="VARCHAR" property="saveName"/>
+        <result column="old_name" jdbcType="VARCHAR" property="oldName"/>
+        <result column="save_path" jdbcType="VARCHAR" property="savePath"/>
+        <result column="url_path" jdbcType="VARCHAR" property="urlPath"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="time" jdbcType="TIMESTAMP" property="time"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="suffix" jdbcType="VARCHAR" property="suffix"/>
+        <result column="size" jdbcType="VARCHAR" property="size"/>
+        <result column="width" jdbcType="VARCHAR" property="width"/>
+        <result column="height" jdbcType="VARCHAR" property="height"/>
+    </resultMap>
+    <cache eviction="LRU" flushInterval="10800000"  size="512" readOnly="true"/>
+    <insert id="insertAttachment" parameterType="com.lwp.website.entity.Vo.AttachmentVo">
+        insert into attachment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="saveName != null">
+                save_name,
+            </if>
+            <if test="oldName != null">
+                old_name,
+            </if>
+            <if test="savePath != null">
+                save_path,
+            </if>
+            <if test="urlPath != null">
+                url_path,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="time != null">
+                time,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="suffix != null">
+                suffix,
+            </if>
+            <if test="size != null">
+                size,
+            </if>
+            <if test="width != null">
+                width,
+            </if>
+            <if test="height != null">
+                height,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="saveName != null">
+                #{saveName,jdbcType=VARCHAR},
+            </if>
+            <if test="oldName != null">
+                #{oldName,jdbcType=VARCHAR},
+            </if>
+            <if test="savePath != null">
+                #{savePath,jdbcType=VARCHAR},
+            </if>
+            <if test="urlPath != null">
+                #{urlPath,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="time != null">
+                #{time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="suffix != null">
+                #{suffix,jdbcType=VARCHAR},
+            </if>
+            <if test="size != null">
+                #{size,jdbcType=VARCHAR},
+            </if>
+            <if test="width != null">
+                #{width,jdbcType=VARCHAR},
+            </if>
+            <if test="height != null">
+                #{height,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="getListAttachment" resultMap="BaseResultMap">
+        select * from attachment
+    </select>
+    <select id="getPathById" parameterType="java.lang.String" resultType="java.lang.String">
+        select url_path from attachment where id=#{id,jdbcType=VARCHAR}
+    </select>
+</mapper>
