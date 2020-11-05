@@ -50,15 +50,15 @@
 
         <!-- 对包进行更详细的配置 -->
         <!-- additivity表示是否追加,防止重复,因为root已经接收过一次了 -->
-        <logger name="com.lwp.baseproject.dao" level="DEBUG" additivity="true">
+        <logger name="com.lwp.website.dao" level="DEBUG" additivity="true">
             <appender-ref ref="db_log"/>
             <appender-ref ref="console"/>
         </logger>
-        <logger name="com.lwp.baseproject.controller" level="DEBUG" additivity="false">
+        <logger name="com.lwp.website.controller" level="DEBUG" additivity="false">
             <appender-ref ref="service_log"/>
             <appender-ref ref="console"/>
         </logger>
-        <logger name="com.lwp.baseproject.service" level="DEBUG" additivity="false">
+        <logger name="com.lwp.website.service" level="DEBUG" additivity="false">
             <appender-ref ref="service_log"/>
             <appender-ref ref="console"/>
         </logger>

@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='后台管理',active='home'">
 <header th:replace="/admin/header::headerFragment(${title},${active})"></header>
 <body>
-<!--<header class="navbar-wrapper">
+<header class="navbar-wrapper">
     <div class="navbar navbar-fixed-top">
         <div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" th:href="@{/admin/index}"><img th:src="@{/static/admin/images/logo.png}" class="logo navbar-slogan f-l mr-10 hidden-xs"></a>
 
-            &lt;!&ndash;<span class="logo navbar-slogan f-l mr-10 hidden-xs">v3.1</span>&ndash;&gt;
+            <!--<span class="logo navbar-slogan f-l mr-10 hidden-xs">v3.1</span>-->
             <a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
-&lt;!&ndash;            <nav class="nav navbar-nav">
+<!--            <nav class="nav navbar-nav">
                 <ul class="cl">
                     <li class="dropDown dropDown_hover"><a href="javascript:;" class="dropDown_A"><i class="Hui-iconfont">&#xe600;</i> 新增 <i class="Hui-iconfont">&#xe6d5;</i></a>
                         <ul class="dropDown-menu menu radius box-shadow">
@@ -23,7 +23,7 @@
                     <li class="navbar-levelone"><a href="javascript:;">手机</a></li>&ndash;&gt;
                     </li>
                 </ul>
-            </nav>&ndash;&gt;
+            </nav>-->
             <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
                 <ul class="cl">
                     <li>超级管理员</li>
@@ -50,7 +50,7 @@
             </nav>
         </div>
     </div>
-</header>-->
+</header>
 <div id="float-menu" class="float-menu" th:fragment="plug">
     <div id="plus" class="plus">
         <div class="cross"></div>
@@ -63,9 +63,9 @@
     </div>
 </div>
 <aside class="Hui-aside">
-    <div class="content-left-head" style="height: 35px; display: block;">
+<!--    <div class="content-left-head" style="height: 35px; display: block;">
         <img id="logo-img"  th:src="@{/static/admin/images/logo.png}" style="height: 35px;padding-left: 20%">
-    </div>
+    </div>-->
     <div class="menu_dropdown bk_2">
         <dl id="menu-article">
             <dt><i class="Hui-iconfont">&#xe616;</i> 文章管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>

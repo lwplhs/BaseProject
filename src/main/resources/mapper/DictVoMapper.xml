@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lwp.baseproject.dao.DictVoDao">
+<mapper namespace="com.lwp.website.dao.DictVoDao">
     
-    <resultMap id="BaseResultMap" type="com.lwp.baseproject.entity.Vo.DictVo">
+    <resultMap id="BaseResultMap" type="com.lwp.website.entity.Vo.DictVo">
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="des" jdbcType="VARCHAR" property="describe"/>
@@ -35,7 +35,7 @@
         select count(*)+1 from sort_infor where last_id =#{lastId,jdbcType=VARCHAR} and series = '2'
     </select>
 
-    <insert id="insertDict" parameterType="com.lwp.baseproject.entity.Vo.DictVo" keyProperty="id" useGeneratedKeys="true">
+    <insert id="insertDict" parameterType="com.lwp.website.entity.Vo.DictVo" keyProperty="id" useGeneratedKeys="true">
         insert into sort_infor
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -109,7 +109,7 @@
         </trim>
     </insert>
 
-    <update id="updateDict" parameterType="com.lwp.baseproject.entity.Vo.DictVo" keyProperty="id" useGeneratedKeys="true">
+    <update id="updateDict" parameterType="com.lwp.website.entity.Vo.DictVo" keyProperty="id" useGeneratedKeys="true">
         update sort_infor
         <set>
             <if test="name != null">

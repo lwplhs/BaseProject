@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lwp.baseproject.dao.UserVoDao">
-  <resultMap id="BaseResultMap" type="com.lwp.baseproject.entity.Vo.UserVo">
+<mapper namespace="com.lwp.website.dao.UserVoDao">
+  <resultMap id="BaseResultMap" type="com.lwp.website.entity.Vo.UserVo">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
@@ -76,7 +76,7 @@
     id, username, password, email, home_url, screen_name, created, activated, logged,
     group_name
   </sql>
-  <select id="selectByExample" parameterType="com.lwp.baseproject.entity.Vo.UserVoExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.lwp.website.entity.Vo.UserVoExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -108,13 +108,13 @@
     delete from t_users
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.lwp.baseproject.entity.Vo.UserVoExample">
+  <delete id="deleteByExample" parameterType="com.lwp.website.entity.Vo.UserVoExample">
     delete from t_users
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.lwp.baseproject.entity.Vo.UserVo" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insert" parameterType="com.lwp.website.entity.Vo.UserVo" useGeneratedKeys="true" keyProperty="id">
     insert into t_users (id, username, password,
       email, home_url, screen_name,
       created, activated, logged,
@@ -124,7 +124,7 @@
       #{created,jdbcType=INTEGER}, #{activated,jdbcType=INTEGER}, #{logged,jdbcType=INTEGER},
       #{groupName,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.lwp.baseproject.entity.Vo.UserVo" useGeneratedKeys="true" keyProperty="uid">
+  <insert id="insertSelective" parameterType="com.lwp.website.entity.Vo.UserVo" useGeneratedKeys="true" keyProperty="uid">
     insert into t_users
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -191,7 +191,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.lwp.baseproject.entity.Vo.UserVoExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.lwp.website.entity.Vo.UserVoExample" resultType="java.lang.Long">
     select count(*) from t_users
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -251,7 +251,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.lwp.baseproject.entity.Vo.UserVo">
+  <update id="updateByPrimaryKeySelective" parameterType="com.lwp.website.entity.Vo.UserVo">
     update t_users
     <set>
       <if test="username != null">
@@ -284,7 +284,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.lwp.baseproject.entity.Vo.UserVo">
+  <update id="updateByPrimaryKey" parameterType="com.lwp.website.entity.Vo.UserVo">
     update t_users
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
