@@ -1,13 +1,21 @@
 package com.lwp.website.utils;
 
+import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageInfo;
+import com.lwp.website.config.SysConfig;
+import com.lwp.website.entity.Vo.LoginLogVo;
+import com.lwp.website.entity.Vo.LoginPicVo;
+import com.lwp.website.service.DictService;
+import com.lwp.website.service.LoginPicService;
 import com.vdurmont.emoji.EmojiParser;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -338,6 +346,36 @@ public final class Commons {
         map.put("twitter", WebConst.initConfig.get(prefix + "twitter"));
         return map;
     }
+
+    private static LoginPicService loginPicService;
+    private static SysConfig sysConfig;
+    @Autowired
+    public void setLoginPicService(LoginPicService loginPicService) {
+        Commons.loginPicService = loginPicService;
+    }
+
+    @Autowired
+    public void setSysConfig(SysConfig sysConfig) {
+        Commons.sysConfig = sysConfig;
+    }
+
+    /**
+     * 获取登录背景图
+     * @return
+     */
+    public static String getLoginPic(){
+        List<LoginPicVo> list = loginPicService.getListLoginPicByStatus();
+        String path = sysConfig.getLoginPic();
+        if(list != null && list.size() > 0){
+            int i = UUID.random(0,list.size()-1);
+            String pathTemp = list.get(i).getPath();
+            if(StrUtil.isNotEmpty(pathTemp)){
+                path = pathTemp;
+            }
+        }
+        return path;
+    }
+
 
 
 }

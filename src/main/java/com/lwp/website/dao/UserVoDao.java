@@ -14,7 +14,6 @@ import java.util.List;
  * @Date: 2019/12/20/10:53
  * @Description:
  */
-@Component
 public interface UserVoDao {
     long countByExample(UserVoExample example);
 

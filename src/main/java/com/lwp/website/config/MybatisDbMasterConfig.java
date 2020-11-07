@@ -18,7 +18,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan(basePackages = "com.lwp.baseproject.dao",sqlSessionFactoryRef = "masterSqlSessionFactory")
+@MapperScan(basePackages = "com.lwp.website.dao",sqlSessionFactoryRef = "masterSqlSessionFactory")
 public class MybatisDbMasterConfig {
 
     private Logger logger = LoggerFactory.getLogger(MybatisDbMasterConfig.class);

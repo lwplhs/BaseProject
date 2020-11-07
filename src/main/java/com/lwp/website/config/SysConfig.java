@@ -34,6 +34,8 @@ public class SysConfig {
 
     private int shiroRedisSaveTime;
 
+    private String loginPic;
+
     public int getShiroRedisSaveTime() {
         return shiroRedisSaveTime;
     }
@@ -104,5 +106,13 @@ public class SysConfig {
 
     public void setPubKey(String pubKey) {
         this.pubKey = pubKey;
+    }
+
+    public String getLoginPic() {
+        return loginPic;
+    }
+
+    public void setLoginPic(String loginPic) {
+        this.loginPic = loginPic;
     }
 }

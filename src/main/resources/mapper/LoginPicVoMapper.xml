@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lwp.website.dao.LoginPicDao">
+    <resultMap id="BaseResultMap" type="com.lwp.website.entity.Vo.LoginPicVo">
+        <id column="id" jdbcType="VARCHAR" property="id"></id>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="detail" jdbcType="VARCHAR" property="detail"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="path" jdbcType="VARCHAR" property="path"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="create_user_id" jdbcType="VARCHAR" property="createUserId"/>
+        <result column="update_user_id" jdbcType="VARCHAR" property="updateUserId"/>
+        <result column="sort" jdbcType="VARCHAR" property="sort"/>
+        <result column="attachment_id" jdbcType="VARCHAR" property="attachmentId"/>
+    </resultMap>
+    <cache eviction="LRU" flushInterval="10800000"  size="512" readOnly="true"/>
+    <sql id="selectResultList">
+        id,name,detail,(select a.url_path from attachment a where a.id = c.attachment_id) path,status,sort,attachment_id
+    </sql>
+    <insert id="insertLoginPic" parameterType="com.lwp.website.entity.Vo.LoginPicVo" useGeneratedKeys="true" keyProperty="id">
+        insert into login_pic
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="detail != null">
+                detail,
+            </if>
+            <if test="path != null">
+                path,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="updateUserId != null">
+                update_user_id,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+            <if test="attachmentId != null">
+                attachment_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="detail != null">
+                #{detail,jdbcType=VARCHAR},
+            </if>
+            <if test="path != null">
+                #{path,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=VARCHAR},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUserId != null">
+                #{updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=VARCHAR},
+            </if>
+            <if test="attachmentId != null">
+                #{attachmentId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateLoginPic" parameterType="com.lwp.website.entity.Vo.LoginPicVo" useGeneratedKeys="true" keyProperty="id">
+        update login_pic
+        <set>
+            <if test="name != null">
+                name= #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="detail != null">
+                detail = #{detail,jdbcType=VARCHAR},
+            </if>
+            <if test="path != null">
+                path = #{path,jdbcType=VARCHAR},
+            </if>
+
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                update_user_id = #{updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null">
+                sort = #{sort,jdbcType=VARCHAR},
+            </if>
+            <if test="attachmentId != null">
+                attachment_id = #{attachmentId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <select id="getListLoginPic" resultMap="BaseResultMap">
+        select
+        <include refid="selectResultList"/> ,CASE status WHEN '0' THEN 0 ELSE 1 END flag
+        from login_pic c
+        where status !='2' ORDER BY FLAG,update_time desc
+    </select>
+    <select id="getTotalCount" resultType="java.lang.String">
+        select count(*)
+            from login_pic c
+            where status !='2'
+    </select>
+    <select id="getMaxSort" resultType="INTEGER">
+        select IFNULL(max(sort),0)+1 from login_pic where status != '2'
+    </select>
+    <select id="getListLoginPicByStatus" resultMap="BaseResultMap">
+        select
+        <include refid="selectResultList"/>
+        from login_pic c where status='0' order by sort
+    </select>
+    <select id="getLoginPicById" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="selectResultList"></include>
+        from login_pic c where id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <update id="updateLoginPicWithStatus" parameterType="java.util.Map">
+        update login_pic set status =(case status when '1' then '0' when '0' then '1' end),update_time=#{updateTime,jdbcType=TIMESTAMP},update_user_id=#{updateUserId,jdbcType=VARCHAR} where id in
+        <foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
+            #{id,jdbcType=VARCHAR}
+        </foreach>
+    </update>
+
+    <update id="updateLoginPicWithDelete" parameterType="java.util.Map">
+        update login_pic set status='2',update_time=#{updateTime,jdbcType=TIMESTAMP},update_user_id=#{updateUserId,jdbcType=VARCHAR} where id in
+        <foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
+            #{id,jdbcType=VARCHAR}
+        </foreach>
+    </update>
+</mapper>

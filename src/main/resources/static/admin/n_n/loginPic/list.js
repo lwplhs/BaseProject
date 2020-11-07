@@ -12,7 +12,7 @@ var total;
  * */
 function getMenu() {
     $(".thumbnail").each(function () {
-        $(this).contextMenu('carouselMenu',{
+        $(this).contextMenu('menu',{
             /* menuStyle: {
                  border: '2px solid #000'
              }, //菜单项样式
@@ -31,20 +31,20 @@ function getMenu() {
             bindings: {
                 'updateStatus': function(t) {
                     /*alert('Trigger was ' + t.id + '\nAction was item_1');*/
-                    var id = $(t).find("input[name='carousel-id']").val();
+                    var id = $(t).find("input[name='loginPic-id']").val();
                     updateStatus(id);
                 },
                 'updateDelete': function(t) {
-                    var id = $(t).find("input[name='carousel-id']").val();
+                    var id = $(t).find("input[name='loginPic-id']").val();
                     updateDelete(id);
                 },
-                'viewCarousel': function(t) {
-                    var id = $(t).find("input[name='carousel-id']").val();
-                    viewCarousel(id);
+                'viewLoginPic': function(t) {
+                    var id = $(t).find("input[name='loginPic-id']").val();
+                    viewLoginPic(id);
                 },
-                'editCarousel': function(t) {
-                    var id = $(t).find("input[name='carousel-id']").val();
-                    editCarousel(id);
+                'editLoginPic': function(t) {
+                    var id = $(t).find("input[name='loginPic-id']").val();
+                    editLoginPic(id);
 
                 }
             }
@@ -52,29 +52,29 @@ function getMenu() {
     });
 }
 /**
- * 查看首页轮播图信息
+ * 查看首页登录背景图信息
  * */
-function viewCarousel(id) {
+function viewLoginPic(id) {
     layer.open({
         type:2,
-        title:"查看首页轮播图",
+        title:"查看登录背景图",
         /*shadeClose: true,*/
         maxmin: true, //开启最大化最小化按钮
         area: ['600px', '500px'],
-        content:"/admin/carousel/carousel-view?id="+id
+        content:"/admin/loginPic/view?id="+id
     });
 }
 /**
  * 编辑
  * */
-function editCarousel(id) {
+function editLoginPic(id) {
     layer.open({
         type:2,
-        title:"编辑首页轮播图",
+        title:"编辑登录背景图",
         /*shadeClose: true,*/
         maxmin: true, //开启最大化最小化按钮
         area: ['600px', '500px'],
-        content:"/admin/carousel/carousel-edit?id="+id,
+        content:"/admin/loginPic/edit?id="+id,
         end: function () {
             loadData();
         }
@@ -86,7 +86,7 @@ function editCarousel(id) {
 function updateStatus(ids) {
     $.ajax({
         type:"POST",
-        url:"/admin/carousel/updateCarouselStatus",
+        url:"/admin/loginPic/updateLoginPicStatus",
         data:{
             "ids":ids,
             "type":"1"
@@ -109,7 +109,7 @@ function updateStatus(ids) {
 function updateDelete(ids) {
     $.ajax({
         type:"POST",
-        url:"/admin/carousel/updateCarouselStatus",
+        url:"/admin/login/updateLoginPicStatus",
         data:{
             "ids":ids,
             "type":"2"
@@ -140,7 +140,7 @@ function loadData() {
     NProgress.start();
     $.ajax({
         type: "POST",
-        url: "/admin/carousel/getCarousel",
+        url: "/admin/loginPic/getLoginPic",
         data:{
             "pageNum":page,
             "limit":limit,
@@ -212,19 +212,19 @@ function btn_update(){
 
     var ids = '';
     $(".img-checked").each(function (t) {
-        var id = $(this).find("input[name='carousel-id']").val();
+        var id = $(this).find("input[name='loginPic-id']").val();
         ids = ids + id+",";
         console.log(id);
     });
     if(StringUtils.isEmpty(ids)){
-        layer.msg("请选择至少一个轮播图操作",function () {
+        layer.msg("请选择至少一个登录背景图操作",function () {
         });
     }else{
         //判断最后是否有逗号 有的话去掉
         if(ids.endsWith(",")){
             ids = ids.substring(0,ids.length-1);
         }
-        layer.confirm("是否将所选择的轮播图启用/停用",{
+        layer.confirm("是否将所选择的登录背景图启用/停用",{
             btn:['确定','取消'],
             btn1:function (index, layero) {
                 layer.close(index);
@@ -242,19 +242,19 @@ function btn_update(){
 function btn_delete(){
     var ids = '';
     $(".img-checked").each(function (t) {
-        var id = $(this).find("input[name='carousel-id']").val();
+        var id = $(this).find("input[name='loginPic-id']").val();
         ids = ids + id+",";
         console.log(id);
     });
     if(StringUtils.isEmpty(ids)){
-        layer.msg("请选择至少一个轮播图操作",function () {
+        layer.msg("请选择至少一个登录背景图操作",function () {
         });
     }else{
         //判断最后是否有逗号 有的话去掉
         if(ids.endsWith(",")){
             ids = ids.substring(0,ids.length-1);
         }
-        layer.confirm("是否将所选择的轮播图删除",{
+        layer.confirm("是否将所选择的登录背景图删除",{
             btn:['确定','取消'],
             btn1:function (index, layero) {
                 layer.close(index);

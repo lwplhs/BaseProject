@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="pic=${commons.random(5, '.png')}"style="overflow: hidden;">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="pic=${commons.getLoginPic()}"style="overflow: hidden;">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
@@ -10,6 +10,7 @@
     <link th:href="@{/static/common/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/static/admin/css/style.min.css}" rel="stylesheet" type="text/css"/>
     <link th:href="@{/static/admin/n_n/login/login.css}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/admin/n_n/Hui-iconfont/1.0.8/iconfont.css}" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -21,7 +22,7 @@
 </head>
 <body>
 <div class="bgBigContent">
-    <div class="bgSmallContent" th:style="'background:url(/static/admin/images/bg/'+@{${pic}}+'); center / cover no-repeat'">
+    <div class="bgSmallContent" th:style="'background:url('+@{${pic}}+'); center / cover no-repeat'">
         <div class="MainContent">
             <form method="post" id="loginForm" onsubmit="return checkForm()">
             <div class="loginBox">
@@ -35,9 +36,11 @@
                     <div>
                         <div class="inputMsg" id="userNmsg"></div>
                         <div class="input-group">
+                            <span class="fe-font Hui-iconfont">&#xe60d;</span>
                             <input class="input-i" name="username" type="text" required="" placeholder="用户名称"/>
                         </div>
                         <div class="input-group">
+                            <span class="fe-font Hui-iconfont">&#xe63f;</span>
                             <input class="input-i" name="password" type="password" required="" placeholder="登录密码"/>
                         </div>
 <!--                        <div class="form-group">
@@ -76,15 +79,24 @@
     /*<![CDATA[*/
     var tale = new $.tale();
     function checkForm() {
+        $("#loading").html("正在登录...");
+        $("#userNmsg").html("");
         tale.post({
             url: '/admin/login',
             data: $("#loginForm").serialize(),
             success: function (result) {
-                if (result && result.success) {
-                    window.location.href = '/admin/index';
-                } else {
-                    tale.alertError(result.msg || '登录失败');
-                }
+                setTimeout(function () {
+                    if (result && result.success) {
+                        window.location.href = '/admin/index';
+                    } else {
+                        $("#userNmsg").html(result.msg||'登录失败');
+                        //tale.alertError(result.msg || '登录失败');
+                    }
+                    setTimeout(function () {
+                        $("#loading").html("登录");
+                    },100)
+                },400);
+
             }
         });
         return false;

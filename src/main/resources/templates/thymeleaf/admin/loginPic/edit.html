@@ -1,64 +1,64 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='轮播图管理',active='article'">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='登录背景图管理',active='article'">
 <header th:replace="/admin/header::headerFragment(${title},${active})"></header>
 <body>
 <div class="page-container">
-    <form class="form form-horizontal" id="form-carousel-add">
-        <input hidden="hidden" id="id" name="id" th:value="${Carousel.id}"/>
+    <form class="form form-horizontal" id="form-loginPic-add">
+        <input hidden="hidden" id="id" name="id" th:value="${LoginPic.id}"/>
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>轮播图标题：</label>
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>登录背景图标题：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input readonly="readonly" type="text" class="input-text" th:value="${Carousel.name}" placeholder="" id="name" name="name">
+                <input type="text" class="input-text" th:value="${LoginPic.name}" placeholder="" id="name" name="name">
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>详情：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input readonly="readonly" type="text" class="input-text" th:value="${Carousel.detail}" placeholder="" id="detail" name="detail">
+                <input type="text" class="input-text" th:value="${LoginPic.detail}" placeholder="" id="detail" name="detail">
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">排序值：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input readonly="readonly" type="text" class="input-text" th:value="${Carousel.sort}" placeholder="" id="sort" name="sort">
+                <input type="text" class="input-text" th:value="${LoginPic.sort}" placeholder="" id="sort" name="sort">
             </div>
         </div>
-        <div class="row cl">
+<!--        <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">轮播图类型：</label>
             <div class="formControls col-xs-8 col-sm-9">
 				<span class="select-box">
-				<select disabled="disabled" class="select" id="type" name="type" th:value="${Carousel.type}">
+				<select class="select" id="type" name="type" th:value="${Carousel.type}">
 					<option th:selected="${Carousel.type}=='0'" value="0">跳转到商品详情页面</option>
 					<option th:selected="${Carousel.type}=='1'" value="1">跳转到自定义页面</option>
 				</select>
 				</span>
             </div>
-        </div>
+        </div>-->
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">启用：</label>
             <div class="formControls col-xs-8 col-sm-9">
 				<span class="select-box">
-				<select disabled="disabled" class="select" id="status" th:value="${Carousel.status}" name="status">
-					<option th:selected="${Carousel.status}=='1'" value="1">是</option>
-					<option th:selected="${Carousel.status}=='0'" value="0">否</option>
+				<select class="select" id="status" th:value="${LoginPic.status}" name="status">
+					<option th:selected="${LoginPic.status}=='0'" value="0">是</option>
+					<option th:selected="${LoginPic.status}=='1'" value="1">否</option>
 				</select>
 				</span>
             </div>
         </div>
-        <div class="row cl" id="shop">
+<!--        <div class="row cl" id="shop">
             <label class="form-label col-xs-4 col-sm-2">商品</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input readonly="readonly" type="text" class="input-text" th:value="${Carousel.sid}" placeholder="" id="sid" name="sid">
+                <input type="text" class="input-text" th:value="${Carousel.sid}" placeholder="" id="sid" name="sid">
             </div>
         </div>
         <div class="row cl" hidden="hidden" id="customize">
             <label class="form-label col-xs-4 col-sm-2">自定义页面链接</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input readonly="readonly" type="text" class="input-text" th:value="${Carousel.url}" placeholder="url" id="url" name="url">
+                <input type="text" class="input-text" th:value="${Carousel.url}" placeholder="url" id="url" name="url">
             </div>
-        </div>
-        <input type="hidden" id="path" name="path" th:value="${Carousel.path}">
-        <input type="hidden" id="attachmentId" name="attachmentId" th:value="${Carousel.attachmentId}">
+        </div>-->
+        <input type="hidden" id="path" name="path" th:value="${LoginPic.path}">
+        <input type="hidden" id="attachmentId" name="attachmentId" th:value="${LoginPic.attachmentId}">
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>图片上传：</label>
             <div class="formControls col-xs-8 col-sm-9">
@@ -66,7 +66,7 @@
                     <div class="queueList">
                         <div id="dndArea" class="placeholder">
                             <div id="filePicker-2"></div>
-                            <p>或将照片拖到这里，单次最多可选1张</p>
+                            <p>或将照片拖到这里，最多可选1张</p>
                         </div>
                     </div>
                     <div class="statusBar" style="display:none;">
@@ -80,12 +80,19 @@
                 </div>
             </div>
         </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <button onClick="loginPic_save_submit();" class="btn btn-primary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+                <!--<button onClick="article_save();" class="btn btn-secondary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存草稿</button>-->
+                <button onClick="quxiao()" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+        </div>
     </form>
 </div>
 
 
 
-<div th:replace="/admin/footer::footer_carousel-view"></div>
+<div th:replace="/admin/footer::footer_loginPic-edit"></div>
 <div th:replace="/admin/footer::footer-content"></div>
 </body>
 </html>

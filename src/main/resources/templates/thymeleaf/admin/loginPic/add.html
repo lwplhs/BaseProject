@@ -1,12 +1,12 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='轮播图管理',active='article'">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='登录背景图管理',active='article'">
 <header th:replace="/admin/header::headerFragment(${title},${active})"></header>
 <body>
 <div class="page-container">
-	<form class="form form-horizontal" id="form-carousel-add">
+	<form class="form form-horizontal" id="form-loginPic-add">
 		<input hidden="hidden" id="id" name="id"/>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>轮播图标题：</label>
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>登录背景图标题：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" placeholder="" id="name" name="name">
 			</div>
@@ -23,7 +23,7 @@
 				<input type="text" class="input-text" placeholder="" id="sort" name="sort">
 			</div>
 		</div>
-		<div class="row cl">
+<!--		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">轮播图类型：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<span class="select-box">
@@ -33,28 +33,16 @@
 				</select>
 				</span>
 			</div>
-		</div>
+		</div>-->
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">启用：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<span class="select-box">
 				<select class="select" id="status" name="status">
-					<option selected="selected" value="1">是</option>
-					<option value="0">否</option>
+					<option selected="selected" value="0">是</option>
+					<option value="1">否</option>
 				</select>
 				</span>
-			</div>
-		</div>
-		<div class="row cl" id="shop">
-			<label class="form-label col-xs-4 col-sm-2">商品</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="" id="sid" name="sid">
-			</div>
-		</div>
-		<div class="row cl" hidden="hidden" id="customize">
-			<label class="form-label col-xs-4 col-sm-2">自定义页面链接</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="url" id="url" name="url">
 			</div>
 		</div>
 		<input type="hidden" id="path" name="path">
@@ -82,7 +70,7 @@
 		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-				<button onClick="carousel_save_submit();" class="btn btn-primary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+				<button onClick="loginPic_save_submit();" class="btn btn-primary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
 				<button onClick="quxiao()" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
 			</div>
 		</div>
@@ -91,7 +79,7 @@
 
 
 
-<div th:replace="/admin/footer::footer_carousel-add"></div>
+<div th:replace="/admin/footer::footer_loginPic-add"></div>
 <div th:replace="/admin/footer::footer-content"></div>
 </body>
 </html>

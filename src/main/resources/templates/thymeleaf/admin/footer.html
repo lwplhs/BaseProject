@@ -2,8 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="footer-np">
     <!--进度条-->
-    <script type="text/javascript" th:src="@{/static/admin/n_n/carousel/np.js}"></script>
-    <script type="text/javascript" th:src="@{/static/admin/n_n/carousel/nprogress.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/loginPic/np.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/loginPic/nprogress.js}"></script>
 </div>
 <div th:fragment="footer-content">
     <style type="text/css">
@@ -75,7 +75,7 @@
     <script type="text/javascript" th:src="@{/static/admin/n_n/ueditor/1.4.3/ueditor.all.min.js}"> </script>
     <script type="text/javascript" th:src="@{/static/admin/n_n/ueditor/1.4.3/lang/zh-cn/zh-cn.js}"></script>
     <!--image展示-->
-    <script type="text/javascript" th:src="@{/static/admin/n_n/carousel/imageShow.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/loginPic/imageShow.js}"></script>
     <!--ztree-->
     <script type="text/javascript" th:src="@{/static/admin/n_n/zTree/v3/js/jquery.ztree.all-3.5.min.js}"></script>
     <script type="text/javascript" th:src="@{/static/admin/n_n/zTree/v3/js/jquery.ztree.exedit-3.5.js}"></script>
@@ -98,33 +98,33 @@
     <div th:replace="/admin/footer::footer_common"></div>
     <div th:replace="/admin/footer::footer-np"></div>
 </div>
-<div th:fragment="footer_carousel-list">
+<div th:fragment="footer_LoginPic-manager">
     <div th:replace="/admin/footer::footer_common"></div>
     <div th:replace="/admin/footer::footer-np"></div>
     <!--自定义业务-->
-    <script type="text/javascript" th:src="@{/static/admin/n_n/carousel/carousel_list.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/loginPic/list.js}"></script>
 </div>
 
-<div th:fragment="footer_carousel-add">
+<div th:fragment="footer_loginPic-add">
     <div th:replace="/admin/footer::footer_common"></div>
     <div th:replace="/admin/footer::footer-np"></div>
     <!--carousel-add页面业务相关的自定义脚本-->
-    <script type="text/javascript" th:src="@{/static/admin/n_n/carousel/carousel-add.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/loginPic/add.js}"></script>
 </div>
 
 
-<div th:fragment="footer_carousel-edit">
+<div th:fragment="footer_loginPic-edit">
     <div th:replace="/admin/footer::footer_common"></div>
     <div th:replace="/admin/footer::footer-np"></div>
     <!--carousel-edit页面业务相关的自定义脚本-->
-    <script type="text/javascript" th:src="@{/static/admin/n_n/carousel/carousel-edit.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/loginPic/edit.js}"></script>
 </div>
 
-<div th:fragment="footer_carousel-view">
+<div th:fragment="footer_loginPic-view">
     <div th:replace="/admin/footer::footer_common"></div>
     <div th:replace="/admin/footer::footer-np"></div>
     <!--carousel-add页面业务相关的自定义脚本-->
-    <script type="text/javascript" th:src="@{/static/admin/n_n/carousel/carousel_view.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/loginPic/view.js}"></script>
 </div>
 
 <div th:fragment="footer_goods-list">

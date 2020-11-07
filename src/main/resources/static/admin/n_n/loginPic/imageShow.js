@@ -1,4 +1,4 @@
-/*carousel-list 页面图片展示js*/
+/*loginPic-list 页面图片展示js*/
 var cn = 'img-block';
 var ic = 'img-checked';
 var imgManger = {

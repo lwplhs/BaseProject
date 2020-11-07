@@ -38,8 +38,6 @@ if(document.querySelector(".float-menu")){
             //计算移动后的左偏移量和顶部的偏移量
             var nl = nx - (x - l);
             var nt = ny - (y - t);
-            console.log(nl);
-            console.log(nt);
 
             floatMenu.style.left = nl + 'px';
             floatMenu.style.top = nt + 'px';

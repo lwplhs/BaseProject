@@ -1,12 +1,12 @@
-<!--carousel-add页面业务相关的自定义脚本-->
+<!--loginPic-add页面业务相关的自定义脚本-->
 function goods_save_submit(){
     var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-    var jsondata = $("#form-carousel-add").serialize();
+    var jsondata = $("#form-loginPic-add").serialize();
     //console.log(jsondata);
     $.ajax({
         type:"POST",
         data:jsondata,
-        url:"/admin/carousel/updateCarousel",
+        url:"/admin/loginPic/updateLoginPic",
         success: function(data){
             console.log(data.code)
             if(data && data.success){
