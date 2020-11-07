@@ -34,7 +34,7 @@
 				</span>
             </div>
         </div>-->
-        <div class="row cl">
+<!--        <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">启用：</label>
             <div class="formControls col-xs-8 col-sm-9">
 				<span class="select-box">
@@ -42,6 +42,14 @@
 					<option th:selected="${LoginPic.status}=='0'" value="0">是</option>
 					<option th:selected="${LoginPic.status}=='1'" value="1">否</option>
 				</select>
+				</span>
+            </div>
+        </div>-->
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">启用：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box">
+					<ll:combo dictType="是否启用" class="select" id="status" name="status" th:value="${LoginPic.status}"></ll:combo>
 				</span>
             </div>
         </div>

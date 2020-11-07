@@ -38,10 +38,7 @@
             <label class="form-label col-xs-4 col-sm-2">启用：</label>
             <div class="formControls col-xs-8 col-sm-9">
 				<span class="select-box">
-				<select disabled="disabled" class="select" id="status" th:value="${LoginPic.status}" name="status">
-					<option th:selected="${LoginPic.status}=='1'" value="1">是</option>
-					<option th:selected="${LoginPic.status}=='0'" value="0">否</option>
-				</select>
+                    <ll:combo disabled="disabled" dictType="是否启用" class="select" id="status" name="status" th:value="${LoginPic.status}"></ll:combo>
 				</span>
             </div>
         </div>

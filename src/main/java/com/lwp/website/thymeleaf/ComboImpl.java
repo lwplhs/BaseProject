@@ -80,6 +80,8 @@ public class ComboImpl extends AbstractElementTagProcessor {
         String id = tag.getAttributeValue("id");
         String name = tag.getAttributeValue("name");
         String style = tag.getAttributeValue("style");
+        String disabled = tag.getAttributeValue("disabled");
+        String readonly = tag.getAttributeValue("readonly");
         IOpenElementTag openElementTag = modelFactory.createOpenElementTag("select","class",classValue);
         if(StrUtil.isNotEmpty(id)){
             openElementTag = modelFactory.setAttribute(openElementTag,"id",id);
@@ -89,6 +91,12 @@ public class ComboImpl extends AbstractElementTagProcessor {
         }
         if(StrUtil.isNotEmpty(style)){
             openElementTag = modelFactory.setAttribute(openElementTag,"style",style);
+        }
+        if(StrUtil.isNotEmpty(disabled)){
+            openElementTag = modelFactory.setAttribute(openElementTag,"disabled",disabled);
+        }
+        if(StrUtil.isNotEmpty(readonly)){
+            openElementTag = modelFactory.setAttribute(openElementTag,"readonly",readonly);
         }
         return openElementTag;
     }
@@ -137,7 +145,7 @@ public class ComboImpl extends AbstractElementTagProcessor {
         for (int i = 0; i < dicts.size(); i++) {
 
             Map<String,Object> map = dicts.get(i);
-            if(executeExpression != null && executeExpression.toString().equals(map.get("value"))){
+            if(executeExpression != null && executeExpression.toString().equals(map.get("key"))){
                 sb.append("<option value='"+map.get("key") + "' selected=\"selected\" >");
             }else {
                 sb.append("<option value='" +map.get("key") +"'>");
