@@ -26,6 +26,8 @@ public interface DictService {
 
     String saveDict(DictVo dictVo, UserVo userVo);
 
+    String getDictValue(String dictType,String key);
+
     List getSubData(String id);
 
     String getSeriesById(String id);

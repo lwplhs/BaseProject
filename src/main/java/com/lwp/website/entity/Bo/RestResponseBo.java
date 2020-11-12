@@ -184,4 +184,8 @@ public class RestResponseBo<T> {
     public static RestResponseBo fail(int code,String msg){
         return new RestResponseBo(false,msg,code);
     }
+    public static <T> RestResponseBo fail(T payload,int code,String msg){
+        return new RestResponseBo(false,payload,msg,code);
+    }
+
 }

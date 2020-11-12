@@ -1,11 +1,11 @@
 package com.lwp.website.dao;
 
 import com.lwp.website.entity.Vo.UserVo;
-import com.lwp.website.entity.Vo.UserVoExample;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,30 +15,36 @@ import java.util.List;
  * @Description:
  */
 public interface UserVoDao {
-    long countByExample(UserVoExample example);
 
-    int deleteByExample(UserVoExample example);
+    long countByUsername(String username,String id);
+
 
     int deleteByPrimaryKey(String id);
 
     int insert(UserVo record);
 
-    int insertSelective(UserVo record);
 
-    List<UserVo> selectByExample(UserVoExample example);
-
-    UserVo selectByPrimaryKey(Integer uid);
-
-    int updateByExampleSelective(@Param("record") UserVo record, @Param("example") UserVoExample example);
-
-    int updateByExample(@Param("record") UserVo record, @Param("example") UserVoExample example);
-
-    int updateByPrimaryKeySelective(UserVo record);
+    UserVo selectByPrimaryKey(String uid);
 
     int updateByPrimaryKey(UserVo record);
 
     UserVo selectUserByName(String userName);
 
+    /**
+     * 可以根据 status 和type进行查询 存放在map里面
+     * @param map
+     * @return
+     */
+    List<UserVo> getUserListByStatus(Map<String,Object> map);
 
     int updatePwd(String id, String pwd);
+
+    int updateUserWithStatus(Map map);
+
+    int updateUserWithDelete(Map map);
+
+    List<UserVo> getListByName(Map map);
+
+
+
 }

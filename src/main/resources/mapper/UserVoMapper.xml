@@ -5,6 +5,7 @@
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="home_url" jdbcType="VARCHAR" property="homeUrl" />
     <result column="screen_name" jdbcType="VARCHAR" property="screenName" />
@@ -12,246 +13,155 @@
     <result column="activated" jdbcType="INTEGER" property="activated" />
     <result column="logged" jdbcType="INTEGER" property="logged" />
     <result column="group_name" jdbcType="VARCHAR" property="groupName" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="identification" jdbcType="VARCHAR" property="identification" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
   </resultMap>
-  <cache eviction="LRU" flushInterval="10800000"  size="512" readOnly="true"/>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
+<!--  <cache eviction="LRU" flushInterval="10800000"  size="512" readOnly="true"/>-->
+
   <sql id="Base_Column_List">
-    id, username, password, email, home_url, screen_name, created, activated, logged,
-    group_name
+    id, username, password,telephone, email, home_url, screen_name, created, activated, logged,
+    group_name,status,type,identification,address,unit
   </sql>
-  <select id="selectByExample" parameterType="com.lwp.website.entity.Vo.UserVoExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from t_users
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-    <if test="limit != null">
-      <if test="offset != null">
-        limit ${offset}, ${limit}
-      </if>
-      <if test="offset == null">
-        limit ${limit}
-      </if>
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select *
     from t_users
     where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="getUserListByStatus" parameterType="java.util.Map" resultMap="BaseResultMap">
+      select * from t_users where 1 = 1
+        <foreach collection="status" item="s" open=" and(" index="index" close=")" separator=" or ">
+            status = #{s,jdbcType=VARCHAR}
+        </foreach>
+        <foreach collection="type" item="t" open=" and(" close=")" index="index" separator=" or ">
+            type = #{t,jdbcType=VARCHAR}
+        </foreach>
+        <if test="searchKey != null">
+          and (username like concat('%',#{searchKey,jdbcType=VARCHAR},'%')
+            or telephone like concat('%',#{searchKey,jdbcType=VARCHAR},'%')
+            or email like concat('%',#{searchKey,jdbcType=VARCHAR},'%')
+            or screen_name like concat('%',#{searchKey,jdbcType=VARCHAR},'%')
+            or identification like concat('%',#{searchKey,jdbcType=VARCHAR},'%')
+            or address like concat('%',#{searchKey,jdbcType=VARCHAR},'%')
+          )
+        </if>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from t_users
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.lwp.website.entity.Vo.UserVoExample">
-    delete from t_users
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
   <insert id="insert" parameterType="com.lwp.website.entity.Vo.UserVo" useGeneratedKeys="true" keyProperty="id">
-    insert into t_users (id, username, password,
-      email, home_url, screen_name,
-      created, activated, logged,
-      group_name)
-    values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
-      #{email,jdbcType=VARCHAR}, #{homeUrl,jdbcType=VARCHAR}, #{screenName,jdbcType=VARCHAR},
-      #{created,jdbcType=INTEGER}, #{activated,jdbcType=INTEGER}, #{logged,jdbcType=INTEGER},
-      #{groupName,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.lwp.website.entity.Vo.UserVo" useGeneratedKeys="true" keyProperty="uid">
     insert into t_users
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="username != null">
-        username,
-      </if>
-      <if test="password != null">
-        password,
-      </if>
-      <if test="email != null">
-        email,
-      </if>
-      <if test="homeUrl != null">
-        home_url,
-      </if>
-      <if test="screenName != null">
-        screen_name,
-      </if>
-      <if test="created != null">
-        created,
-      </if>
-      <if test="activated != null">
-        activated,
-      </if>
-      <if test="logged != null">
-        logged,
-      </if>
-      <if test="groupName != null">
-        group_name,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="homeUrl != null">
-        #{homeUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="screenName != null">
-        #{screenName,jdbcType=VARCHAR},
-      </if>
-      <if test="created != null">
-        #{created,jdbcType=INTEGER},
-      </if>
-      <if test="activated != null">
-        #{activated,jdbcType=INTEGER},
-      </if>
-      <if test="logged != null">
-        #{logged,jdbcType=INTEGER},
-      </if>
-      <if test="groupName != null">
-        #{groupName,jdbcType=VARCHAR},
-      </if>
-    </trim>
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+          id,
+        </if>
+        <if test="username != null">
+          username,
+        </if>
+        <if test="password != null">
+          password,
+        </if>
+        <if test="telephone != null">
+          telephone,
+        </if>
+        <if test="email != null">
+          email,
+        </if>
+        <if test="homeUrl != null">
+          home_url,
+        </if>
+        <if test="screenName != null">
+          screen_name,
+        </if>
+        <if test="created != null">
+          created,
+        </if>
+        <if test="activated != null">
+          activated,
+        </if>
+        <if test="logged != null">
+          logged,
+        </if>
+        <if test="groupName != null">
+          group_name,
+        </if>
+        <if test="status != null">
+          status,
+        </if>
+        <if test="type != null">
+          type,
+        </if>
+        <if test="identification != null">
+          identification,
+        </if>
+        <if test="address != null">
+          address,
+        </if>
+        <if test="unit != null">
+          unit,
+        </if>
+      </trim>
+      <trim prefix="values(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+          #{id ,jdbcType=VARCHAR},
+        </if>
+        <if test="username != null">
+          #{username ,jdbcType=VARCHAR},
+        </if>
+        <if test="password != null">
+          #{password ,jdbcType=VARCHAR},
+        </if>
+        <if test="telephone != null">
+          #{telephone ,jdbcType=VARCHAR},
+        </if>
+        <if test="email != null">
+          #{email ,jdbcType=VARCHAR},
+        </if>
+        <if test="homeUrl != null">
+          #{homeUrl ,jdbcType=VARCHAR},
+        </if>
+        <if test="screenName != null">
+          #{screenName ,jdbcType=VARCHAR},
+        </if>
+        <if test="created != null">
+          #{created ,jdbcType=INTEGER},
+        </if>
+        <if test="activated != null">
+          #{activated ,jdbcType=INTEGER},
+        </if>
+        <if test="logged != null">
+          #{logged ,jdbcType=INTEGER},
+        </if>
+        <if test="groupName != null">
+          #{groupName ,jdbcType=VARCHAR},
+        </if>
+        <if test="status != null">
+          #{status ,jdbcType=VARCHAR},
+        </if>
+        <if test="type != null">
+          #{type ,jdbcType=VARCHAR},
+        </if>
+        <if test="identification != null">
+          #{identification ,jdbcType=VARCHAR},
+        </if>
+        <if test="address != null">
+          #{address ,jdbcType=VARCHAR},
+        </if>
+        <if test="unit != null">
+          #{unit ,jdbcType=VARCHAR},
+        </if>
+      </trim>
   </insert>
-  <select id="countByExample" parameterType="com.lwp.website.entity.Vo.UserVoExample" resultType="java.lang.Long">
-    select count(*) from t_users
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
+  <select id="countByUsername" parameterType="java.lang.String" resultType="java.lang.Long">
+    select count(*) from t_users where status != '2' and username = #{username,jdbcType=VARCHAR}
+    <if test="id != null">
+        and id != #{id,jdbcType=VARCHAR}
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update t_users
-    <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=VARCHAR},
-      </if>
-      <if test="record.username != null">
-        username = #{record.username,jdbcType=VARCHAR},
-      </if>
-      <if test="record.password != null">
-        password = #{record.password,jdbcType=VARCHAR},
-      </if>
-      <if test="record.email != null">
-        email = #{record.email,jdbcType=VARCHAR},
-      </if>
-      <if test="record.homeUrl != null">
-        home_url = #{record.homeUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="record.screenName != null">
-        screen_name = #{record.screenName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.created != null">
-        created = #{record.created,jdbcType=INTEGER},
-      </if>
-      <if test="record.activated != null">
-        activated = #{record.activated,jdbcType=INTEGER},
-      </if>
-      <if test="record.logged != null">
-        logged = #{record.logged,jdbcType=INTEGER},
-      </if>
-      <if test="record.groupName != null">
-        group_name = #{record.groupName,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update t_users
-    set id = #{record.id,jdbcType=VARCHAR},
-      username = #{record.username,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
-      email = #{record.email,jdbcType=VARCHAR},
-      home_url = #{record.homeUrl,jdbcType=VARCHAR},
-      screen_name = #{record.screenName,jdbcType=VARCHAR},
-      created = #{record.created,jdbcType=INTEGER},
-      activated = #{record.activated,jdbcType=INTEGER},
-      logged = #{record.logged,jdbcType=INTEGER},
-      group_name = #{record.groupName,jdbcType=VARCHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.lwp.website.entity.Vo.UserVo">
+  <update id="updateByPrimaryKey" parameterType="com.lwp.website.entity.Vo.UserVo">
     update t_users
     <set>
       <if test="username != null">
@@ -281,27 +191,52 @@
       <if test="groupName != null">
         group_name = #{groupName,jdbcType=VARCHAR},
       </if>
+      <if test="telephone != null">
+        telephone= #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status= #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type= #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="identification !=null">
+        identification= #{identification,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address= #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        unit= #{unit,jdbcType=VARCHAR},
+      </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.lwp.website.entity.Vo.UserVo">
-    update t_users
-    set username = #{username,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      home_url = #{homeUrl,jdbcType=VARCHAR},
-      screen_name = #{screenName,jdbcType=VARCHAR},
-      created = #{created,jdbcType=INTEGER},
-      activated = #{activated,jdbcType=INTEGER},
-      logged = #{logged,jdbcType=INTEGER},
-      group_name = #{groupName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <select id="selectUserByName" resultMap="BaseResultMap" parameterType="java.lang.String">
         select * from t_users where username = #{userName,jdbcType=VARCHAR}
     </select>
-
   <update id="updatePwd">
         update t_users set password = #{pwd,jdbcType=VARCHAR} where id = #{id,jdbcType=VARCHAR}
     </update>
+
+  <update id="updateUserWithStatus" parameterType="java.util.Map">
+    update t_users set status =(case status when '1' then '0' when '0' then '1' end) where id in
+    <foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
+      #{id,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+
+  <update id="updateUserWithDelete" parameterType="java.util.Map">
+    update t_users set status='2'  where id in
+    <foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
+      #{id,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+
+  <select id="getListByName" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from t_users where status != '2' and username in
+        <foreach collection="names" item="name" index="index" open="(" close=")" separator=",">
+          #{name,jdbcType=VARCHAR}
+        </foreach>
+  </select>
 </mapper>

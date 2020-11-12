@@ -36,6 +36,16 @@ public class SysConfig {
 
     private String loginPic;
 
+    public String getMouldPath() {
+        return mouldPath;
+    }
+
+    public void setMouldPath(String mouldPath) {
+        this.mouldPath = mouldPath;
+    }
+
+    private String mouldPath;
+
     public int getShiroRedisSaveTime() {
         return shiroRedisSaveTime;
     }

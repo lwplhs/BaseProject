@@ -41,4 +41,17 @@ public class DictUtil {
         return list;
     }
 
+    /**
+     * 根据 key和类型获取value
+     * @param dictType
+     * @param key
+     * @return
+     */
+    public static String getDictValue(String dictType,String key){
+
+        String value = dictService.getDictValue(dictType,key);
+
+        return value;
+    }
+
 }

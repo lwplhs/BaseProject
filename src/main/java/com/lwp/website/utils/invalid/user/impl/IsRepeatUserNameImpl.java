@@ -1,8 +1,8 @@
-package com.lwp.website.utils.invalid.dict.impl;
+package com.lwp.website.utils.invalid.user.impl;
 
-import com.lwp.website.service.impl.DictServiceImpl;
+import com.lwp.website.service.UserService;
 import com.lwp.website.utils.StringUtil;
-import com.lwp.website.utils.invalid.dict.IsRepeatName;
+import com.lwp.website.utils.invalid.user.IsRepeatUserName;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
@@ -14,27 +14,28 @@ import javax.validation.ConstraintValidatorContext;
  * Created with IntelliJ IDEA.
  *
  * @Auther: liweipeng
- * @Date: 2020/10/13/17:54
+ * @Date: 2020/11/11/10:36
  * @Description:
  */
-public class IsRepeatNameImpl implements ConstraintValidator<IsRepeatName,Object> {
+public class IsRepeatUserNameImpl implements ConstraintValidator<IsRepeatUserName,Object> {
 
     private String vId;
 
     private String vName;
 
-    private String vLastId;
+    private String vPassword;
 
-    @Override
-    public void initialize(IsRepeatName constraintAnnotation) {
-        vId = constraintAnnotation.vId();
-        vName = constraintAnnotation.vName();
-        vLastId = constraintAnnotation.vLastId();
-
-    }
 
     @Resource
-    private DictServiceImpl dictService;
+    private UserService userService;
+
+
+    @Override
+    public void initialize(IsRepeatUserName constraintAnnotation) {
+        vId = constraintAnnotation.vId();
+        vName = constraintAnnotation.vName();
+        vPassword = constraintAnnotation.vPassword();
+    }
 
     @Override
     public boolean isValid(Object o, ConstraintValidatorContext constraintValidatorContext) {
@@ -48,21 +49,20 @@ public class IsRepeatNameImpl implements ConstraintValidator<IsRepeatName,Object
         BeanWrapper beanWrapper = new BeanWrapperImpl(o);
         Object id = beanWrapper.getPropertyValue(vId);
         Object name  = beanWrapper.getPropertyValue(vName);
-        Object lastId = beanWrapper.getPropertyValue(vLastId);
-        if(StringUtil.isNull(lastId)){
-            message = "发生错误，请刷新后重试";
+        Object password = beanWrapper.getPropertyValue(vPassword);
+        if(StringUtil.isNull(id) && StringUtil.isNull(password)){
+            message = "密码不能为空";
             constraintValidatorContext.disableDefaultConstraintViolation();
             constraintValidatorContext.buildConstraintViolationWithTemplate(message).addConstraintViolation();
             return false;
         }
-
         if(StringUtil.isNull(name)){
-            message = "数据字典名称不能为空";
+            message = "登录名称不能为空";
             constraintValidatorContext.disableDefaultConstraintViolation();
             constraintValidatorContext.buildConstraintViolationWithTemplate(message).addConstraintViolation();
             return false;
         }
-        int num = dictService.getCountDictByNameId(StringUtil.isNull(id)?null:String.valueOf(id),String.valueOf(name),String.valueOf(lastId));
+        long num = userService.getCountByName(String.valueOf(name),StringUtil.isNull(id)?null:String.valueOf(id));
         if(num > 0){
             return false;
         }

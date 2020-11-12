@@ -2,6 +2,8 @@ package com.lwp.website.service;
 
 import com.lwp.website.entity.Vo.UserVo;
 
+import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 public interface UserService {
@@ -39,7 +41,7 @@ public interface UserService {
      * @param userName
      * @return
      */
-    UserVo queryUserNyUserName(String userName);
+    UserVo queryUserByUserName(String userName);
 
 
     /**
@@ -51,5 +53,16 @@ public interface UserService {
      * @return
      */
     Map changePwd(String oldPwd, String newPwd, String enPwd, UserVo userVo);
+
+    List<UserVo> getCommonUserList(String searchKey);
+
+    boolean updateUser(String ids,String type,UserVo userVo);
+
+    String saveUser(UserVo userVo,UserVo userLoginVo);
+
+    long getCountByName(String userName,String id);
+
+    Map<String,Object> importUsers(List<UserVo> list, File file,int cellCount,String prefix);
+
 
 }

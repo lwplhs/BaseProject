@@ -37,6 +37,7 @@ public class CustomLabelRegister extends AbstractProcessorDialect {
     public Set<IProcessor> getProcessors(String s) {
         final Set<IProcessor> processor = new HashSet();
         processor.add(new ComboImpl(PREFIX));
+        processor.add(new RadioImpl(PREFIX));
         return processor;
     }
 }

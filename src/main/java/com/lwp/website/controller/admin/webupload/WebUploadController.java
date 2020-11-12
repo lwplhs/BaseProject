@@ -17,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -76,6 +78,15 @@ public class WebUploadController {
         String path = webUploadService.getPathById(id);
         LOGGER.info("-----------------结束获取附件路径");
         return path;
+    }
+
+    @RequestMapping("/downloadMould")
+    public void downloadMould(HttpServletRequest request,
+                              HttpServletResponse response,String name) throws IOException {
+        Map map = TaleUtils.getMouldPath();
+        String path = map.get("path").toString() +name;
+        File file = new File(path);
+        TaleUtils.downFile(request,response,name,file);
     }
 
 }

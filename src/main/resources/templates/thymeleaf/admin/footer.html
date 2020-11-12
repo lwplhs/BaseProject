@@ -13,7 +13,7 @@
         /*        .footer{background-color: #ffc0cb;}*/
 
         /* 动态为footer添加类fixed-bottom */
-        .fixed-bottom {position: fixed;bottom: 0;width:100%;}
+        .fixed-bottom {position: fixed;bottom: -15px;width:100%;}
     </style>
 
 
@@ -32,6 +32,7 @@
             }
             footerPosition();
             $(window).resize(footerPosition);
+            $(document.body).resize(footerPosition());
         });
     </script>
     <footer class="footer text-right" >
@@ -191,4 +192,24 @@
     <div th:replace="/admin/footer::footer_common"/>
     <script type="text/javascript" th:src="@{/static/admin/n_n/dict/subDetail.js}"></script>
 </div>
+<div th:fragment="footer_user-manager">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/user/manager.js}"></script>
+    <div th:replace="/admin/footer::footer-content"></div>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/laypage/1.2/init.js}"></script>
+</div>
+<div th:fragment="footer_user-add">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/user/add.js}"></script>
+</div>
+<div th:fragment="footer_user-import">
+    <div th:replace="/admin/footer::footer_common"></div>
+<!--
+    <div th:replace="/admin/footer::footer-np"></div>
+-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/user/import.js}"></script>
+</div>
+
 </html>

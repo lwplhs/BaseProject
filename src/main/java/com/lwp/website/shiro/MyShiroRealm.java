@@ -70,7 +70,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
 
         String account = token.getUsername();
-        UserVo userVo = userService.queryUserNyUserName(account);
+        UserVo userVo = userService.queryUserByUserName(account);
         if (userVo == null) {
             throw new UnknownAccountException();//没找到帐号
         }

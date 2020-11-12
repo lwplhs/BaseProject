@@ -16,7 +16,7 @@
         <result column="sort" jdbcType="VARCHAR" property="sort"/>
         <result column="status" jdbcType="VARCHAR" property="status"/>
     </resultMap>
-
+    <cache eviction="LRU" flushInterval="10800000"  size="512" readOnly="true"/>
     <select id="getDictListByNotDelete" resultMap="BaseResultMap">
         select * from sort_infor where status !='2' and (series='1' or series='0');
     </select>
@@ -154,7 +154,7 @@
         select * from sort_infor where last_id = #{lastId,jdbcType=VARCHAR} and status != '2'
     </select>
     <select id="getDictByName" resultMap="BaseResultMap" parameterType="java.lang.String">
-        select * from sort_infor where name = #{name,jdbcType=VARCHAR} and status != '2'
+        select * from sort_infor where name = #{name,jdbcType=VARCHAR} and status != '2' and last_name=#{lastName,jdbcType=VARCHAR}
     </select>
 
     <update id="updateDictWithStatusById" parameterType="java.lang.String">
@@ -168,4 +168,8 @@
     <update id="updateDictStatusByLastId" parameterType="java.lang.String">
         update sort_infor set status=#{status,jdbcType=VARCHAR} where last_id=#{lastId,jdbcType=VARCHAR}
     </update>
+
+    <select id="getDictValue" parameterType="java.lang.String">
+        select
+    </select>
 </mapper>

@@ -43,7 +43,7 @@ public interface DictVoDao {
 
     List<DictVo> getSubData(String lastId);
 
-    DictVo getDictByName(String name);
+    DictVo getDictByName(String name,String lastName);
 
 
     int updateDictWithStatusById(String id);
@@ -55,6 +55,8 @@ public interface DictVoDao {
     int updateDictStatusById(String id, String status);
 
     int updateDictStatusByLastId(String lastId, String status);
+
+    String getDictValue(String dictType,String key);
 
 
 

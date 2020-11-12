@@ -118,14 +118,14 @@ public class DictServiceImpl implements DictService {
                 String firstName = "";
                 String separator = "/";
                 if("1".equals(series)){
-                    fullName = dictVo.getName();
-                    firstName = dictVo.getName();
+                    fullName = dictVo.getDescribe();
+                    firstName = dictVo.getDescribe();
                     separator = "/";
                 }else if("2".equals(series)) {
                     DictVo tempVo = dictVoDao.getDictById(dictVo.getLastId());
                     if(null != tempVo){
                         firstName = tempVo.getFirstName();
-                        fullName = tempVo.getFullName()+tempVo.getSeparator()+dictVo.getName();
+                        fullName = tempVo.getFullName()+tempVo.getSeparator()+dictVo.getDescribe();
                         separator = tempVo.getSeparator();
                     }
                 }
@@ -147,8 +147,8 @@ public class DictServiceImpl implements DictService {
                 String firstName = "";
                 if("1".equals(dictVo.getSeries())){
                     //修改fullName
-                    fullName = dictVo.getName();
-                    firstName = dictVo.getName();
+                    fullName = dictVo.getDescribe();
+                    firstName = dictVo.getDescribe();
                     dictVo.setFirstName(firstName);
                     dictVo.setFullName(fullName);
                     //修改所有子节点
@@ -156,15 +156,15 @@ public class DictServiceImpl implements DictService {
                     for (int i = 0; i < list.size(); i++) {
                         DictVo nestDictVo = list.get(i);
                         nestDictVo.setFirstName(dictVo.getFirstName());
-                        nestDictVo.setLastName(dictVo.getName());
-                        nestDictVo.setFullName(dictVo.getFullName()+nestDictVo.getSeparator()+nestDictVo.getName());
+                        nestDictVo.setLastName(dictVo.getDescribe());
+                        nestDictVo.setFullName(dictVo.getFullName()+nestDictVo.getSeparator()+nestDictVo.getDescribe());
                         dictVoDao.updateDict(nestDictVo);
                     }
                 }else if("2".equals(dictVo.getSeries())){
                     //获取上级
                     DictVo lastDictVo = dictVoDao.getDictById(dictVo.getLastId());
-                    dictVo.setLastName(lastDictVo.getName());
-                    dictVo.setFullName(lastDictVo.getFullName()+dictVo.getSeparator()+dictVo.getName());
+                    dictVo.setLastName(lastDictVo.getDescribe());
+                    dictVo.setFullName(lastDictVo.getFullName()+dictVo.getSeparator()+dictVo.getDescribe());
                     dictVo.setFirstName(lastDictVo.getFirstName());
                 }
                 num = dictVoDao.updateDict(dictVo);
@@ -182,6 +182,13 @@ public class DictServiceImpl implements DictService {
             e.printStackTrace();
         }
         return jsonObject.toString();
+    }
+
+    @Override
+    public String getDictValue(String dictType, String key) {
+        DictVo dictVo = dictVoDao.getDictByName(key,dictType);
+
+        return dictVo.getDescribe();
     }
 
     /**
@@ -227,7 +234,7 @@ public class DictServiceImpl implements DictService {
 
     @Override
     public List getListByName(String name) {
-        DictVo dictVo = dictVoDao.getDictByName(name);
+        DictVo dictVo = dictVoDao.getDictByName(name,"/");
         List<DictVo> list = new ArrayList();
         if(null != dictVo) {
             String id = dictVo.getId();

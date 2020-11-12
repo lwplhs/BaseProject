@@ -128,3 +128,8 @@ h4{line-height:30px}
 .portfolio-area li .textbox{ display: none; margin-top: 5px;}
 .portfolio-area li.hover .textbox{ display: block;}
 .portfolio-area li label{ display:block; cursor:pointer}
+
+/**新增laypage位置css**/
+.layPageStyle{
+	position: fixed;bottom: 20%;width:100%;
+}

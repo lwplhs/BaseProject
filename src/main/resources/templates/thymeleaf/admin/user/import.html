@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='',active='article'">
+<header th:replace="/admin/header::headerFragment(${title},${active})"></header>
+<body>
+    <form class="layui-form layui-form-pane" id="form-dict-add" method="post">
+        <div class="layui-upload">
+            <button type="button" class="layui-btn layui-btn-normal" id="test8">选择文件</button>
+            <button type="button" class="layui-btn" id="test9">开始上传</button>
+        </div>
+        <div style="display: none;color: red" id="errMsg"></div>
+        <div style="display: none;" id="errFile"><a id="errFileA" href="" style="color: red">下载错误信息</a></div>
+        <div style="padding-top:5% "><a href="javascript:void(0)" onclick="downloadMould()">下载模板</a></div>
+    </form>
+</body>
+<div th:replace="/admin/footer::footer_user-import"></div>
+<div th:replace="/admin/footer::footer-content"></div>
+</html>

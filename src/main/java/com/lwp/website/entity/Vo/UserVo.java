@@ -1,5 +1,8 @@
 package com.lwp.website.entity.Vo;
 
+import com.lwp.website.utils.invalid.user.IsRepeatUserName;
+
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -9,6 +12,7 @@ import java.io.Serializable;
  * @Date: 2019/12/20/10:19
  * @Description:
  */
+@IsRepeatUserName(vId = "id",vName = "username",vPassword = "password",message = "登录名称已存在")
 public class UserVo implements Serializable {
     private static final long serialVersionUID = 3473468325832031889L;
     /**
@@ -18,12 +22,18 @@ public class UserVo implements Serializable {
     /**
      * 用户名称
      */
+    @NotBlank(message = "登录名称不能为空")
     private String username;
 
     /**
      * 用户密码
      */
     private String password;
+
+    /**
+     * 联系电话
+     */
+    private String telephone;
 
     /**
      * 用户邮箱
@@ -38,6 +48,7 @@ public class UserVo implements Serializable {
     /**
      * 用户显示的名称
      */
+    @NotBlank(message = "用户名不能为空")
     private String screenName;
 
     /**
@@ -60,7 +71,30 @@ public class UserVo implements Serializable {
      */
     private String groupName;
 
+    /**
+     * 状态 0 正常 1 未启用 2删除
+     */
+    private String status;
 
+    /**
+     * 账号类型 0 普通账户 1管理员账号
+     */
+    private String type;
+
+    /**
+     * 身份证号码
+     */
+    private String identification;
+
+    /**
+     * 住址
+     */
+    private String address;
+
+    /**
+     * 单位
+     */
+    private String unit;
 
     public String getId() {
         return id;
@@ -140,5 +174,53 @@ public class UserVo implements Serializable {
 
     public void setGroupName(String groupName) {
         this.groupName = groupName;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getIdentification() {
+        return identification;
+    }
+
+    public void setIdentification(String identification) {
+        this.identification = identification;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 }

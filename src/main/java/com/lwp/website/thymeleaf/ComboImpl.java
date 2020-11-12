@@ -45,31 +45,102 @@ public class ComboImpl extends AbstractElementTagProcessor {
 
     @Override
     protected void doProcess(ITemplateContext context, IProcessableElementTag tag, IElementTagStructureHandler structureHandler) {
-        //select 的 option
-        List<String> options = new ArrayList<>();
-        //2、根据字典类型获取数据,有过value有值，则默认选中
-        String optionHtml = getDictDateByType(tag,context);
-        options.add(optionHtml);
-        //设置默认值
-        String defaultHtml = addDefault(tag);
-        options.add(0,defaultHtml);
-        //创建模型
-        IModelFactory modelFactory = context.getModelFactory();
-        IModel model = modelFactory.createModel();
-        //添加模型元素
-        IOpenElementTag openElementTag = addModelElement(tag,modelFactory);
-        model.add(openElementTag);
+        //新增 列表显示下拉框的值
+        String isList = tag.getAttributeValue("isList");
+        if(StrUtil.isEmpty(isList) || isList.equals("false")) {
+            //select 的 option
+            List<String> options = new ArrayList<>();
+            //2、根据字典类型获取数据,有过value有值，则默认选中
+            String optionHtml = getDictDateByType(tag, context);
+            options.add(optionHtml);
+            //设置默认值
+            String defaultHtml = addDefault(tag);
+            options.add(0, defaultHtml);
+            //创建模型
+            IModelFactory modelFactory = context.getModelFactory();
+            IModel model = modelFactory.createModel();
+            //添加模型元素
+            IOpenElementTag openElementTag = addModelElement(tag, modelFactory);
+            model.add(openElementTag);
 
-        model.add(modelFactory.createText(HtmlEscape.unescapeHtml(String.join("\n\t",options))));
-        model.add(modelFactory.createCloseElementTag("select"));
-        //替换前面的标签
-        structureHandler.replaceWith(model,false);
+            model.add(modelFactory.createText(HtmlEscape.unescapeHtml(String.join("\n\t", options))));
+            model.add(modelFactory.createCloseElementTag("select"));
+            //替换前面的标签
+            structureHandler.replaceWith(model, false);
+        }else {
+            //创建模型
+            IModelFactory modelFactory = context.getModelFactory();
+            IModel model = modelFactory.createModel();
+            //添加模型元素
+            IOpenElementTag openElementTag = addModelElementLabel(tag, modelFactory,context);
+            model.add(openElementTag);
+            String text = tag.getAttributeValue("th:text");
+            String dictType = tag.getAttributeValue("dictType");
+            String temp = "";
+            if(StrUtil.isNotEmpty(text)){
+                Object executeExpression = null;
+                executeExpression = executeExpression(text,context);
+                if(null != executeExpression){
+                    temp = executeExpression.toString();
+                }
+            }
+            if(StrUtil.isNotEmpty(temp) && StrUtil.isNotEmpty(dictType)){
+                temp = DictUtil.getDictValue(dictType,temp);
+            }
+            model.add(modelFactory.createText(HtmlEscape.unescapeHtml(temp)));
+            model.add(modelFactory.createCloseElementTag("label"));
+            //替换前面的标签
+            structureHandler.replaceWith(model, false);
+        }
 
+    }
+
+    /**
+     * 添加模型元素 list展示
+     * @param tag
+     * @param modelFactory
+     * @return
+     * */
+    private IOpenElementTag addModelElementLabel(IProcessableElementTag tag,IModelFactory modelFactory,ITemplateContext context){
+        String classValue = tag.getAttributeValue("class");
+        String id = tag.getAttributeValue("id");
+        String name = tag.getAttributeValue("name");
+        String style = tag.getAttributeValue("style");
+        String disabled = tag.getAttributeValue("disabled");
+        String readonly = tag.getAttributeValue("readonly");
+        String value = tag.getAttributeValue("th:value");
+        IOpenElementTag openElementTag = modelFactory.createOpenElementTag("label","class",classValue);
+        if(StrUtil.isNotEmpty(id)){
+            openElementTag = modelFactory.setAttribute(openElementTag,"id",id);
+        }
+        if(StrUtil.isNotEmpty(name)){
+            openElementTag = modelFactory.setAttribute(openElementTag,"name",name);
+        }
+        if(StrUtil.isNotEmpty(style)){
+            openElementTag = modelFactory.setAttribute(openElementTag,"style",style);
+        }
+        if(StrUtil.isNotEmpty(disabled)){
+            openElementTag = modelFactory.setAttribute(openElementTag,"disabled",disabled);
+        }
+        if(StrUtil.isNotEmpty(readonly)){
+            openElementTag = modelFactory.setAttribute(openElementTag,"readonly",readonly);
+        }
+        if(StrUtil.isNotEmpty(value)){
+            Object executeExpression = null;
+            executeExpression = executeExpression(value,context);
+            String temp = "";
+            if(null != executeExpression){
+                temp = executeExpression.toString();
+            }
+            openElementTag = modelFactory.setAttribute(openElementTag,"value",temp);
+        }
+
+        return openElementTag;
     }
 
 
     /**
-     * 添加模型元素
+     * 添加模型元素（默认）
      * @param tag
      * @param modelFactory
      * @return
