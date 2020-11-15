@@ -13,6 +13,7 @@ import com.lwp.website.service.UserService;
 import com.lwp.website.utils.StringUtil;
 import com.lwp.website.utils.TaleUtils;
 import com.lwp.website.utils.UUID;
+import com.lwp.website.utils.UploadUtil;
 import com.sun.corba.se.spi.orbutil.fsm.Input;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.BorderStyle;
@@ -308,7 +309,7 @@ public class UserServiceImpl implements UserService {
         excelWriter.flush();
         try {
             InputStream inputStream =new FileInputStream(file);
-            Map map = TaleUtils.getMouldPath();
+            Map map = UploadUtil.getMouldPath();
             String path = map.get("path").toString();
             url = map.get("url").toString();
             String name = StringUtil.getDate(new Date(),"yyyyMMdd")+"/"+System.currentTimeMillis()+prefix;

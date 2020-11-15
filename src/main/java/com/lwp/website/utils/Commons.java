@@ -3,6 +3,9 @@ package com.lwp.website.utils;
 import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageInfo;
 import com.lwp.website.config.SysConfig;
+import com.lwp.website.entity.Bo.Sn;
+import com.lwp.website.entity.Bo.SystemBo;
+import com.lwp.website.entity.Bo.SystemConfigBo;
 import com.lwp.website.entity.Vo.LoginLogVo;
 import com.lwp.website.entity.Vo.LoginPicVo;
 import com.lwp.website.service.DictService;
@@ -10,8 +13,10 @@ import com.lwp.website.service.LoginPicService;
 import com.vdurmont.emoji.EmojiParser;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jca.cci.CciOperationNotSupportedException;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -27,6 +32,7 @@ import java.util.regex.Pattern;
 public final class Commons {
 
     public static String THEME = "themes/default";
+
 
     /**
      * 判断分页中是否有数据
@@ -349,6 +355,8 @@ public final class Commons {
 
     private static LoginPicService loginPicService;
     private static SysConfig sysConfig;
+    private static SystemConfigBo systemConfigBo;
+    private static Sn sn;
     @Autowired
     public void setLoginPicService(LoginPicService loginPicService) {
         Commons.loginPicService = loginPicService;
@@ -357,6 +365,16 @@ public final class Commons {
     @Autowired
     public void setSysConfig(SysConfig sysConfig) {
         Commons.sysConfig = sysConfig;
+    }
+
+    @Resource(name = "systemConfigBo")
+    public void setSystemConfigBo(SystemConfigBo systemConfigBo) {
+        Commons.systemConfigBo = systemConfigBo;
+    }
+
+    @Resource(name = "sn")
+    public void setSn(Sn sn){
+        Commons.sn = sn;
     }
 
     /**
@@ -374,6 +392,22 @@ public final class Commons {
             }
         }
         return path;
+    }
+
+    /**
+     * 获取logo图片
+     * @return
+     */
+    public static String getLogo(){
+        return systemConfigBo.getLogo();
+    }
+
+    /**
+     * 获取标题
+     * @return
+     */
+    public static String getTitle(){
+        return sn.getName();
     }
 
 

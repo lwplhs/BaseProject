@@ -212,4 +212,11 @@
     <script type="text/javascript" th:src="@{/static/admin/n_n/user/import.js}"></script>
 </div>
 
+<div th:fragment="footer_system-manager">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <div th:replace="/admin/footer::footer-content"></div>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/system/manager.js}"></script>
+</div>
+
 </html>

@@ -5,6 +5,7 @@ import com.lwp.website.config.SysConfig;
 import com.lwp.website.entity.Vo.UserVo;
 import com.lwp.website.service.WebUploadService;
 import com.lwp.website.utils.TaleUtils;
+import com.lwp.website.utils.UploadUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -83,10 +84,10 @@ public class WebUploadController {
     @RequestMapping("/downloadMould")
     public void downloadMould(HttpServletRequest request,
                               HttpServletResponse response,String name) throws IOException {
-        Map map = TaleUtils.getMouldPath();
+        Map map = UploadUtil.getMouldPath();
         String path = map.get("path").toString() +name;
         File file = new File(path);
-        TaleUtils.downFile(request,response,name,file);
+        UploadUtil.downFile(request,response,name,file);
     }
 
 }

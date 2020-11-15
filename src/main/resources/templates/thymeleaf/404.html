@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='后台管理',active='home'">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title=${commons.getTitle()},active='home'">
 <header th:replace="/admin/header::headerFragment(${title},${active})"></header>
 <body>
 <section class="container-fluid page-404 minWP text-c">

@@ -1,11 +1,11 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='后台管理',active='home'">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title=${commons.getTitle()},active='home',logo=${commons.getLogo()}">
 <header th:replace="/admin/header::headerFragment(${title},${active})"></header>
 <body>
 <header class="navbar-wrapper">
     <div class="navbar navbar-fixed-top">
-        <div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" th:href="@{/admin/index}"><img th:src="@{/static/admin/images/logo.png}" class="logo navbar-slogan f-l mr-10 hidden-xs"></a>
-
+        <div class="container-fluid cl">
+            <a class="logo navbar-logo f-l mr-10 hidden-xs" th:href="@{/admin/index}"><img th:src="@{${logo}}" class="logo navbar-slogan f-l mr-10 hidden-xs"></a>
             <!--<span class="logo navbar-slogan f-l mr-10 hidden-xs">v3.1</span>-->
             <a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
 <!--            <nav class="nav navbar-nav">
@@ -26,9 +26,9 @@
             </nav>-->
             <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
                 <ul class="cl">
-                    <li>超级管理员</li>
+                   <!-- <li></li>-->
                     <li class="dropDown dropDown_hover">
-                        <a href="#" class="dropDown_A">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
+                        <a href="#" class="dropDown_A"><th:block th:text="${userVo.screenName}"></th:block><i class="Hui-iconfont">&#xe6d5;</i></a>
                         <ul class="dropDown-menu menu radius box-shadow">
                             <li><a href="javascript:;" onClick="myselfinfo()">个人信息</a></li>
                             <li><a href="#">切换账户</a></li>
@@ -169,7 +169,7 @@
             <dd>
                 <ul>
                     <li><a data-href="/admin/user/manager" data-title="用户管理" href="javascript:void(0)">用户管理</a></li>
-                    <li><a data-href="system-base.html" data-title="系统设置" href="javascript:void(0)">系统设置</a></li>
+                    <li><a data-href="/admin/system/manager" data-title="系统设置" href="javascript:void(0)">系统设置</a></li>
                     <li><a data-href="/admin/loginPic/manager" data-title="登录设置" href="javascript:void(0)">登录设置</a></li>
                     <li><a data-href="system-category.html" data-title="栏目管理" href="javascript:void(0)">栏目管理</a></li>
                     <li><a data-href="/admin/dict/manager" data-title="数据字典" href="javascript:void(0)">数据字典</a></li>

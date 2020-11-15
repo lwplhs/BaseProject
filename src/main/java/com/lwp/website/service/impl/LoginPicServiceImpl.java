@@ -91,7 +91,7 @@ public class LoginPicServiceImpl implements LoginPicService {
     }
 
     /**
-     * 获取首页轮播 未删除
+     * 获取登录背景图 未删除
      * @return
      */
     @Override

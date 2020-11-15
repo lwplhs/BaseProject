@@ -121,7 +121,7 @@ public class ValidSn {
         }
     }
 
-    @Bean
+    @Bean(name = "sn")
     public Sn Sn(){
         LOOGER.info("检查授权文件......");
         String pubKey = sysConfig.getPubKey();

@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -51,7 +52,11 @@ public class IndexController extends BaseController {
 
 
     @GetMapping(value = {"","/index"})
-    public String index(HttpServletResponse response){
+    public String index(HttpServletResponse response,
+                        HttpServletRequest request,
+                        Model model){
+        UserVo userVo = TaleUtils.getLoginUser(request);
+        model.addAttribute("userVo",userVo);
         return this.render("admin/index");
     }
     @GetMapping(value={"/getPage/{name}", "/getPage/{name}.html"})

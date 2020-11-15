@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lwp.website.dao.SystemDao">
+    <resultMap id="BaseResultMap" type="com.lwp.website.entity.Vo.SystemVo">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="system_key" jdbcType="VARCHAR" property="key"/>
+        <result column="system_value" jdbcType="VARCHAR" property="value"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+
+    <select id="getSystem" resultMap="BaseResultMap" >
+        select * from system
+    </select>
+
+    <update id="saveSystem" parameterType="java.lang.String" >
+        update system set system_value = #{value,jdbcType=VARCHAR} where system_key=#{key,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

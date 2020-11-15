@@ -18,7 +18,7 @@ function refreshArea(_formWin){
 }
 function submitUser(){
     var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-    var jsondata = $("#form-dict-add").serialize();
+    var jsondata = $("#form-user-add").serialize();
     var pwd = $("[name='password']").val();
     var enPwd = $("[name='ensurePassword']").val();
     if(pwd != enPwd){

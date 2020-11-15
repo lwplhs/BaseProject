@@ -12,7 +12,6 @@ import java.io.Serializable;
  * @Date: 2020/09/29/17:03
  * @Description:
  */
-@Repository
 @IsRepeatName(vId = "id",vName = "name",vLastId = "lastId",message = "数据字典分类名称已存在")
 public class DictVo implements Serializable {
 

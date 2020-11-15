@@ -133,3 +133,62 @@ h4{line-height:30px}
 .layPageStyle{
 	position: fixed;bottom: 20%;width:100%;
 }
+/**新增功能按钮和查询框**/
+.toolbar_list li {
+	height: 35px;
+	float: right;
+	cursor: pointer;
+	padding: 3px 3px 0 3px;
+	margin: 0;
+	overflow: hidden;
+	width: auto;
+	line-height: normal;
+}
+.toolbar_list li a {
+	color: #fff;
+	margin: 0;
+	padding: 0 10px !important;
+	line-height: 30px;
+	height: 30px;
+	text-indent: 0;
+	position: relative;
+	min-width: 10px;
+	overflow: hidden;
+	display: inline-block;
+	border-radius: 4px;
+}
+.search_box_con{
+	width: 200px;
+	float: left;
+	margin-top: 0px;
+	border: none;
+	background: #EEE;
+	border-radius: 4px;
+	height: 30px;
+	position: relative;
+}
+.search_box_con input {
+	background: none;
+	border: none;
+	float: left;
+	height: 30px;
+	width: 82%;
+	padding: 0 0 0 5px;
+	color: #666;
+	line-height: 26px;
+	text-indent: 4px;
+	box-sizing: border-box;
+	padding-right: 26px;
+	border-radius: 4px;
+}
+.search_box_con .fe-font{
+	position: absolute;
+	text-decoration: none;
+	top: 70%;
+	margin-top: -12px;
+	float: right;
+	display: block;
+	width: 26px;
+	height: 26px;
+	right: 0;
+}

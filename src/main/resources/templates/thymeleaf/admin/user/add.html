@@ -2,8 +2,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='用户',active='article'">
 <header th:replace="/admin/header::headerFragment(${title},${active})"></header>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
     <style type="text/css">
         .layui-form-item{
             margin-bottom: 5px!important;
@@ -18,7 +16,7 @@
 </head>
 <body>
     <div style="padding-top: 2%" />
-    <form class="layui-form layui-form-pane" id="form-dict-add" method="post">
+    <form class="layui-form layui-form-pane" id="form-user-add" method="post">
         <input hidden="hidden" name="type" th:value="${user.type}"/>
         <input hidden="hidden" name="id" th:value="${user.id}">
         <div class="layui-form-item">

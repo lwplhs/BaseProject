@@ -7,6 +7,7 @@ import com.lwp.website.service.WebUploadService;
 import com.lwp.website.utils.StringUtil;
 import com.lwp.website.utils.TaleUtils;
 import com.lwp.website.utils.UUID;
+import com.lwp.website.utils.UploadUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -65,7 +66,7 @@ public class WebUploadServiceImpl implements WebUploadService {
         try{
             name = files.getOriginalFilename();
             suffix = name.substring(name.lastIndexOf("."));
-            Map map = TaleUtils.getCarouselPath(suffix);
+            Map map = UploadUtil.getCarouselPath(suffix);
             path = map.get("path").toString();
             url = map.get("url").toString();
             realName = map.get("name").toString();
@@ -132,7 +133,7 @@ public class WebUploadServiceImpl implements WebUploadService {
     @Override
     public String getPathById(String id) {
         String path = "";
-        String errPath = TaleUtils.getUploadErrorPicPath();
+        String errPath = UploadUtil.getUploadErrorPicPath();
         if(StringUtil.isNull(id) || "0".equals(id)){
             path = errPath;
         }else {

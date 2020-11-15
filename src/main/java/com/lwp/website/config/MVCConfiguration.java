@@ -3,6 +3,7 @@ package com.lwp.website.config;
 import com.lwp.website.interceptor.BaseInterceptor;
 import com.lwp.website.interceptor.PageInterceptor;
 import com.lwp.website.utils.TaleUtils;
+import com.lwp.website.utils.UploadUtil;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
 
@@ -37,7 +38,7 @@ public class MVCConfiguration implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
-        registry.addResourceHandler("/media/**").addResourceLocations(TaleUtils.getUEditorPath()+"/media/");
-        registry.addResourceHandler("/upload/**").addResourceLocations(TaleUtils.getUploadFilePath()+"upload/");
+        registry.addResourceHandler("/media/**").addResourceLocations(UploadUtil.getUEditorPath()+"/media/");
+        registry.addResourceHandler("/upload/**").addResourceLocations(UploadUtil.getUploadFilePath()+"upload/");
     }
 }
