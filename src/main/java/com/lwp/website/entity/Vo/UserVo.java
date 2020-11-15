@@ -14,7 +14,7 @@ import java.io.Serializable;
  */
 @IsRepeatUserName(vId = "id",vName = "username",vPassword = "password",message = "登录名称已存在")
 public class UserVo implements Serializable {
-    private static final long serialVersionUID = 3473468325832031889L;
+    private static final long serialVersionUID = 4462234041195569332L;
     /**
      * user表主键
      */

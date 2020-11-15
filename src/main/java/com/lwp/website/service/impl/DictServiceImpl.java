@@ -2,7 +2,7 @@ package com.lwp.website.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.lwp.website.dao.DictVoDao;
+import com.lwp.website.dao.DictDao;
 import com.lwp.website.entity.Vo.DictVo;
 import com.lwp.website.entity.Vo.UserVo;
 import com.lwp.website.service.DictService;
@@ -29,7 +29,7 @@ public class DictServiceImpl implements DictService {
     private Logger LOGGER = LoggerFactory.getLogger(DictServiceImpl.class);
 
     @Resource
-    private DictVoDao dictVoDao;
+    private DictDao dictVoDao;
 
     @Override
     public List getDictList() {

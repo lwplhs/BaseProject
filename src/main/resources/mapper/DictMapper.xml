@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lwp.website.dao.DictVoDao">
+<mapper namespace="com.lwp.website.dao.DictDao">
     
     <resultMap id="BaseResultMap" type="com.lwp.website.entity.Vo.DictVo">
         <id column="id" jdbcType="VARCHAR" property="id"/>

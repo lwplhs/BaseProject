@@ -1,5 +1,7 @@
 package com.lwp.website.entity.Vo;
 
+import java.io.Serializable;
+
 /**
  * Created with IntelliJ IDEA.
  *
@@ -7,7 +9,8 @@ package com.lwp.website.entity.Vo;
  * @Date: 2020/11/13/17:34
  * @Description:
  */
-public class SystemVo {
+public class SystemVo implements Serializable {
+    private static final long serialVersionUID = 188972959820649367L;
     private String id;
 
     private String key;

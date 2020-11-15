@@ -2,11 +2,8 @@ package com.lwp.website.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelWriter;
-import cn.hutool.poi.excel.StyleSet;
 import com.alibaba.fastjson.JSONObject;
-import com.lwp.website.config.SysConfig;
-import com.lwp.website.dao.UserVoDao;
-import com.lwp.website.entity.Vo.DictVo;
+import com.lwp.website.dao.UserDao;
 import com.lwp.website.entity.Vo.UserVo;
 import com.lwp.website.exception.TipException;
 import com.lwp.website.service.UserService;
@@ -14,9 +11,7 @@ import com.lwp.website.utils.StringUtil;
 import com.lwp.website.utils.TaleUtils;
 import com.lwp.website.utils.UUID;
 import com.lwp.website.utils.UploadUtil;
-import com.sun.corba.se.spi.orbutil.fsm.Input;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Font;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +29,7 @@ public class UserServiceImpl implements UserService {
     private static final Logger LOGGER = LoggerFactory.getLogger(com.lwp.website.service.UserService.class);
 
     @Resource
-    private UserVoDao userVoDao;
+    private UserDao userVoDao;
 
     @Override
     public UserVo queryUserByUserName(String userName) {

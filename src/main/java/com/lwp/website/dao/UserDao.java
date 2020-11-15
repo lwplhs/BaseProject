@@ -14,7 +14,7 @@ import java.util.Map;
  * @Date: 2019/12/20/10:53
  * @Description:
  */
-public interface UserVoDao {
+public interface UserDao {
 
     long countByUsername(String username,String id);
 

@@ -11,7 +11,7 @@ import java.util.List;
  * @Date: 2020/09/29/17:10
  * @Description:
  */
-public interface DictVoDao {
+public interface DictDao {
 
     List<DictVo> getDictListByNotDelete();
 
