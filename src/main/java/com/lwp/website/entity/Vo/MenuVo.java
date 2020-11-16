@@ -36,7 +36,7 @@ public class MenuVo implements Serializable {
     /**
      * 排序
      */
-    private String sort;
+    private int sort;
 
     private String series;
 
@@ -82,11 +82,11 @@ public class MenuVo implements Serializable {
         this.status = status;
     }
 
-    public String getSort() {
+    public int getSort() {
         return sort;
     }
 
-    public void setSort(String sort) {
+    public void setSort(int sort) {
         this.sort = sort;
     }
 

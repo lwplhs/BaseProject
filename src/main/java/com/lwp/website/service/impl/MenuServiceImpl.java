@@ -76,8 +76,8 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public String getSort(String series,String id) {
-        String sort = menuDao.getSort(series,id);
+    public int getSort(String series,String id) {
+        int sort = menuDao.getSort(series,id);
         return sort;
     }
 
@@ -94,7 +94,7 @@ public class MenuServiceImpl implements MenuService {
         int num = 0;
         try {
             if(StrUtil.isEmpty(menuVo.getId())){
-                String sort = getSort(menuVo.getSeries(),menuVo.getPid());
+                int sort = getSort(menuVo.getSeries(),menuVo.getPid());
                 menuVo.setSort(sort);
                 String id = UUID.createID();
                 menuVo.setId(id);
@@ -185,8 +185,8 @@ public class MenuServiceImpl implements MenuService {
         String seriesDrop = menuVoDrop.getSeries();
         String pidDrag = menuVoDrag.getPid();
         String pidDrop = menuVoDrop.getPid();
-        String sortDrag = menuVoDrag.getSort();
-        String sortDrop = menuVoDrop.getSort();
+        int sortDrag = menuVoDrag.getSort();
+        int sortDrop = menuVoDrop.getSort();
         if(pidDrag.equals(dropId)){
             return false;
         }
@@ -198,7 +198,7 @@ public class MenuServiceImpl implements MenuService {
                 //设置drag 排序值为 drop的排序值
 
                 menuVoDrag.setSort(sortDrop);
-                if(sortDrag.compareTo(sortDrop) > 0){
+                if(sortDrag > sortDrop){
                     menuDao.dragMenuSort(sortDrop,pidDrop,"1");
                 }else {
                     menuDao.dragMenuSort(sortDrop,pidDrop,"2");

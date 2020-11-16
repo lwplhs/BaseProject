@@ -401,7 +401,7 @@ function getData(id) {
                     }else {
                         html+="<td>"+"<input type=\"checkbox\" id=\"status\" lay-skin=\"primary\" onclick='return false;' />"+"</td>";
                     }
-                    html+="<td>"+sort+"</td>";
+/*                    html+="<td>"+sort+"</td>";*/
                     html+="</tr>"
                 }
                 var topWin = window.document.getElementById("detail").contentWindow;

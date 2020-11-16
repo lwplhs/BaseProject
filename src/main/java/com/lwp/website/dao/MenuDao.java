@@ -17,7 +17,7 @@ public interface MenuDao {
 
     List<MenuVo> getSubData(String id);
 
-    String getSort(String series,String id);
+    int getSort(String series,String id);
 
     MenuVo getMenuById(String id);
 
@@ -29,6 +29,6 @@ public interface MenuDao {
 
     int updateMenuStatusById(String id,String status);
 
-    int dragMenuSort(String sort,String id,String type);
+    int dragMenuSort(int sort,String id,String type);
 
 }

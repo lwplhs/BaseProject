@@ -7,7 +7,7 @@
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="url" jdbcType="VARCHAR" property="url"/>
         <result column="status" jdbcType="VARCHAR" property="status"/>
-        <result column="sort" jdbcType="VARCHAR" property="sort"/>
+        <result column="sort" jdbcType="INTEGER" property="sort"/>
         <result column="series" jdbcType="VARCHAR" property="series"/>
         <result column="icon" jdbcType="VARCHAR" property="icon"/>
     </resultMap>
@@ -20,7 +20,7 @@
         select * from menu where status != 2 and pid = #{id,jdbcType= VARCHAR} order by sort
     </select>
 
-    <select id="getSort" resultType="java.lang.String" parameterType="java.lang.String">
+    <select id="getSort" resultType="java.lang.Integer" parameterType="java.lang.String">
         select count(*)+1 from menu where 1=1
         <if test="series != null">
             and series = #{series,jdbcType = VARCHAR}
@@ -79,7 +79,7 @@
                 #{pid,jdbcType=VARCHAR},
             </if>
             <if test="sort != null">
-                #{sort,jdbcType=VARCHAR},
+                #{sort,jdbcType=INTEGER},
             </if>
             <if test="status != null">
                 #{status,jdbcType=VARCHAR},
@@ -106,7 +106,7 @@
                 url = #{url,jdbcType=VARCHAR},
             </if>
             <if test="sort != null">
-                sort = #{sort,jdbcType=VARCHAR},
+                sort = #{sort,jdbcType=INTEGER},
             </if>
             <if test="status != null">
                 status = #{status,jdbcType=VARCHAR},
@@ -128,13 +128,13 @@
 
     <update id="dragMenuSort">
         <if test='type=="1"'>
-            update menu set sort=sort+1 where 1=1 and sort &gt;= #{sort,jdbcType=VARCHAR}
+            update menu set sort=sort+1 where 1=1 and sort &gt;= #{sort,jdbcType=INTEGER}
             <if test="id!=null">
                 and pid = #{id,jdbcType=VARCHAR}
             </if>
         </if>
         <if test='type=="2"'>
-            update menu set sort=sort-1 where 1=1 and sort &gt;= #{sort,jdbcType=VARCHAR}
+            update menu set sort=sort-1 where 1=1 and sort &gt;= #{sort,jdbcType=INTEGER}
             <if test="id!=null">
                 and pid = #{id,jdbcType=VARCHAR}
             </if>

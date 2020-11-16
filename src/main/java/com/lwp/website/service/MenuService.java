@@ -20,7 +20,7 @@ public interface MenuService {
 
     List getSubData(String id);
 
-    String getSort(String series,String id);
+    int getSort(String series,String id);
 
     MenuVo getMenuById(String id);
 

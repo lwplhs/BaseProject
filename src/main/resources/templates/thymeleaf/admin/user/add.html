@@ -22,7 +22,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">登录名称：</label>
             <div class="layui-input-inline">
-                <input type="text" name="username" lay-verify="title" th:value="${user.username}" autocomplete="off" placeholder="登录名称" class="layui-input" />
+                <input type="text" name="username" lay-verify="title" th:readonly="${action=='edit'}" th:value="${user.username}" autocomplete="off" placeholder="登录名称" class="layui-input" />
             </div>
             <label class="layui-form-label">用户名称：</label>
             <div class="layui-input-inline">
