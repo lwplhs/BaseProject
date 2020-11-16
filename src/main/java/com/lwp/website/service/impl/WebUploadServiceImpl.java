@@ -133,12 +133,14 @@ public class WebUploadServiceImpl implements WebUploadService {
     @Override
     public String getPathById(String id) {
         String path = "";
-        String errPath = UploadUtil.getUploadErrorPicPath();
+
         if(StringUtil.isNull(id) || "0".equals(id)){
+            String errPath = UploadUtil.getUploadErrorPicPath();
             path = errPath;
         }else {
             path = attachmentDao.getPathById(id);
             if (StringUtil.isNull(path)){
+                String errPath = UploadUtil.getUploadErrorPicPath();
                 path = errPath;
             }
         }

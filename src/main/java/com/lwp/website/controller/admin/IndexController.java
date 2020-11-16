@@ -2,10 +2,12 @@ package com.lwp.website.controller.admin;
 
 import com.lwp.website.config.SysConfig;
 import com.lwp.website.controller.BaseController;
+import com.lwp.website.entity.Bo.MenuBo;
 import com.lwp.website.entity.Bo.RestResponseBo;
 import com.lwp.website.entity.Vo.UserVo;
 import com.lwp.website.exception.TipException;
 import com.lwp.website.service.LogService;
+import com.lwp.website.service.MenuService;
 import com.lwp.website.service.UserService;
 import com.lwp.website.utils.*;
 import org.apache.shiro.SecurityUtils;
@@ -41,6 +43,10 @@ public class IndexController extends BaseController {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private MenuService menuService;
+
     @Resource
     private LogService logService;
 
@@ -57,6 +63,10 @@ public class IndexController extends BaseController {
                         Model model){
         UserVo userVo = TaleUtils.getLoginUser(request);
         model.addAttribute("userVo",userVo);
+        //获取菜单
+        MenuBo menuBo = menuService.getMenuByUser(userVo);
+        model.addAttribute("menuBo",menuBo);
+
         return this.render("admin/index");
     }
     @GetMapping(value={"/getPage/{name}", "/getPage/{name}.html"})

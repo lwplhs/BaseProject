@@ -21,15 +21,16 @@
         }
     </style>
 </head>
-<div style="padding-top: 2%;overflow:hidden;zoom:1;" />
-    <div class="cl pd-5 bg-1 bk-gray">
+<div class="page-container">
+    <div style="overflow:hidden;zoom:1;">
+        <div class="cl pd-5 bg-1 bk-gray">
         <table>
             <td>
-                <div class="search_box_con">
+<!--                <div class="search_box_con">
                     <input type="text" placeholder="请输入搜索关键字" onkeydown="if(event.keyCode==13)searchValue()" id="search"/>
                     <a class="fe-font Hui-iconfont" href="#this" onclick="searchValue()">&#xe709;</a>
-                    <!--<span class="fe-font Hui-iconfont"></span>-->
-                </div>
+                    &lt;!&ndash;<span class="fe-font Hui-iconfont"></span>&ndash;&gt;
+                </div>-->
             </td>
             <td>
                 <div>
@@ -41,18 +42,22 @@
             <td></td>
         </table>
     </div>
-
-    <form class="layui-form layui-form-pane" id="form-system-add" method="post">
-        <div class="layui-upload">
-            <label class="layui-form-label">logo：</label>
-            <input hidden="hidden" name="logo" id="logo" th:value="${systemBo.logo}"/>
-            <button type="button" class="layui-btn" id="test1">上传图片</button>
-            <div class="layui-upload-list">
-                <img class="layui-upload-img" id="demo1" th:src="${logoPath}">
-                <p id="demoText"></p>
-            </div>
+        <div style="padding-top: 1%">
+            <form class="layui-form layui-form-pane" id="form-system-add" method="post">
+                <div class="layui-upload">
+                    <label class="layui-form-label">logo：</label>
+                    <input hidden="hidden" name="logo" id="logo" th:value="${systemBo.logo}"/>
+                    <button type="button" class="layui-btn" id="test1">上传图片</button>
+                    <div class="layui-upload-list">
+                        <img class="layui-upload-img" id="demo1" th:src="${logoPath}">
+                        <p id="demoText"></p>
+                    </div>
+                </div>
+            </form>
         </div>
-    </form>
+
+    </div>
+</div>
 <div th:replace="/admin/footer::footer_system-manager"></div>
 </body>
 </html>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="pic=${commons.getLoginPic()},logo=${commons.getLogo()},titel=${commons.getTitle()}"style="overflow: hidden;">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="pic=${commons.getLoginPic()},logo=${commons.getLogo()},title=${commons.getTitle()}"style="overflow: hidden;">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <link rel="shortcut icon" th:href="@{${logo}}"/>
-    <title th:text="${title}">webSite</title>
+    <title><th:block th:text="${title!=null?title:'webSite'}"></th:block></title>
     <link th:href="@{/static/common/css/sweetalert2.min.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/static/common/css/font-awesome.min.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/static/common/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />

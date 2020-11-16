@@ -67,7 +67,21 @@
         <img id="logo-img"  th:src="@{/static/admin/images/logo.png}" style="height: 35px;padding-left: 20%">
     </div>-->
     <div class="menu_dropdown bk_2">
-        <dl id="menu-article">
+        <th:block th:each="firstMenu : ${menuBo.subMenuList}">
+            <dl th:id="${firstMenu.id}">
+                <dt><i class="Hui-iconfont"><th:block th:utext="${firstMenu.icon}"/></i><th:block th:text="${firstMenu.name}"/><i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+                <dd>
+                    <ul>
+                        <th:block th:each="secMenu : ${firstMenu.subMenuList}">
+                            <li><a th:data-href="${secMenu.url}" th:data-title="${secMenu.name}" href="javascript:void (0)"><th:block th:text="${secMenu.name}"/></a> </li>
+                        </th:block>
+                    </ul>
+                </dd>
+            </dl>
+        </th:block>
+
+
+<!--        <dl id="menu-article">
             <dt><i class="Hui-iconfont">&#xe616;</i> 文章管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
@@ -76,20 +90,20 @@
                 </ul>
             </dd>
         </dl>
-<!--        <dl id="menu-article">
+&lt;!&ndash;        <dl id="menu-article">
             <dt><i class="Hui-iconfont">&#xe616;</i> 资讯管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
                     <li><a data-href="article-list.html" data-title="资讯管理" href="javascript:void(0)">资讯管理</a></li>
                 </ul>
             </dd>
-        </dl>-->
+        </dl>&ndash;&gt;
         <dl id="menu-picture">
             <dt><i class="Hui-iconfont">&#xe613;</i> 图片管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
                     <li><a data-href="/admin/carousel/carousel-list" data-title="首页轮播图管理" href="javascript:void(0)">首页轮播图管理</a></li>
-                    <!--<li><a data-href="/admin/carousel-edit" data-title="图片管理" href="javascript:void(0)">新增轮播图</a></li>-->
+                    &lt;!&ndash;<li><a data-href="/admin/carousel-edit" data-title="图片管理" href="javascript:void(0)">新增轮播图</a></li>&ndash;&gt;
                 </ul>
             </dd>
         </dl>
@@ -177,7 +191,7 @@
                     <li><a data-href="system-log.html" data-title="系统日志" href="javascript:void(0)">系统日志</a></li>
                 </ul>
             </dd>
-        </dl>
+        </dl>-->
     </div>
 
 </aside>

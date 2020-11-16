@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='后台管理',active='home'">
+    <header th:replace="/admin/header::headerFragment(${title},${active})"></header>
+    <head>
+        <style>
+            .menu {
+                width: 100px;
+                font-size: 14px;
+                font-family: "微软雅黑";
+                border: 1px solid #ccc;
+                z-index: 9999;
+                position: fixed;
+                visibility:hidden;
+                background: #f2f2f2;
+            }
+
+            .menu ul {
+                margin: 0px;
+                padding: 0px;
+                text-align: center;
+                list-style-type: none;
+            }
+
+            .menu ul li {
+                padding: 3px 0px;
+                font-size: 12px;
+            }
+
+            .menu ul li:hover {
+                background: #e1dddd;
+            }
+
+            .menu ul li a:link {
+                color: #000;
+                text-decoration: none;
+            }
+            html{
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <!--
+        <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 系统管理 <span class="c-gray en">&gt;</span> 参照项设置 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+        -->
+        <div class="page-container">
+            <div  style="overflow:hidden;zoom:1;">
+            <div class="cl pd-5 bg-1 bk-gray">
+                <table>
+                    <td>
+                        <!--<div class="search_box_con">
+                            <input type="text" placeholder="请输入搜索关键字" onkeydown="if(event.keyCode==13)searchValue()" id="search"/>
+                            <a class="fe-font Hui-iconfont" href="#this" onclick="searchValue()">&#xe709;</a>-->
+                            <!--<span class="fe-font Hui-iconfont"></span>
+                        </div>-->
+                    </td>
+                    <td>
+                        <div>
+                            <ul class="toolbar_list">
+                                <li><a class="btn btn-primary radius" onclick="add('0','创建功能菜单','/admin/menu/add')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i>新建功能</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td></td>
+                </table>
+            </div>
+        </div>
+<!--
+        <div style="font-size: 20px; padding-left: 20px;padding-top: 20px"><a class="btn btn-primary radius" onclick="add('0','创建功能菜单','/admin/menu/add')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i>新建功能</a></div>
+-->
+            <input id="menuId" name="menuId" hidden="hidden">
+            <table class="table">
+            <tr>
+                <td style="padding-left:20px;" width="15%" class="va-t">
+                    <div style="overflow: auto;height: 390px" id="zTreeDiv">
+                        <ul id="treeDemo" class="ztree"></ul>
+                    </div>
+                </td>
+                <td></td>
+                <td class="va-t"><iframe ID="detail" Name="detail" FRAMEBORDER=0 SCROLLING=AUTO width=100%  height=390px SRC="/admin/menu/subDetail"></iframe></td>
+            </tr>
+        </table>
+        </div>
+
+        <div id="rMenu" class="menu">
+            <ul>
+                <a href="javascript:;" onclick="menu_add()"><li id="add"  hidden="hidden" class="pub">新增</li></a>
+                <a href="javascript:;" onclick="menu_view()"><li id="view" hidden="hidden" class="pub">查看</li></a>
+                <a href="javascript:;" onclick="menu_edit()"><li id="edit" hidden="hidden" class="pub">修改</li></a>
+                <a href="javascript:;" onclick="menu_delete()"><li id="delete" hidden="hidden" class="delete">删除</li></a>
+                <a href="javascript:;" onclick="menu_update()"><li id="update" hidden="hidden" class="delete">启用/停用</li></a>
+            </ul>
+        </div>
+
+        <div th:replace="/admin/footer::footer_menu-manager"></div>
+        <div th:replace="/admin/footer::footer-content"></div>
+    </body>
+    <script type="text/javascript">
+        //iframe自适应
+        /*    $(window).on('resize', function() {
+                // 设置Iframe窗口大小
+                configIframe();
+            }).resize();
+            function configIframe(){
+                var index = this.layer.getFrameIndex(window.mame);
+                alert
+                alert("1");
+            }*/
+        $("#zTreeDiv").niceScroll({
+            cursorcolor: "rgba(217,138,151,0.02)",   //滚动条颜色
+            cursoropacitymax: 0.1, //滚动条透明度
+            touchbehavior: false,
+            cursorwidth:"2px",
+            cursorborder:"0",
+            cursorborderradius:"2px"
+
+        });
+        $("#zTreeDiv").resize(function () {
+            $("#subDetail").getNiceScroll().resize();
+        });
+    </script>
+</html>

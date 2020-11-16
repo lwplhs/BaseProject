@@ -29,24 +29,24 @@ public class UserServiceImpl implements UserService {
     private static final Logger LOGGER = LoggerFactory.getLogger(com.lwp.website.service.UserService.class);
 
     @Resource
-    private UserDao userVoDao;
+    private UserDao userDao;
 
     @Override
     public UserVo queryUserByUserName(String userName) {
-        UserVo userVo = userVoDao.selectUserByName(userName);
+        UserVo userVo = userDao.selectUserByName(userName);
         return userVo;
     }
 
     @Override
     public Integer insertUser(UserVo userVo) {
-        int j =  userVoDao.insert(userVo);
+        int j =  userDao.insert(userVo);
         LOGGER.info(String.valueOf(j));
         return null;
     }
 
     @Override
     public UserVo queryUserById(String uid) {
-        UserVo userVo = userVoDao.selectByPrimaryKey(uid);
+        UserVo userVo = userDao.selectByPrimaryKey(uid);
         return userVo;
     }
 
@@ -99,7 +99,7 @@ public class UserServiceImpl implements UserService {
         //修改密码
         String username = userVo.getUsername();
         String newPassword = TaleUtils.MD5encode(username+newPwd);
-        int n = userVoDao.updatePwd(userVo.getId(),newPassword);
+        int n = userDao.updatePwd(userVo.getId(),newPassword);
         if(n > 0){
             map.put("code","1");
             map.put("msg","修改密码成功，请重新登录");
@@ -136,7 +136,7 @@ public class UserServiceImpl implements UserService {
         }else {
             map.put("searchKey",searchKey);
         }
-        List<UserVo> lists = userVoDao.getUserListByStatus(map);
+        List<UserVo> lists = userDao.getUserListByStatus(map);
 
         return lists;
     }
@@ -176,7 +176,7 @@ public class UserServiceImpl implements UserService {
                 }
                 String newPassword = TaleUtils.MD5encode(userVo.getUsername()+pwd);
                 userVo.setPassword(newPassword);
-                num = userVoDao.insert(userVo);
+                num = userDao.insert(userVo);
                 if(num > 0){
                     jsonObject.put("code", "100000");
                     jsonObject.put("msg", "添加成功");
@@ -185,7 +185,7 @@ public class UserServiceImpl implements UserService {
                     jsonObject.put("msg", "添加失败");
                 }
             }else {
-                num = userVoDao.updateByPrimaryKey(userVo);
+                num = userDao.updateByPrimaryKey(userVo);
                 if (num > 0) {
                     jsonObject.put("code", "100000");
                     jsonObject.put("msg", "修改成功");
@@ -204,7 +204,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public long getCountByName(String userName, String id) {
-        long count = userVoDao.countByUsername(userName,id);
+        long count = userDao.countByUsername(userName,id);
 
         return count;
     }
@@ -335,7 +335,7 @@ public class UserServiceImpl implements UserService {
         Map<String,Object> result = new HashMap();
         Map<String,Object> map = new HashMap();
         map.put("names",nameList);
-        List<UserVo> list = userVoDao.getListByName(map);
+        List<UserVo> list = userDao.getListByName(map);
 
         if(null == list || list.size() <= 0){
             result.put("result",true);
@@ -406,7 +406,7 @@ public class UserServiceImpl implements UserService {
         if(!StringUtil.isNull(temp)){
             Map<String,Object> map = new HashMap<>();
             map.put("ids",temp);
-            int count = userVoDao.updateUserWithStatus(map);
+            int count = userDao.updateUserWithStatus(map);
             if(count > 0){
                 return true;
             }
@@ -426,7 +426,7 @@ public class UserServiceImpl implements UserService {
         if(!StringUtil.isNull(temp)){
             Map<String,Object> map = new HashMap<>();
             map.put("ids",temp);
-            int count = userVoDao.updateUserWithDelete(map);
+            int count = userDao.updateUserWithDelete(map);
             if(count > 0){
                 return true;
             }

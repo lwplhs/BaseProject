@@ -1,5 +1,6 @@
 package com.lwp.website.entity.Vo;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -11,11 +12,18 @@ import java.io.Serializable;
  */
 public class MenuVo implements Serializable {
 
-    private static final long serialVersionUID = -9180832562094347763L;
+    private static final long serialVersionUID = -3224277607966090666L;
     private String id;
+
+    /**
+     * 上级id
+     */
+    private String pid;
+
     /**
      * 菜单名称
      */
+    @NotBlank(message = "菜单名称不为空")
     private String name;
     /**
      * 链接
@@ -30,12 +38,24 @@ public class MenuVo implements Serializable {
      */
     private String sort;
 
+    private String series;
+
+    private String icon;
+
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getPid() {
+        return pid;
+    }
+
+    public void setPid(String pid) {
+        this.pid = pid;
     }
 
     public String getName() {
@@ -68,5 +88,21 @@ public class MenuVo implements Serializable {
 
     public void setSort(String sort) {
         this.sort = sort;
+    }
+
+    public String getSeries() {
+        return series;
+    }
+
+    public void setSeries(String series) {
+        this.series = series;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

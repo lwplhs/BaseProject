@@ -218,5 +218,20 @@
     <div th:replace="/admin/footer::footer-content"></div>
     <script type="text/javascript" th:src="@{/static/admin/n_n/system/manager.js}"></script>
 </div>
-
+<div th:fragment="footer_menu-manager">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <!--业务脚本-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/menu/manager.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/menu/subDetail.js}"></script>
+</div>
+<div th:fragment="footer_menu-subDetail">
+    <div th:replace="/admin/footer::footer_common"/>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/menu/subDetail.js}"></script>
+</div>
+<div th:fragment="footer_menu-edit">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/menu/edit.js}"></script>
+</div>>
 </html>

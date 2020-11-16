@@ -8,12 +8,31 @@
 <div class="page-container">
     <div id="list" th:fragment="list" style="overflow:hidden;zoom:1;">
         <div class="cl pd-5 bg-1 bk-gray">
-            <span class="l">
+            <table>
+                <td>
+                    <!--<div class="search_box_con">
+                        <input type="text" placeholder="请输入搜索关键字" onkeydown="if(event.keyCode==13)searchValue()" id="search"/>
+                        <a class="fe-font Hui-iconfont" href="#this" onclick="searchValue()">&#xe709;</a>-->
+                    <!--<span class="fe-font Hui-iconfont"></span>
+                </div>-->
+                </td>
+                <td>
+                    <div>
+                        <ul class="toolbar_list">
+                            <li><a href="javascript:;" id="btn-delete" onclick="btn_delete()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></li>
+                            <li><a href="javascript:;" id="btn-update" onclick="btn_update()"  class="btn btn-warning radius"><i class="Hui-iconfont">&#xe601;</i>批量启用/停用</a></li>
+                            <li><a class="btn btn-primary radius" onclick="picture_add('添加登录背景图','/admin/loginPic/add')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加登录背景图</a></li>
+                        </ul>
+                    </div>
+                </td>
+                <td></td>
+            </table>
+<!--            <span class="l">
                 <a href="javascript:;" id="btn-delete" onclick="btn_delete()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
                 <a href="javascript:;" id="btn-update" onclick="btn_update()"  class="btn btn-warning radius"><i class="Hui-iconfont">&#xe601;</i>批量启用/停用</a>
                 <a class="btn btn-primary radius" onclick="picture_add('添加登录背景图','/admin/loginPic/add')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加登录背景图</a>
             </span>
-            <span class="r">共有数据：<strong th:text="${total}"></strong> 条</span>
+            <span class="r">共有数据：<strong th:text="${total}"></strong> 条</span>-->
         </div>
         <input th:hidden="true" id="total" th:value="${total}" />
         <!--	<div class="menu">

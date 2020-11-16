@@ -29,11 +29,11 @@ public class DictServiceImpl implements DictService {
     private Logger LOGGER = LoggerFactory.getLogger(DictServiceImpl.class);
 
     @Resource
-    private DictDao dictVoDao;
+    private DictDao dictDao;
 
     @Override
     public List getDictList() {
-        List<DictVo> dictVoList = dictVoDao.getDictListByNotDelete();
+        List<DictVo> dictVoList = dictDao.getDictListByNotDelete();
         List temp = new ArrayList();
         for (int i = 0; i < dictVoList.size(); i++) {
             DictVo dictVo = dictVoList.get(i);
@@ -58,7 +58,7 @@ public class DictServiceImpl implements DictService {
     @Override
     public int getCountDictByNameId(String id,String name,String lastId) {
 
-        int count = dictVoDao.getCountByName(name,id,lastId);
+        int count = dictDao.getCountByName(name,id,lastId);
 
         return count;
     }
@@ -73,10 +73,10 @@ public class DictServiceImpl implements DictService {
         String sort ="1";
         switch (type){
             case "1":
-                sort = dictVoDao.getFirSort();
+                sort = dictDao.getFirSort();
                 break;
             case "2":
-                sort = dictVoDao.getSecSort(lastId);
+                sort = dictDao.getSecSort(lastId);
                 break;
             default:
                 sort = "1";
@@ -92,7 +92,7 @@ public class DictServiceImpl implements DictService {
      */
     @Override
     public DictVo getDictById(String id) {
-        DictVo dictVo = dictVoDao.getDictById(id);
+        DictVo dictVo = dictDao.getDictById(id);
         return dictVo;
     }
 
@@ -122,7 +122,7 @@ public class DictServiceImpl implements DictService {
                     firstName = dictVo.getDescribe();
                     separator = "/";
                 }else if("2".equals(series)) {
-                    DictVo tempVo = dictVoDao.getDictById(dictVo.getLastId());
+                    DictVo tempVo = dictDao.getDictById(dictVo.getLastId());
                     if(null != tempVo){
                         firstName = tempVo.getFirstName();
                         fullName = tempVo.getFullName()+tempVo.getSeparator()+dictVo.getDescribe();
@@ -132,7 +132,7 @@ public class DictServiceImpl implements DictService {
                 dictVo.setFullName(fullName);
                 dictVo.setSeparator(separator);
                 dictVo.setFirstName(firstName);
-                num = dictVoDao.insertDict(dictVo);
+                num = dictDao.insertDict(dictVo);
                 if(num > 0){
                     jsonObject.put("code", "100000");
                     jsonObject.put("msg", "添加成功");
@@ -152,22 +152,22 @@ public class DictServiceImpl implements DictService {
                     dictVo.setFirstName(firstName);
                     dictVo.setFullName(fullName);
                     //修改所有子节点
-                    List<DictVo> list = dictVoDao.getSubData(dictVo.getId());
+                    List<DictVo> list = dictDao.getSubData(dictVo.getId());
                     for (int i = 0; i < list.size(); i++) {
                         DictVo nestDictVo = list.get(i);
                         nestDictVo.setFirstName(dictVo.getFirstName());
                         nestDictVo.setLastName(dictVo.getDescribe());
                         nestDictVo.setFullName(dictVo.getFullName()+nestDictVo.getSeparator()+nestDictVo.getDescribe());
-                        dictVoDao.updateDict(nestDictVo);
+                        dictDao.updateDict(nestDictVo);
                     }
                 }else if("2".equals(dictVo.getSeries())){
                     //获取上级
-                    DictVo lastDictVo = dictVoDao.getDictById(dictVo.getLastId());
+                    DictVo lastDictVo = dictDao.getDictById(dictVo.getLastId());
                     dictVo.setLastName(lastDictVo.getDescribe());
                     dictVo.setFullName(lastDictVo.getFullName()+dictVo.getSeparator()+dictVo.getDescribe());
                     dictVo.setFirstName(lastDictVo.getFirstName());
                 }
-                num = dictVoDao.updateDict(dictVo);
+                num = dictDao.updateDict(dictVo);
                 if (num > 0) {
                     jsonObject.put("code", "100000");
                     jsonObject.put("msg", "修改成功");
@@ -186,7 +186,7 @@ public class DictServiceImpl implements DictService {
 
     @Override
     public String getDictValue(String dictType, String key) {
-        DictVo dictVo = dictVoDao.getDictByName(key,dictType);
+        DictVo dictVo = dictDao.getDictByName(key,dictType);
 
         return dictVo.getDescribe();
     }
@@ -198,7 +198,7 @@ public class DictServiceImpl implements DictService {
      */
     @Override
     public List getSubData(String id) {
-        List<DictVo> list = dictVoDao.getSubData(id);
+        List<DictVo> list = dictDao.getSubData(id);
         List temp = new ArrayList();
         for (int i = 0; i < list.size(); i++) {
             DictVo dictVo = list.get(i);
@@ -224,7 +224,7 @@ public class DictServiceImpl implements DictService {
     @Override
     public String getSeriesById(String id) {
 
-        DictVo dictVo = dictVoDao.getDictById(id);
+        DictVo dictVo = dictDao.getDictById(id);
         String series = "";
         if(null != dictVo){
             series = dictVo.getSeries();
@@ -234,11 +234,11 @@ public class DictServiceImpl implements DictService {
 
     @Override
     public List getListByName(String name) {
-        DictVo dictVo = dictVoDao.getDictByName(name,"/");
+        DictVo dictVo = dictDao.getDictByName(name,"/");
         List<DictVo> list = new ArrayList();
         if(null != dictVo) {
             String id = dictVo.getId();
-            list = dictVoDao.getSubData(id);
+            list = dictDao.getSubData(id);
         }
         return list;
     }
@@ -263,7 +263,7 @@ public class DictServiceImpl implements DictService {
     private Boolean updateStatus(String id,UserVo userVo){
 
         //修改 id的状态
-        int num = dictVoDao.updateDictWithStatusById(id);
+        int num = dictDao.updateDictWithStatusById(id);
         if(num > 0){
             return true;
         }
@@ -273,9 +273,9 @@ public class DictServiceImpl implements DictService {
     @Transactional
     public Boolean updateDelete(String id,UserVo userVo){
         //删除 id
-        int num = dictVoDao.updateDictStatusById(id,"2");
+        int num = dictDao.updateDictStatusById(id,"2");
         if(num > 0){
-            dictVoDao.updateDictStatusByLastId(id,"2");
+            dictDao.updateDictStatusByLastId(id,"2");
             return true;
         }
         return false;

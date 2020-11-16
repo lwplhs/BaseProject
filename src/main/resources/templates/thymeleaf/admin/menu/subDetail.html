@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='后台管理',active='home'">
+<header th:replace="/admin/header::headerFragment(${title},${active})"></header>
+<body id="subDetail">
+    <table class="table table-border table-bordered table-bg mt-20">
+        <thead>
+            <tr>
+                <th scope="col">菜单名称</th>
+                <th scope="col">链接</th>
+                <th scope="col">图标</th>
+                <th scope="col">启用</th>
+                <th scope="col">排序</th>
+            </tr>
+        </thead>
+        <tbody id="list">
+        </tbody>
+    </table>
+    <div th:replace="/admin/footer::footer_menu-subDetail"></div>
+    <div th:hidden="hidden" id="reflush"></div>
+    <script type="text/javascript">
+        $("#subDetail").niceScroll({
+            cursorcolor: "rgba(217,138,151,0.02)",   //滚动条颜色
+            cursoropacitymax: 0.1, //滚动条透明度
+            touchbehavior: false,
+            cursorwidth:"2px",
+            cursorborder:"0",
+            cursorborderradius:"2px"
+
+        });
+        $("#subDetail").resize(function () {
+            $("#subDetail").getNiceScroll().resize();
+        });
+    </script>
+</body>
+</html>
