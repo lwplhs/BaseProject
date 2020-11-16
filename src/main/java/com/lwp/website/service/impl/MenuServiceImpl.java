@@ -8,6 +8,7 @@ import com.lwp.website.entity.Vo.DictVo;
 import com.lwp.website.entity.Vo.MenuVo;
 import com.lwp.website.entity.Vo.UserVo;
 import com.lwp.website.service.MenuService;
+import com.lwp.website.utils.StringUtil;
 import com.lwp.website.utils.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,8 +51,8 @@ public class MenuServiceImpl implements MenuService {
             jsonObject.put("status",status);
             String series = menuVo.getSeries();
             jsonObject.put("series",series);
-            jsonObject.put("drag",false);
-            jsonObject.put("drop",false);
+            jsonObject.put("drag",true);
+            jsonObject.put("drop",true);
             temp.add(jsonObject);
         }
         return temp;
@@ -170,6 +171,57 @@ public class MenuServiceImpl implements MenuService {
         rootMenuBo.setSubMenuList(subMenuList);
 
         return rootMenuBo;
+    }
+
+    @Override
+    public Boolean drag(String dragId, String dropId, UserVo userVo) {
+        //分两种情况 排序 和 移动
+        MenuVo menuVoDrag = getMenuById(dragId);
+        MenuVo menuVoDrop = getMenuById(dropId);
+        if(StringUtil.isNull(menuVoDrag) || StringUtil.isNull(menuVoDrop)){
+            return false;
+        }
+        String seriesDrag = menuVoDrag.getSeries();
+        String seriesDrop = menuVoDrop.getSeries();
+        String pidDrag = menuVoDrag.getPid();
+        String pidDrop = menuVoDrop.getPid();
+        String sortDrag = menuVoDrag.getSort();
+        String sortDrop = menuVoDrop.getSort();
+        if(pidDrag.equals(dropId)){
+            return false;
+        }
+        //层级相同
+        if(seriesDrag.equals(seriesDrop)){
+            //层级相同 父节点相同 只进行排序
+            if(pidDrag.equals(pidDrop)){
+                //父节点相同的话 相当于只进行排序
+                //设置drag 排序值为 drop的排序值
+
+                menuVoDrag.setSort(sortDrop);
+                if(sortDrag.compareTo(sortDrop) > 0){
+                    menuDao.dragMenuSort(sortDrop,pidDrop,"1");
+                }else {
+                    menuDao.dragMenuSort(sortDrop,pidDrop,"2");
+                }
+                menuDao.updateMenu(menuVoDrag);
+            }
+            //层级相同 父节点不相同 先进行移动，再进行排序
+            else {
+                //先修改
+                menuVoDrag.setPid(pidDrop);
+                menuVoDrag.setSort(sortDrop);
+                menuDao.dragMenuSort(sortDrop,pidDrop,"1");
+                menuDao.updateMenu(menuVoDrag);
+            }
+        }else {
+            //层级不相同 进行移动 排序值在最后面
+            menuVoDrag.setPid(dropId);
+            String series = String.valueOf(Integer.parseInt(seriesDrop)+1);
+            menuVoDrag.setSeries(series);
+            menuVoDrag.setSort(getSort(series,dropId));
+            menuDao.updateMenu(menuVoDrag);
+        }
+        return true;
     }
 
     private List<MenuBo> getMenu(String id){

@@ -31,4 +31,6 @@ public interface MenuService {
     Boolean updateMenuWithType(String type,String id,UserVo userVo);
 
     MenuBo getMenuByUser(UserVo userVo);
+
+    Boolean drag(String dragId,String dropId,UserVo userVo);
 }

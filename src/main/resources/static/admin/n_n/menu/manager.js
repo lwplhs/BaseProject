@@ -43,7 +43,7 @@ var setting = {
 
         beforeDragOpen : null , //拖拽节点移动到折叠状态的父节点后,即将自动展开该父节点之前的事件回调函数,并且根据返回值确定是否允许自动展开操作
 
-        beforeDrop : null ,//节点拖拽操作结束之前的时间回调函数,并且根据返回值确定是否允许此拖拽操作
+        beforeDrop : beforeDrop ,//节点拖拽操作结束之前的时间回调函数,并且根据返回值确定是否允许此拖拽操作
 
         beforeEditName:null,//节点编辑按钮的click事件,并且根据返回值确定是否允许进入名称编辑 状态
 
@@ -73,7 +73,7 @@ var setting = {
 
         onDragMove : null,//节点被拖拽过程中移动的事件回调函数
 
-        onDrop:null,//节点拖拽操作结束的事件回调函数
+        onDrop:onDrop1,//节点拖拽操作结束的事件回调函数
 
         onExpand : onExpand ,//节点被展开的事件回调函数
 
@@ -412,7 +412,73 @@ function getData(id) {
         }
     });
 }
+//用于捕获节点拖拽操作结束之前的事件回调函数，并且根据返回值确定是否允许此拖拽操作
+//默认值 null
+function beforeDrop(treeId, treeNodes, targetNode, moveType) {
+    var dragSeries = treeNodes[0].series;
+    var dropSeries = targetNode.series;
+    if('1'==dragSeries && '2'== dropSeries){
+        return false;
+    }
+    var dragPid = treeNodes[0].pId;
+    var dropId = targetNode.id;
+    console.log(dragPid);
+    console.log(dropId);
+    if(dragPid == dropId){
+        return false;
+    }
+    var dragId = treeNodes[0].id;
+    var dropId = targetNode.id;
+    if(StringUtils.isEmpty(dropId) || StringUtils.isEmpty(dragId)){
+        layer.msg("移动失败！");
+    }else {
+        $.ajax({
+            type:'POST',
+            url: '/admin/menu/drag',
+            data:{
+                dragId:dragId,
+                dropId:dropId
+            },
+            success: function (data) {
+                if(!data.success){
+                    layer.msg(data.msg || '更新失败');
+                    setTimeout(function() {
+                        window.location.href=window.location.href;
+                    }, 1000);
+                }
+            },
+        });
+    }
+    return true;
+}
+//用于捕获节点拖拽操作结束的事件回调函数  默认值： null
+function onDrop1(event, treeId, treeNodes, targetNode,moveType) {
+    window.location.href=window.location.href;
+    //拖拽成功时，修改被拖拽节点的pid
+/*    var dragId = treeNodes[0].id;
+    var dropId = targetNode.id;
+    if(StringUtils.isEmpty(dropId) || StringUtils.isEmpty(dragId)){
+        layer.msg("移动失败！");
+    }else {
+        $.ajax({
+            type:'POST',
+            url: '/admin/menu/drag',
+            data:{
+                dragId:dragId,
+                dropId:dropId
+            },
+            success: function (data) {
+                if(!data.success){
+                    layer.msg(data.msg || '更新失败');
+                    setTimeout(function() {
+                        window.location.href=window.location.href;
+                    }, 1000);
+                }
+            },
+        });
+    }*/
 
+}
 function chooseData(id) {
     var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
     treeObj.cancelSelectedNode();
@@ -528,7 +594,7 @@ function menu_delete() {
 function updateStatus(ids,type) {
     $.ajax({
         type:"POST",
-        url:"/admin/menu/updateStatusById",
+        url:"/admin/menu/updateMenuStatusById",
         data:{
             "id":ids,
             "type":type

@@ -13,11 +13,11 @@
     </resultMap>
 
     <select id="getMenuListByNotDelete" resultMap="BaseResultMap">
-        select * from menu where status !=2
+        select * from menu where status !=2 order by sort
     </select>
 
     <select id="getSubData" resultMap="BaseResultMap" parameterType="java.lang.String">
-        select * from menu where status != 2 and pid = #{id,jdbcType= VARCHAR}
+        select * from menu where status != 2 and pid = #{id,jdbcType= VARCHAR} order by sort
     </select>
 
     <select id="getSort" resultType="java.lang.String" parameterType="java.lang.String">
@@ -124,6 +124,21 @@
 
     <update id="updateMenuStatusById" parameterType="java.lang.String">
         update menu set status=#{status,jdbcType=VARCHAR} where id = #{id,jdbcType=VARCHAR} or pid=#{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="dragMenuSort">
+        <if test='type=="1"'>
+            update menu set sort=sort+1 where 1=1 and sort &gt;= #{sort,jdbcType=VARCHAR}
+            <if test="id!=null">
+                and pid = #{id,jdbcType=VARCHAR}
+            </if>
+        </if>
+        <if test='type=="2"'>
+            update menu set sort=sort-1 where 1=1 and sort &gt;= #{sort,jdbcType=VARCHAR}
+            <if test="id!=null">
+                and pid = #{id,jdbcType=VARCHAR}
+            </if>
+        </if>
     </update>
 
 

@@ -29,4 +29,6 @@ public interface MenuDao {
 
     int updateMenuStatusById(String id,String status);
 
+    int dragMenuSort(String sort,String id,String type);
+
 }

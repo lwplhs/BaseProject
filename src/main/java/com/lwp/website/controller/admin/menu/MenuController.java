@@ -229,6 +229,22 @@ public class MenuController extends BaseController {
         }
     }
 
+    @PostMapping(value = "drag")
+    @ResponseBody
+    public RestResponseBo drag(@RequestParam(value = "dragId") String dragId,
+                               @RequestParam(value = "dropId") String dropId,
+                               HttpServletRequest request){
+        LOGGER.info("-------------------开始进行拖拽-----------------------");
+        UserVo userVo = TaleUtils.getLoginUser(request);
+        Boolean bool = menuService.drag(dragId,dropId,userVo);
+        LOGGER.info("--------------------拖拽结束--------------------------");
+        if(bool){
+            return RestResponseBo.ok(1,"更新成功");
+        }else {
+            return RestResponseBo.fail(-1,"更新失败");
+        }
+    }
+
 
 
 }
