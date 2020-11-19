@@ -410,6 +410,10 @@ public final class Commons {
         return sn.getName();
     }
 
+    public static String getCopyright(){
+        return systemConfigBo.getCopyright();
+    }
+
 
 
 }

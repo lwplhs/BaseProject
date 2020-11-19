@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='后台管理',active='home'">
-<header th:replace="/admin/header::headerFragment(${title},${active})"></header>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title=${commons.getTitle()},active='home',logo=${commons.getLogo()},copyright=${commons.getCopyright()}">
+<header th:replace="/admin/header::headerFragment(${title},${active},${logo})"></header>
 <body>
     <div class="page-container">
         <form class="form form-horizontal" id="form-pwd-add">
@@ -31,6 +31,7 @@
         </form>
     </div>
     <div th:replace="/admin/footer::footer_info"></div>
+    <div th:replace="/admin/footer::footer-content(${copyright})"></div>
 </body>
 <script type="text/javascript">
 

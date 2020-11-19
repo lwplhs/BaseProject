@@ -17,6 +17,16 @@ public class SystemBo implements Serializable {
 
     private String logo;
 
+    private String copyright;
+
+    public String getCopyright() {
+        return copyright;
+    }
+
+    public void setCopyright(String copyright) {
+        this.copyright = copyright;
+    }
+
     public String getLogo() {
         return logo;
     }

@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='后台管理',active='home'">
-<header th:replace="/admin/header::headerFragment(${title},${active})"></header>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title=${commons.getTitle()},active='home',logo=${commons.getLogo()},copyright=${commons.getCopyright()}">
+<header th:replace="/admin/header::headerFragment(${title},${active},${logo})"></header>
 <body style="overflow: auto">
 <div class="page-container" style="height:100%;overflow:auto">
     <p class="f-20 text-success">欢迎使用admin后台管理</p>
@@ -166,6 +166,6 @@
     </table>
 </div>
 <div th:replace="/admin/footer::footer_main"></div>
-<footer th:replace="/admin/footer::footer-content"></footer>
+<div th:replace="/admin/footer::footer-content(${copyright})"></div>
 </body>
 </html>

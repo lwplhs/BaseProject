@@ -1,16 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>welcome</title>
-    <meta name="renderer" content="webkit|ie-comp|ie-stand"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="Bookmark" th:href="@{/static/admin/images/logo.png}" />
-    <link rel="Shortcut Icon" th:href="@{/static/admin/images/logo.png}" />
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title=${commons.getTitle()},active='home',logo=${commons.getLogo()},copyright=${commons.getCopyright()}">
+<header th:replace="/admin/header::headerFragment(${title},${active},${logo})"></header>
 <body>
     <a th:href="@{/admin}">管理员界面</a>
-    <a th:href="@{/vom/js}">悬赏界面</a>
 </body>
+<div th:replace="/admin/footer::footer-content(${copyright})"></div>
 </html>

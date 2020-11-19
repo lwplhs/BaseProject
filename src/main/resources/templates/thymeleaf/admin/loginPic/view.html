@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='登录背景图管理',active='article'">
-<header th:replace="/admin/header::headerFragment(${title},${active})"></header>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title=${commons.getTitle()},active='home',logo=${commons.getLogo()},copyright=${commons.getCopyright()}">
+<header th:replace="/admin/header::headerFragment(${title},${active},${logo})"></header>
 <body>
 <div class="page-container">
     <form class="form form-horizontal" id="form-loginPic-add">
@@ -83,6 +83,6 @@
 
 
 <div th:replace="/admin/footer::footer_loginPic-view"></div>
-<div th:replace="/admin/footer::footer-content"></div>
+<div th:replace="/admin/footer::footer-content(${copyright})"></div>
 </body>
 </html>

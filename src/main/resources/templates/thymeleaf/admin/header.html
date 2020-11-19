@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="logo=${commons.getLogo()}">
-<head th:fragment="headerFragment(title,active)">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerFragment(title,active,logo)">
     <meta charset="utf-8"/>
     <title><th:block th:text="${title!=null?title:'后台管理'}"></th:block></title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand"/>

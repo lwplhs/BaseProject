@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='角色管理',active='article'">
-<header th:replace="/admin/header::headerFragment(${title},${active})"></header>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title=${commons.getTitle()},active='home',logo=${commons.getLogo()},copyright=${commons.getCopyright()}">
+<header th:replace="/admin/header::headerFragment(${title},${active},${logo})"></header>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -45,7 +45,7 @@
     <ul id="treeDemo" class="ztree"></ul>
 </div>
 <div th:replace="/admin/footer::footer_role-edit"></div>
-<div th:replace="/admin/footer::footer-content"></div>
+<div th:replace="/admin/footer::footer-content(${copyright})"></div>
 </body>
 <script type="text/javascript">
 

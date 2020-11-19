@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="copyright=${commons.getCopyright()}">
 <div th:fragment="footer-np">
     <!--进度条-->
     <script type="text/javascript" th:src="@{/static/admin/n_n/loginPic/np.js}"></script>
     <script type="text/javascript" th:src="@{/static/admin/n_n/loginPic/nprogress.js}"></script>
 </div>
-<div th:fragment="footer-content">
+<div th:fragment="footer-content(copyright)">
     <style type="text/css">
         html,body{margin:0;padding: 0;}
         .header{background-color: #ffe4c4;}
@@ -36,7 +36,7 @@
         });
     </script>
     <footer class="footer text-right" >
-        2020 © <a th:href="@{https://github.com/lwplhs}" target="_blank">My WebSite</a><div class=""></div>
+        <th:block th:text="${copyright}"></th:block><div class=""></div>
     </footer>
     <div hidden="hidden" id="reflush"></div>
 </div>
@@ -197,7 +197,6 @@
     <div th:replace="/admin/footer::footer_common"></div>
     <div th:replace="/admin/footer::footer-np"></div>
     <script type="text/javascript" th:src="@{/static/admin/n_n/user/manager.js}"></script>
-    <div th:replace="/admin/footer::footer-content"></div>
     <script type="text/javascript" th:src="@{/static/admin/n_n/laypage/1.2/init.js}"></script>
 </div>
 <div th:fragment="footer_user-add">
@@ -216,7 +215,6 @@
 <div th:fragment="footer_system-manager">
     <div th:replace="/admin/footer::footer_common"></div>
     <div th:replace="/admin/footer::footer-np"></div>
-    <div th:replace="/admin/footer::footer-content"></div>
     <script type="text/javascript" th:src="@{/static/admin/n_n/system/manager.js}"></script>
 </div>
 <div th:fragment="footer_menu-manager">

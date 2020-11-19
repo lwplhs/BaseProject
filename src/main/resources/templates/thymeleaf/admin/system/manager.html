@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='后台管理',active='home'">
-<header th:replace="/admin/header::headerFragment(${title},${active})"></header>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title=${commons.getTitle()},active='home',logo=${commons.getLogo()},copyright=${commons.getCopyright()}">
+<header th:replace="/admin/header::headerFragment(${title},${active},${logo})"></header>
 <body>
 <head>
     <style type="text/css">
@@ -53,11 +53,19 @@
                         <p id="demoText"></p>
                     </div>
                 </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">版权信息：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="copyright" lay-verify="title" autocomplete="off" th:value="${systemBo.copyright}" placeholder="版权信息" class="layui-input" />
+                    </div>
+                </div>
             </form>
         </div>
 
     </div>
 </div>
 <div th:replace="/admin/footer::footer_system-manager"></div>
+<div th:replace="/admin/footer::footer-content(${copyright})"></div>
+
 </body>
 </html>

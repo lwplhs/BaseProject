@@ -34,7 +34,8 @@ public class SystemServiceImpl implements SystemService {
         SystemBo systemBo = new SystemBo();
         String value = StringUtil.isNotNull(map.get("logo"))?map.get("logo").toString():"";
         systemBo.setLogo(value);
-
+        value = StringUtil.isNotNull(map.get("copyright"))?map.get("copyright").toString():"";
+        systemBo.setCopyright(value);
         return systemBo;
     }
 
@@ -43,6 +44,9 @@ public class SystemServiceImpl implements SystemService {
 
         String key = "logo";
         String value = systemBo.getLogo();
+        systemDao.saveSystem(key,value);
+        key = "copyright";
+        value = systemBo.getCopyright();
         systemDao.saveSystem(key,value);
         Map map = new HashMap();
         map.put("errCode","1");

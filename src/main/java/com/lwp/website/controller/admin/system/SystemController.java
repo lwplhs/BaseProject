@@ -4,6 +4,7 @@ import com.lwp.website.controller.BaseController;
 import com.lwp.website.entity.Bo.RestResponseBo;
 import com.lwp.website.entity.Bo.SystemBo;
 import com.lwp.website.entity.Bo.SystemConfigBo;
+import com.lwp.website.entity.Vo.SystemVo;
 import com.lwp.website.res.ResourceManage;
 import com.lwp.website.service.SystemService;
 import com.lwp.website.service.WebUploadService;
@@ -58,18 +59,23 @@ public class SystemController extends BaseController {
                                      @ModelAttribute SystemBo systemBo){
         Map map = systemService.saveSystem(systemBo);
         String logo = systemBo.getLogo();
+        String copyright = systemBo.getCopyright();
         String logoPath = webUploadService.getPathById(logo);
         SystemConfigBo systemConfigBo = (SystemConfigBo) ResourceManage.getBean("systemConfigBo");
         systemConfigBo.setLogo(logoPath);
+        systemConfigBo.setCopyright(copyright);
         return RestResponseBo.ok(map.get("errCode"),map.get("errMsg"));
     }
 
     @Bean("systemConfigBo")
     public SystemConfigBo setSystemBoBean(){
         SystemConfigBo systemConfigBo = new SystemConfigBo();
-        String logo = systemService.getSystemConfig().getLogo();
+        SystemBo systemBo = systemService.getSystemConfig();
+        String logo = systemBo.getLogo();
         String logoPath = webUploadService.getPathById(logo);
         systemConfigBo.setLogo(logoPath);
+        String copyright = systemBo.getCopyright();
+        systemConfigBo.setCopyright(copyright);
         return systemConfigBo;
     }
 

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='',active='article'">
-<header th:replace="/admin/header::headerFragment(${title},${active})"></header>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title=${commons.getTitle()},active='home',logo=${commons.getLogo()},copyright=${commons.getCopyright()}">
+<header th:replace="/admin/header::headerFragment(${title},${active},${logo})"></header>
 <body>
     <form class="layui-form layui-form-pane" id="form-dict-add" method="post">
         <div class="layui-upload">
@@ -13,5 +13,5 @@
     </form>
 </body>
 <div th:replace="/admin/footer::footer_user-import"></div>
-<div th:replace="/admin/footer::footer-content"></div>
+<div th:replace="/admin/footer::footer-content(${copyright})"></div>
 </html>
