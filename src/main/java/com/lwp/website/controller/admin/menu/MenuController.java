@@ -1,9 +1,7 @@
 package com.lwp.website.controller.admin.menu;
 
 import com.lwp.website.controller.BaseController;
-import com.lwp.website.controller.admin.DictController;
 import com.lwp.website.entity.Bo.RestResponseBo;
-import com.lwp.website.entity.Vo.DictVo;
 import com.lwp.website.entity.Vo.MenuVo;
 import com.lwp.website.entity.Vo.UserVo;
 import com.lwp.website.service.MenuService;
@@ -33,16 +31,26 @@ import java.util.List;
 @RequestMapping("/admin/menu")
 public class MenuController extends BaseController {
 
-    private Logger LOGGER = LoggerFactory.getLogger(DictController.class);
+    private Logger LOGGER = LoggerFactory.getLogger(MenuController.class);
 
     @Resource
     private MenuService menuService;
 
+    /**
+     * 菜单管理
+     * 跳转到 manager页面
+     * @return
+     */
     @GetMapping("/manager")
     public String manager(){
         return this.render("/admin/menu/manager");
     }
 
+    /**
+     * 菜单管理
+     * 跳转到 子表详情页面
+     * @return
+     */
     @GetMapping("/subDetail")
     public String subDetail(){
 
@@ -50,6 +58,7 @@ public class MenuController extends BaseController {
     }
 
     /**
+     * 菜单管理
      * 根据id id = 0 是首级节点
      * 跳转到新增页面
      * @param id
@@ -80,7 +89,7 @@ public class MenuController extends BaseController {
     }
 
     /**
-     *
+     * 菜单管理 跳转到edit页面 绑定数据
      * @param id
      * @param model
      * @return
@@ -121,6 +130,12 @@ public class MenuController extends BaseController {
 
     }
 
+    /**
+     * 跳转到 view 页面 绑定数据
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/view")
     public String viewPage(@RequestParam(value = "id",defaultValue = "") String id,
                            Model model){
@@ -155,11 +170,14 @@ public class MenuController extends BaseController {
     }
 
 
-
+    /**
+     * 菜单管理manager 获取菜单树状图数据
+     * @return
+     */
     @PostMapping(value = "/getData")
     @ResponseBody
     public RestResponseBo getData(){
-        LOGGER.info("-----------------------------获取数功能菜单");
+        LOGGER.info("-----------------------------开始获取功能菜单");
         List list = menuService.getMenuList();
         RestResponseBo<List> dictVoRestResponseBo = new RestResponseBo<List>(true,list);
         LOGGER.info("-----------------------------获取功能菜单结束");
@@ -167,8 +185,8 @@ public class MenuController extends BaseController {
     }
 
     /**
-     * 获取数据
-     * @param id
+     * 获取manager 右侧子菜单数据
+     * @param id 当前点击菜单的id
      * @return
      */
     @PostMapping(value = "/getSubData")
@@ -180,6 +198,14 @@ public class MenuController extends BaseController {
         return restResponseBo;
     }
 
+    /**
+     * 保存菜单信息
+     * @param request
+     * @param response
+     * @param menuVo
+     * @param bindingResult
+     * @return
+     */
     @PostMapping(value = "/saveMenu")
     @ResponseBody
     public RestResponseBo saveDict(HttpServletRequest request,
@@ -197,6 +223,11 @@ public class MenuController extends BaseController {
         return RestResponseBo.ok(result);
     }
 
+    /**
+     * 根据 菜单id 获取菜单级别
+     * @param id
+     * @return
+     */
     @PostMapping(value = "/getSeriesById")
     @ResponseBody
     public RestResponseBo getSeriesById(String id){
@@ -229,6 +260,13 @@ public class MenuController extends BaseController {
         }
     }
 
+    /**
+     * 功能菜单拖拽事件
+     * @param dragId
+     * @param dropId
+     * @param request
+     * @return
+     */
     @PostMapping(value = "drag")
     @ResponseBody
     public RestResponseBo drag(@RequestParam(value = "dragId") String dragId,
@@ -244,7 +282,4 @@ public class MenuController extends BaseController {
             return RestResponseBo.fail(-1,"更新失败");
         }
     }
-
-
-
 }

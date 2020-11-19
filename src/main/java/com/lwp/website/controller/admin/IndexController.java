@@ -1,5 +1,6 @@
 package com.lwp.website.controller.admin;
 
+import cn.hutool.core.util.StrUtil;
 import com.lwp.website.config.SysConfig;
 import com.lwp.website.controller.BaseController;
 import com.lwp.website.entity.Bo.MenuBo;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -69,12 +71,33 @@ public class IndexController extends BaseController {
 
         return this.render("admin/index");
     }
+
+    @GetMapping(value = "/info")
+    public String info(HttpServletRequest request,
+                       HttpServletResponse response,
+                       Model model){
+        return this.render("/admin/user/info");
+    }
+
     @GetMapping(value={"/getPage/{name}", "/getPage/{name}.html"})
     public String getHtml(HttpServletResponse response,@PathVariable String name){
 
         return this.render("admin/"+name);
     }
-
+    @GetMapping(value = "/checkBox")
+    public String toCheckBox(HttpServletRequest request,
+                             HttpServletResponse response,
+                             @RequestParam(value = "leftTitle") String leftTitle,
+                             @RequestParam(value = "rightTitle") String rightTitle,
+                             @RequestParam(value = "src") String src,
+                             @RequestParam(value = "checkedValue") String checkedValue,
+                             Model model){
+        model.addAttribute("leftTitle",leftTitle);
+        model.addAttribute("rightTitle",rightTitle);
+        model.addAttribute("src",src);
+        model.addAttribute("checkedValue",checkedValue);
+        return this.render("/admin/checkBox/manager");
+    }
 
     @ResponseBody
     @RequestMapping(value = "/savePwd")
@@ -182,4 +205,6 @@ public class IndexController extends BaseController {
             return RestResponseBo.fail();
         }
     }
+
+
 }

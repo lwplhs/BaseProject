@@ -64,12 +64,15 @@
         <div class="layui-form-item" pane="">
             <label class="layui-form-label">是否启用：</label>
             <ll:radio class="layui-input-block" defaultValue="0" radioName="status" th:value="${user.status}" dictType="是否启用"></ll:radio>
-<!--            <div class="layui-input-block">
-                <input type="radio" name="status" th:value="0" title="是" checked="checked"/>
-                <input type="radio" name="status" th:value="1" title="否"/>
-            </div>-->
         </div>
-        <div style="height:60px">
+        <div class="layui-form-item" pane="">
+            <label class="layui-form-label">访问权限：</label>
+            <input hidden="hidden" name="groupName" id="groupName" th:value="${user.groupName}" />
+            <div class="layui-input-block">
+                <input type="text" id="groupName-" name="groupName-" th:value="${group}" lay-verify="title" autocomplete="off" readonly="readonly"  onclick="checkBox('/admin/checkBox?leftTitle=1&rightTitle=2&src=/admin/role/getListRole','选择权限','groupName')"  placeholder="访问权限" class="layui-input" />
+            </div>
+        </div>
+        <div style="height:30px">
         </div>
         <div>
             <div style="text-align: center">

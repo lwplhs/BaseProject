@@ -22,11 +22,12 @@
                 <td>
                     <div>
                         <ul class="toolbar_list">
-                            <li><a href="javascript:;" id="btn-delete" onclick="btn_delete()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></li>
-                            <li><a href="javascript:;" id="btn-update" onclick="btn_update()"  class="btn btn-warning radius"><i class="Hui-iconfont">&#xe601;</i>批量启用/停用</a></li>
-                            <li><a class="btn btn-primary radius" onclick="user_add('添加用户','/admin/user/add')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加用户</a></li>
-                            <li><a class="btn btn-primary radius" onclick="btn_edit('编辑用户','/admin/user/edit')" href="javascript:;"><i class="Hui-iconfont">&#xe60c;</i> 编辑用户</a></li>
-                            <li><a class="btn btn-primary radius" onclick="user_import('批量导入','/admin/user/import')" href="javascript:;"><i class="Hui-iconfont">&#xe645;</i> 批量导入</a></li>
+                            <li><a href="javascript:;" id="btn-delete" onclick="btn_delete()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i>删除</a></li>
+                            <li><a href="javascript:;" id="btn-default" onclick="btn_default()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i>初始化密码</a></li>
+                            <li><a href="javascript:;" id="btn-update" onclick="btn_update()"  class="btn btn-warning radius"><i class="Hui-iconfont">&#xe601;</i>启用/停用</a></li>
+                            <li><a class="btn btn-primary radius" onclick="user_add('添加','/admin/user/add')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i>新增</a></li>
+                            <li><a class="btn btn-primary radius" onclick="btn_edit('编辑','/admin/user/edit')" href="javascript:;"><i class="Hui-iconfont">&#xe60c;</i>编辑</a></li>
+                            <li><a class="btn btn-primary radius" onclick="user_import('导入','/admin/user/import')" href="javascript:;"><i class="Hui-iconfont">&#xe645;</i>导入</a></li>
                         </ul>
                     </div>
                 </td>
@@ -81,6 +82,7 @@
                     <td><u th:text="${lic.concurrent}"></u></td>-->
                     <td class="f-14 td-manage">
                         <a style="text-decoration:none" class="ml-5" onClick="editUser(this)" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>
+                        <a style="text-decoration:none" class="ml-5" onClick="defaultUser(this)" href="javascript:;" title="初始化"><i class="Hui-iconfont">&#xe66c;</i></a>
                         <a th:if="${user.status == '1'}" style="text-decoration:none" class="ml-5" onClick="updateUserStatus(this,1)" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe677;</i></a>
                         <a th:if="${user.status == '0'}" style="text-decoration:none" class="ml-5" onClick="updateUserStatus(this,2)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe601;</i></a>
                         <a style="text-decoration:none" class="ml-5" onClick="deleteUser(this)" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>

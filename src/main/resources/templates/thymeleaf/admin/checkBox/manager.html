@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='后台管理',active='home'">
+<header th:replace="/admin/header::headerFragment(${title},${active})"></header>
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/admin/n_n/loginPic/imageShow.css}"></link>
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+<div class="page-container">
+    <input hidden="hidden" name="leftTitle" id="leftTitle" th:value="${leftTitle}"/>
+    <input hidden="hidden" name="rightTitle" id="rightTitle" th:value="${rightTitle}"/>
+    <input hidden="hidden" name="src" id="src" th:value="${src}"/>
+    <input hidden="hidden" name="checkedValue" id="checkedValue" th:value="${checkedValue}"/>
+    <input hidden="hidden" name="rightTitle" id="returnId" th:value="${returnId}"/>
+    <div id="test1"></div>
+    <div style="text-align: right;padding-right: 1%">
+        <button type="button" id="ensure" class="layui-btn layui-btn-normal layui-btn-radius">确定</button>
+        <button type="button" onclick="quxiao()" class="layui-btn layui-btn-warm layui-btn-radius">取消</button>
+    </div>
+</div>
+<div th:replace="/admin/footer::footer_checkBox-manager"></div>
+</body>
+</html>

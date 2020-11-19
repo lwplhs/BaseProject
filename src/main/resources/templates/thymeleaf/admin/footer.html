@@ -47,6 +47,7 @@
 <div th:fragment="footer_common">
     <!--jquery-->
     <script type="text/javascript" th:src="@{/static/admin/n_n/jquery/1.9.1/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/jquery/1.9.1/jquery.serializejson.js}"></script>
     <!--$.tale-->
     <script th:src="@{/static/admin/js/base.js}"></script>
     <!--layui-->
@@ -233,5 +234,24 @@
     <div th:replace="/admin/footer::footer_common"></div>
     <div th:replace="/admin/footer::footer-np"></div>
     <script type="text/javascript" th:src="@{/static/admin/n_n/menu/edit.js}"></script>
+</div>>
+<div th:fragment="footer_role-manager">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/role/manager.js}"></script>
+</div>
+<div th:fragment="footer_role-edit">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/role/edit.js}"></script>
+</div>
+<div th:fragment="footer_checkBox-manager">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/checkBox/manager.js}"></script>
+</div>
+<div th:fragment="footer_info">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/user/info.js}"></script>
 </div>>
 </html>

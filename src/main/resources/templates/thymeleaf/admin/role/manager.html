@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='角色管理',active='home'">
+<header th:replace="/admin/header::headerFragment(${title},${active})"></header>
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/admin/n_n/loginPic/imageShow.css}"></link>
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+<div class="page-container">
+    <div  style="overflow:hidden;zoom:1;">
+        <div class="cl pd-5 bg-1 bk-gray">
+            <table>
+                <td>
+                    <div class="search_box_con">
+                        <input type="text" placeholder="请输入搜索关键字" onkeydown="if(event.keyCode==13)searchValue()" id="search"/>
+                        <a class="fe-font Hui-iconfont" href="#this" onclick="searchValue()">&#xe709;</a>
+                        <!--<span class="fe-font Hui-iconfont"></span>-->
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <ul class="toolbar_list">
+                            <li><a href="javascript:;" id="btn-delete" onclick="btn_delete()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 删除</a></li>
+                            <li><a href="javascript:;" id="btn-update" onclick="btn_update()"  class="btn btn-warning radius"><i class="Hui-iconfont">&#xe601;</i>启用/停用</a></li>
+                            <li><a class="btn btn-primary radius" onclick="btn_edit('编辑角色','/admin/role/edit')" href="javascript:;"><i class="Hui-iconfont">&#xe60c;</i> 编辑</a></li>
+                            <li><a class="btn btn-primary radius" onclick="btn_add('添加角色','/admin/role/add')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 新增</a></li>
+                        </ul>
+                    </div>
+                </td>
+                <td></td>
+            </table>
+        </div>
+        <div id="list" th:fragment="list" style="margin-top: 1%">
+            <input th:hidden="true" id="total" th:value="${total}" />
+            <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
+                <thead>
+                <tr class="text-c">
+                    <th width="25"><input id="check1" type="checkbox" name="" value="" onchange="chooseAll()"></th>
+                    <th th:hidden="true">ID</th>
+                    <th width="120">角色名称</th>
+                    <th width="80">角色描述</th>
+                    <th width="120">是否启用</th>
+                    <th width="120">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="vo : ${list}">
+                    <tr class="text-c" onclick="chooseThis(this)">
+                        <td><input type="checkbox" name="checkbox" value=""></td>
+                        <td th:hidden="true" ><input name="id" th:value="${vo.id}"/></td>
+                        <td th:title="${vo.name}"><label  th:text="${vo.name}"></label></td>
+                        <td><label th:text="${vo.desc}"></label></td>
+                        <td><ll:combo isList="true" dictType="是否启用" id="status" th:value="${vo.status}" th:text="${vo.status}" name="status"></ll:combo></td>
+                        <td class="f-14 td-manage">
+                            <a style="text-decoration:none" class="ml-5" onClick="editThis(this)" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>
+                            <a th:if="${vo.status == '1'}" style="text-decoration:none" class="ml-5" onClick="updateThisStatus(this,1)" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe677;</i></a>
+                            <a th:if="${vo.status == '0'}" style="text-decoration:none" class="ml-5" onClick="updateThisStatus(this,2)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe601;</i></a>
+                            <a style="text-decoration:none" class="ml-5" onClick="deleteThis(this)" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                        </td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="laypage"></div>
+    <div id="dataNull" style="text-align: center" hidden="hidden">
+        <img width="300px" height="300px" th:src="@{/static/admin/images/dataNull.png}"/>
+    </div>
+</div>
+<div th:replace="/admin/footer::footer_role-manager"></div>
+</body>
+</html>

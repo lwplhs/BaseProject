@@ -3,9 +3,13 @@ package com.lwp.website.service.impl;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import com.alibaba.fastjson.JSONObject;
+import com.lwp.website.config.SysConfig;
 import com.lwp.website.dao.UserDao;
+import com.lwp.website.entity.Vo.RoleVo;
 import com.lwp.website.entity.Vo.UserVo;
 import com.lwp.website.exception.TipException;
+import com.lwp.website.service.RoleService;
+import com.lwp.website.service.UserRoleService;
 import com.lwp.website.service.UserService;
 import com.lwp.website.utils.StringUtil;
 import com.lwp.website.utils.TaleUtils;
@@ -30,6 +34,15 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private UserDao userDao;
+
+    @Resource
+    private RoleService roleService;
+
+    @Resource
+    private UserRoleService userRoleService;
+
+    @Resource
+    private SysConfig sysConfig;
 
     @Override
     public UserVo queryUserByUserName(String userName) {
@@ -160,7 +173,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
     public String saveUser(UserVo userVo, UserVo userLoginVo) {
 
         JSONObject jsonObject = new JSONObject();
@@ -178,6 +190,8 @@ public class UserServiceImpl implements UserService {
                 userVo.setPassword(newPassword);
                 num = userDao.insert(userVo);
                 if(num > 0){
+                    //新增用户后添加 用户 角色关系表
+                    userRoleService.insertData(userVo);
                     jsonObject.put("code", "100000");
                     jsonObject.put("msg", "添加成功");
                 } else {
@@ -187,6 +201,7 @@ public class UserServiceImpl implements UserService {
             }else {
                 num = userDao.updateByPrimaryKey(userVo);
                 if (num > 0) {
+                    userRoleService.insertData(userVo);
                     jsonObject.put("code", "100000");
                     jsonObject.put("msg", "修改成功");
                 } else {
@@ -263,20 +278,77 @@ public class UserServiceImpl implements UserService {
             if(userVo !=null) {
                 //添加id
                 userVo.setId(UUID.createID());
-                String pwd = "123";
+                String pwd = sysConfig.getDefaultPwd();
                 if(StrUtil.isNotEmpty(userVo.getPassword())){
                     pwd = userVo.getPassword();
                 }
-                String newPassword = TaleUtils.MD5encode(userVo.getUsername()+userVo.getPassword());
+                String newPassword = TaleUtils.MD5encode(userVo.getUsername()+pwd);
                 userVo.setPassword(newPassword);
                 userVo.setStatus("0");
                 userVo.setType("0");
+                //导入数据 中权限添加默认的权限
+                String roleId = sysConfig.getDefaultRoleId();
+                userVo.setGroupName(roleId);
                 this.insertUser(userVo);
             }
         }
         result.put("errCode","1");
         result.put("errMsg","导入成功");
         return result;
+    }
+
+    /**
+     * 根据用户信息获取 角色信息
+     * @param userVo
+     * @return
+     */
+    @Override
+    public String getRoleName(UserVo userVo) {
+        String roleIds = userVo.getGroupName();
+        if(StrUtil.isEmpty(roleIds)){
+            return "";
+        }
+        String roleName = "";
+        String[] temp = roleIds.split(",");
+        for (int i = 0; i < temp.length; i++) {
+            String roleId = temp[i];
+            RoleVo roleVo = roleService.getRoleById(roleId);
+            if(null != roleVo){
+                roleName = roleName + roleVo.getName() + ",";
+            }
+        }
+        if(StrUtil.isNotEmpty(roleName)){
+            if(roleName.endsWith(",")){
+                roleName = roleName.substring(0,roleName.length()-1);
+            }
+        }
+        return roleName;
+    }
+
+    /**
+     * 初始化密码
+     * @param ids
+     * @return
+     */
+    @Override
+    public Boolean defaultPwd(String ids) {
+
+        List<String> idList = this.toList(ids);
+        for (int i = 0; i < idList.size(); i++) {
+            String id = idList.get(i);
+            UserVo userVo = userDao.selectByPrimaryKey(id);
+            String username = userVo.getUsername();
+            String pwd = sysConfig.getDefaultPwd();
+            String newPassword = TaleUtils.MD5encode(username+pwd);
+            try {
+                userDao.updatePwd(userVo.getId(),newPassword);
+            }catch (Exception e){
+                e.printStackTrace();
+                return false;
+            }
+
+        }
+        return true;
     }
 
 

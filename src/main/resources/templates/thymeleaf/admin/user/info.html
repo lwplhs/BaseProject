@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='后台管理',active='home'">
+<header th:replace="/admin/header::headerFragment(${title},${active})"></header>
+<body>
+    <div class="page-container">
+        <form class="form form-horizontal" id="form-pwd-add">
+            <div class="row cl">
+                <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>原密码：</label>
+                <div class="formControls col-xs-5 col-sm-4">
+                    <input type="password" autocomplete="off" class="input-text" placeholder="" id="oldPwd" name="oldPwd"/>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>新密码：</label>
+                <div class="formControls col-xs-5 col-sm-4">
+                    <input type="password" autocomplete="off" class="input-text" placeholder="" id="newPwd" name="newPwd"/>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>确认密码：</label>
+                <div class="formControls col-xs-5 col-sm-4">
+                    <input type="password" autocomplete="off" class="input-text" placeholder="" id="enPsw" name="enPwd"/>
+                </div>
+            </div>
+            <div class="row cl" style="padding-top: 5%">
+                <div class="col-xs-6 col-sm-6 col-xs-offset-4 col-sm-offset-4">
+                    <button onClick="pwd_save_submit();" class="btn btn-primary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+                    <button onClick="quxiao()" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div th:replace="/admin/footer::footer_info"></div>
+</body>
+<script type="text/javascript">
+
+</script>
+</html>

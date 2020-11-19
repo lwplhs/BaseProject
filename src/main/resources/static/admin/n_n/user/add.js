@@ -43,7 +43,9 @@ function submitUser(){
 
     });
 }
+/*
+取消功能放到base.js中全局通用
 function quxiao(){
     var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
     parent.layer.close(index);
-}
+}*/

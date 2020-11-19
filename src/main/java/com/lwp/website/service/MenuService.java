@@ -33,4 +33,6 @@ public interface MenuService {
     MenuBo getMenuByUser(UserVo userVo);
 
     Boolean drag(String dragId,String dropId,UserVo userVo);
+
+    List getRoleTreeData();
 }

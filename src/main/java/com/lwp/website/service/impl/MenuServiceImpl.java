@@ -6,18 +6,24 @@ import com.lwp.website.dao.MenuDao;
 import com.lwp.website.entity.Bo.MenuBo;
 import com.lwp.website.entity.Vo.DictVo;
 import com.lwp.website.entity.Vo.MenuVo;
+import com.lwp.website.entity.Vo.RoleMenuVo;
 import com.lwp.website.entity.Vo.UserVo;
 import com.lwp.website.service.MenuService;
+import com.lwp.website.service.RoleMenuService;
+import com.lwp.website.service.UserRoleService;
 import com.lwp.website.utils.StringUtil;
 import com.lwp.website.utils.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,6 +40,16 @@ public class MenuServiceImpl implements MenuService {
     @Resource
     private MenuDao menuDao;
 
+    @Resource
+    private RoleMenuService roleMenuService;
+
+    @Resource
+    private UserRoleService userRoleService;
+
+    /**
+     * 获取未删除菜单 的树状结构 转换成list
+     * @return
+     */
     @Override
     public List getMenuList() {
         List<MenuVo> menuVoList = menuDao.getMenuListByNotDelete();
@@ -58,35 +74,46 @@ public class MenuServiceImpl implements MenuService {
         return temp;
     }
 
+    /**
+     * 根据id 获取子菜单数据
+     * @param id
+     * @return
+     */
     @Override
     public List getSubData(String id) {
         List<MenuVo> list = menuDao.getSubData(id);
-/*        List temp = new ArrayList();
-        for (int i = 0; i < list.size(); i++) {
-            MenuVo menuVo = list.get(i);
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("id",menuVo.getId());
-            jsonObject.put("name",menuVo.getName());
-            jsonObject.put("url",menuVo.getUrl());
-            jsonObject.put("status",menuVo.getStatus());
-            jsonObject.put("sort",menuVo.getSort());
-            temp.add(jsonObject);
-        }*/
         return list;
     }
 
+    /**
+     * 根据层级和 父id获取排序
+     * @param series
+     * @param id
+     * @return
+     */
     @Override
     public int getSort(String series,String id) {
         int sort = menuDao.getSort(series,id);
         return sort;
     }
 
+    /**
+     * 根据 id获取菜单信息
+     * @param id
+     * @return
+     */
     @Override
     public MenuVo getMenuById(String id) {
         MenuVo menuVo = menuDao.getMenuById(id);
         return menuVo;
     }
 
+    /**
+     * 保存菜单
+     * @param menuVo
+     * @param userVo
+     * @return
+     */
     @Override
     @Transactional
     public String saveMenu(MenuVo menuVo, UserVo userVo) {
@@ -142,6 +169,13 @@ public class MenuServiceImpl implements MenuService {
         return series;
     }
 
+    /**
+     * 更新菜单状态
+     * @param type
+     * @param id
+     * @param userVo
+     * @return
+     */
     @Override
     public Boolean updateMenuWithType(String type, String id, UserVo userVo) {
         switch (type){
@@ -167,12 +201,24 @@ public class MenuServiceImpl implements MenuService {
         rootMenuBo.setName(root.getName());
         rootMenuBo.setIcon(root.getIcon());
         rootMenuBo.setUrl(root.getUrl());
-        List<MenuBo> subMenuList = getMenu("0");
+        String temp = "common";
+        if("123".equals(userVo.getUsername()) || "admin".equals(userVo.getUsername())){
+            temp = "admin";
+        }
+        Set<String> menuSet = this.getSubMenuByRole(userVo.getId());
+        List<MenuBo> subMenuList = getMenu("0",menuSet,temp);
         rootMenuBo.setSubMenuList(subMenuList);
 
         return rootMenuBo;
     }
 
+    /**
+     * 菜单拖拽
+     * @param dragId
+     * @param dropId
+     * @param userVo
+     * @return
+     */
     @Override
     public Boolean drag(String dragId, String dropId, UserVo userVo) {
         //分两种情况 排序 和 移动
@@ -224,9 +270,50 @@ public class MenuServiceImpl implements MenuService {
         return true;
     }
 
-    private List<MenuBo> getMenu(String id){
+    /**
+     * 获取 角色树 正常状态
+     * @return
+     */
+    @Override
+    public List getRoleTreeData() {
+        List<MenuVo> menuVoList = menuDao.getRoleTreeDate();
+        List temp = new ArrayList();
+        for (int i = 0; i < menuVoList.size(); i++) {
+            MenuVo menuVo = menuVoList.get(i);
+            JSONObject jsonObject = new JSONObject();
+            String id = menuVo.getId();
+            jsonObject.put("id",id);
+            String pid = menuVo.getPid();
+            jsonObject.put("pId",pid);
+            String name = menuVo.getName();
+            jsonObject.put("name",name);
+            String status = menuVo.getStatus();
+            jsonObject.put("status",status);
+            String series = menuVo.getSeries();
+            jsonObject.put("series",series);
+            jsonObject.put("drag",false);
+            jsonObject.put("drop",false);
+            temp.add(jsonObject);
+        }
+        return temp;
+    }
+
+    /**
+     * 判断权限 获取
+     * @param id
+     * @param menuSet 权限列表
+     * @param type common普通用户 admin管理员
+     * @return
+     */
+    private List<MenuBo> getMenu(String id,Set<String> menuSet,String type){
         List<MenuBo> subMenuList = new ArrayList();
-        List<MenuVo> list = getSubData(id);
+        List<MenuVo> list = new ArrayList();
+        if("admin".equals(type)){
+            list = getSubData(id);
+        }else {
+            list = getSubData(id,menuSet);
+        }
+
         if(null == list || list.size() <= 0){
             return null;
         }
@@ -237,12 +324,53 @@ public class MenuServiceImpl implements MenuService {
             menuBo.setName(menuVo.getName());
             menuBo.setUrl(menuVo.getUrl());
             menuBo.setIcon(menuVo.getIcon());
-            List<MenuBo> temp = getMenu(menuVo.getId());
+            List<MenuBo> temp = getMenu(menuVo.getId(),menuSet,type);
             menuBo.setSubMenuList(temp);
             subMenuList.add(menuBo);
         }
         return subMenuList;
 
+    }
+
+    /**
+     * 根据用户权限 及 父节点id 获取菜单
+     * @param id
+     * @param menuSet
+     * @return
+     */
+    private List<MenuVo> getSubData(String id,Set<String> menuSet){
+
+        List<MenuVo> menuVos = menuDao.getSubData(id);
+        List<MenuVo> result = new ArrayList();
+        for (int i = 0; i < menuVos.size(); i++) {
+            MenuVo menuVo = menuVos.get(i);
+            String menuId = menuVo.getId();
+            if(menuSet.contains(menuId)){
+                result.add(menuVo);
+            }
+        }
+        return result;
+
+
+    }
+
+    /**
+     * 获取 该用户的角色权限
+     * @param userId
+     * @return
+     */
+    private Set<String> getSubMenuByRole(String userId){
+        List<String> roleList = userRoleService.getRoleIdByUserId(userId);
+        Set<String> menuSet = new HashSet();
+        for (int i = 0; i < roleList.size(); i++) {
+            String roleId = roleList.get(i);
+            List<RoleMenuVo> menuList = roleMenuService.getList(roleId);
+            for (int j = 0; j < menuList.size(); j++) {
+                String subMenuId = menuList.get(j).getMenuId();
+                menuSet.add(subMenuId);
+            }
+        }
+        return menuSet;
     }
 
 
@@ -262,6 +390,12 @@ public class MenuServiceImpl implements MenuService {
         return false;
     }
 
+    /**
+     * 删除
+     * @param id
+     * @param userVo
+     * @return
+     */
     @Transactional
     public Boolean updateDelete(String id,UserVo userVo){
         //删除 id

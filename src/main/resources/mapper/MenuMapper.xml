@@ -16,6 +16,10 @@
         select * from menu where status !=2 order by sort
     </select>
 
+    <select id="getRoleTreeDate" resultMap="BaseResultMap">
+        select * from menu where status = 0 order by sort
+    </select>
+
     <select id="getSubData" resultMap="BaseResultMap" parameterType="java.lang.String">
         select * from menu where status != 2 and pid = #{id,jdbcType= VARCHAR} order by sort
     </select>

@@ -3,6 +3,7 @@ package com.lwp.website.dao;
 import com.lwp.website.entity.Vo.MenuVo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,5 +31,7 @@ public interface MenuDao {
     int updateMenuStatusById(String id,String status);
 
     int dragMenuSort(int sort,String id,String type);
+
+    List<MenuVo> getRoleTreeDate();
 
 }

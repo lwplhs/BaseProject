@@ -159,3 +159,39 @@ $.tale.prototype.showLoading = function () {
 $.tale.prototype.hideLoading = function () {
     $('#tale-loading') && $('#tale-loading').hide();
 };
+
+var checkedIds="";
+var checkedNames="";
+
+/**
+ * 新增弹窗选择
+ * @param url
+ * @param title
+ * @param name
+ */
+function checkBox(url,title,name,returnId) {
+
+    var checkedValue = $("#"+name).val();
+    var checkedValue1 = $("#"+name+"-").val();
+    checkedIds = checkedValue;
+    checkedNames = checkedValue1;
+    url=url+"&checkedValue="+checkedValue;
+    layer.open({
+        type: 2,
+        /*shadeClose: true,*/
+        fixed: false, //不固定
+        maxmin: false, //开启最大化最小化按钮
+        area: ['500px', '400px'],
+        title: title,
+        content: url,
+        end: function () {
+            $("#"+name).val(checkedIds);
+            $("#"+name+"-").val(checkedNames);
+            $("#"+name+"-").text(checkedNames);
+        }
+    });
+}
+function quxiao(){
+    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+    parent.layer.close(index);
+}

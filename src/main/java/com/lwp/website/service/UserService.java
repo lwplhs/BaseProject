@@ -64,5 +64,17 @@ public interface UserService {
 
     Map<String,Object> importUsers(List<UserVo> list, File file,int cellCount,String prefix);
 
+    /**
+     * 将用户的角色id转换成角色名称显示
+     * @param userVo
+     * @return
+     */
+    String getRoleName(UserVo userVo);
+
+    /**
+     * 初始化密码
+     * @return
+     */
+    Boolean defaultPwd(String ids);
 
 }

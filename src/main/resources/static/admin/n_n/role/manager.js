@@ -4,7 +4,7 @@ $(function () {
 var page = 1;
 var limit = 10;
 var total;
-var searchKey;
+var searchKey="";
 
 
 
@@ -14,11 +14,11 @@ var searchKey;
 function updateStatus(ids) {
     $.ajax({
         type:"POST",
-        url:"/admin/user/updateUserStatus",
+        url:"/admin/role/updateStatus",
         data:{
             "ids":ids,
             "type":"1",
-            "searchKey":searchKey
+            "searchKey":searchKey,
         },
         success:function (data) {
             $("#reflush").html(data);
@@ -32,9 +32,9 @@ function updateStatus(ids) {
     });
 }
 
-function deleteUser(t) {
+function deleteThis(t) {
     var id = $(t).parents(".text-c").find("input[name='id']").val();
-    layer.confirm("是否将所选择的用户删除",{
+    layer.confirm("是否将所选择的删除",{
         btn:['确定','取消'],
         btn1:function (index, layero) {
             layer.close(index);
@@ -46,29 +46,16 @@ function deleteUser(t) {
     });
 
 }
-function editUser(t) {
+function editThis(t) {
     var id = $(t).parents(".text-c").find("input[name='id']").val();
-    user_edit('编辑用户','/admin/user/edit',id);
+    edit('编辑用户','/admin/role/edit',id);
 
 }
-function defaultUser(t) {
-    var id = $(t).parents(".text-c").find("input[name='id']").val();
-    layer.confirm("是否将所选择的用户密码初始化",{
-        btn:['确定','取消'],
-        btn1:function (index, layero) {
-            layer.close(index);
-            defaultPwd(id);
-        },
-        btn2:function (index, layero) {
-            layer.close(index);
-        }
-    });
-}
 
-function updateUserStatus(t,type) {
+function updateThisStatus(t,type) {
     var id = $(t).parents(".text-c").find("input[name='id']").val();
     if("1" == type){
-        layer.confirm("是否将所选择的用户启用",{
+        layer.confirm("是否将所选择的启用",{
             btn:['确定','取消'],
             btn1:function (index, layero) {
                 layer.close(index);
@@ -79,7 +66,7 @@ function updateUserStatus(t,type) {
             }
         });
     }else {
-        layer.confirm("是否将所选择的用户停用",{
+        layer.confirm("是否将所选择的停用",{
             btn:['确定','取消'],
             btn1:function (index, layero) {
                 layer.close(index);
@@ -100,10 +87,11 @@ function updateUserStatus(t,type) {
 function updateDelete(ids) {
     $.ajax({
         type:"POST",
-        url:"/admin/user/updateUserStatus",
+        url:"/admin/role/updateStatus",
         data:{
             "ids":ids,
-            "type":"2"
+            "type":"2",
+            "searchKey":searchKey
         },
         success:function (data) {
             $("#reflush").html(data);
@@ -131,7 +119,7 @@ function loadData() {
     NProgress.start();
     $.ajax({
         type: "POST",
-        url: "/admin/user/getUser",
+        url: "/admin/role/getData",
         data:{
             "pageNum":page,
             "limit":limit,
@@ -140,12 +128,12 @@ function loadData() {
         success: function (data) {
             $("#list").html(data);
             NProgress.done();
-/*            var imgM = imgManger;
-            imgM.init();*/
+            /*            var imgM = imgManger;
+                        imgM.init();*/
             setTimeout(function () {
-/*
-                getMenu();
-*/
+                /*
+                                getMenu();
+                */
                 var total = $("#total").val();
                 if(total == 0){
                     $("#laypage").attr("hidden","hidden");
@@ -210,14 +198,14 @@ function btn_update(){
         ids = ids + id + ",";
     });
     if(StringUtils.isEmpty(ids)){
-        layer.msg("请选择至少用户操作",function () {
+        layer.msg("请至少选择一个",function () {
         });
     }else{
         //判断最后是否有逗号 有的话去掉
         if(ids.endsWith(",")){
             ids = ids.substring(0,ids.length-1);
         }
-        layer.confirm("是否将所选择的用户启用/停用",{
+        layer.confirm("是否将所选择的状态启用/停用",{
             btn:['确定','取消'],
             btn1:function (index, layero) {
                 layer.close(index);
@@ -239,14 +227,14 @@ function btn_delete(){
         ids = ids + id + ",";
     });
     if(StringUtils.isEmpty(ids)){
-        layer.msg("请选择至少一个用户操作",function () {
+        layer.msg("请选择至少一个操作",function () {
         });
     }else{
         //判断最后是否有逗号 有的话去掉
         if(ids.endsWith(",")){
             ids = ids.substring(0,ids.length-1);
         }
-        layer.confirm("是否将所选择的用户删除",{
+        layer.confirm("是否将所选择的删除",{
             btn:['确定','取消'],
             btn1:function (index, layero) {
                 layer.close(index);
@@ -258,54 +246,10 @@ function btn_delete(){
         });
     }
 }
-function btn_default() {
-    var ids = '';
-    $("input[name='checkbox']:checked").each(function(){
-        var id = $(this).parent().parent().find("[name='id']").val();
-        ids = ids + id + ",";
-    });
-    if(StringUtils.isEmpty(ids)){
-        layer.msg("请选择至少一个用户操作",function () {
-        });
-    }else{
-        //判断最后是否有逗号 有的话去掉
-        if(ids.endsWith(",")){
-            ids = ids.substring(0,ids.length-1);
-        }
-        layer.confirm("是否将所选择的用户初始化密码",{
-            btn:['确定','取消'],
-            btn1:function (index, layero) {
-                layer.close(index);
-                defaultPwd(ids);
-            },
-            btn2:function (index, layero) {
-                layer.close(index);
-            }
-        });
-    }
-}
 
-function defaultPwd(ids) {
-    $.ajax({
-        type:"POST",
-        url:"/admin/user/updateDefaultPwd",
-        data:{
-            "ids":ids,
-        },
-        success:function (data) {
-            $("#reflush").html(data);
-            layer.msg(data.msg);
-            if(data && data.success){
-                setTimeout(function () {
-                    loadData();
-                },100);
-            }
-        }
-    });
-}
 
 /*用户-添加*/
-function user_add(title,url){
+function btn_add(title,url){
     layer.open({
         type: 2,
         /*shadeClose: true,*/
@@ -328,7 +272,7 @@ function btn_edit(title,url) {
         ids = ids + id + ",";
     });
     if(StringUtils.isEmpty(ids)){
-        layer.msg("请选择一个用户",function () {
+        layer.msg("请选择一个",function () {
         });
         return;
     }else{
@@ -338,13 +282,13 @@ function btn_edit(title,url) {
         }
     }
     if(ids.indexOf(",") !=-1){
-        layer.msg("只能请选择一个用户",function () {
+        layer.msg("只能请选择一个",function () {
         });
         return;
     }
-    user_edit(title,url,ids);
+    edit(title,url,ids);
 }
-function user_edit(title,url,ids) {
+function edit(title,url,ids) {
     layer.open({
         type: 2,
         /*shadeClose: true,*/
@@ -353,22 +297,6 @@ function user_edit(title,url,ids) {
         area: ['620px', '500px'],
         title: title,
         content: url+"?id="+ids,
-        end: function () {
-            //重新定义 页数 到首页
-            page = 1;
-            getPage();
-        }
-    });
-}
-function user_import(title,url){
-    layer.open({
-        type: 2,
-        /*shadeClose: true,*/
-        fixed: false, //不固定
-        maxmin: false, //开启最大化最小化按钮
-        area: ['400px', '200px'],
-        title: title,
-        content: url,
         end: function () {
             //重新定义 页数 到首页
             page = 1;

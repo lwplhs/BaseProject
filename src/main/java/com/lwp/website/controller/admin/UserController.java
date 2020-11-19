@@ -15,6 +15,7 @@ import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -69,6 +70,9 @@ public class UserController extends BaseController {
                              @RequestParam(value = "id") String id){
         UserVo userVo = userService.queryUserById(id);
         model.addAttribute("user",userVo);
+        //获取权限分组数据 将角色id转换为角色名称
+        String roleName = userService.getRoleName(userVo);
+        model.addAttribute("group",roleName);
         model.addAttribute("action","edit");
         return this.render("/admin/user/add");
     }
@@ -81,7 +85,7 @@ public class UserController extends BaseController {
 
 
     /**
-     * 根据分页 获取登录背景图数据
+     * 根据分页 获取数据
      * 增加关键字查询
      * @param model
      * @param pageNum
@@ -112,12 +116,13 @@ public class UserController extends BaseController {
     @ResponseBody
     public RestResponseBo updateUser(@RequestParam(value = "ids") String ids,
                                         @RequestParam(value = "type") String type,
+                                        @RequestParam(value = "searchKey",defaultValue = "") String searchKey,
                                         HttpServletRequest request){
         LOGGER.info("-------------------修改用户状态------------------");
         UserVo userVo = TaleUtils.getLoginUser(request);
         Boolean bool = userService.updateUser(ids,type,userVo);
         if(bool){
-            String totalCount = String.valueOf(userService.getCommonUserList("").size());
+            String totalCount = String.valueOf(userService.getCommonUserList(searchKey).size());
             return RestResponseBo.ok(totalCount,1,"更新成功");
         }else {
             return RestResponseBo.fail(-1,"更新失败，请刷新数据");
@@ -135,6 +140,7 @@ public class UserController extends BaseController {
      */
     @PostMapping("/saveUser")
     @ResponseBody
+    @Transactional
     public RestResponseBo saveUser(HttpServletRequest request,
                                    HttpServletResponse response,
                                    @Validated @ModelAttribute UserVo userVo,
@@ -186,6 +192,20 @@ public class UserController extends BaseController {
             file1.deleteOnExit();
         }
         return RestResponseBo.fail(-3);
+    }
+
+    @PostMapping("/updateDefaultPwd")
+    @ResponseBody
+    @Transactional
+    public RestResponseBo updateDefaultPwd(HttpServletRequest request,
+                                           HttpServletResponse response,
+                                           @RequestParam(value = "ids") String ids){
+        Boolean b = userService.defaultPwd(ids);
+        if (b){
+            return RestResponseBo.ok(1,"初始化成功");
+        }
+        return RestResponseBo.fail(0,"初始化失败，请重试！");
+
     }
 
 }

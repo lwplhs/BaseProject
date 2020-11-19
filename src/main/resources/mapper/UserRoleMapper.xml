@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lwp.website.dao.UserRoleDao">
+    <resultMap id="BaseResultMap" type="com.lwp.website.entity.Vo.UserRoleVo">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.lwp.website.entity.Vo.UserRoleVo" useGeneratedKeys="true" keyProperty="id">
+        insert into user_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="roleId != null">
+                role_id,
+            </if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id ,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="roleId != null">
+                #{roleId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteByUserId" parameterType="java.lang.String">
+        delete from user_role where user_id=#{userId,jdbcType=VARCHAR}
+    </delete>
+
+    <select id="getListByUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select * from user_role where user_id = #{userId,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

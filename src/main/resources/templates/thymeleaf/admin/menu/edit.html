@@ -37,10 +37,11 @@
         </div>
         <div class="layui-form-item" pane="">
             <label class="layui-form-label">是否启用：</label>
-            <div class="layui-input-block">
-                <input type="radio" name="status" th:value="0" title="是" th:checked="${status==0}">
-                <input type="radio" name="status" th:value="1" title="否" th:checked="${status==1}">
-            </div>
+            <ll:radio class="layui-input-block" defaultValue="0" radioName="status" th:value="${status}" dictType="是否启用"></ll:radio>
+            <!--            <div class="layui-input-block">
+                            <input type="radio" name="status" th:value="0" title="是" th:checked="${status==0}">
+                            <input type="radio" name="status" th:value="1" title="否" th:checked="${status==1}">
+                        </div>-->
         </div>
         <div style="text-align: center">
             <HR style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="100%" color=#987cb9 SIZE=3 />

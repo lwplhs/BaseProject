@@ -36,6 +36,26 @@ public class SysConfig {
 
     private String loginPic;
 
+    private String defaultRoleId;
+
+    private String defaultPwd;
+
+    public String getDefaultPwd() {
+        return defaultPwd;
+    }
+
+    public void setDefaultPwd(String defaultPwd) {
+        this.defaultPwd = defaultPwd;
+    }
+
+    public String getDefaultRoleId() {
+        return defaultRoleId;
+    }
+
+    public void setDefaultRoleId(String defaultRoleId) {
+        this.defaultRoleId = defaultRoleId;
+    }
+
     public String getMouldPath() {
         return mouldPath;
     }
