@@ -1,0 +1,251 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title=${commons.getTitle()},active='home',logo=${commons.getLogo()},copyright=${commons.getCopyright()}">
+<header th:replace="/admin/header::headerFragment(${title},${active},${logo})"></header>
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/admin/n_n/loginPic/imageShow.css}"></link>
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+<div class="page-container">
+    <div  style="overflow:hidden;zoom:1;">
+        <div class="cl pd-5 bg-1 bk-gray">
+            <table>
+                <td>
+<!--                    <div class="search_box_con">
+                        <input type="text" placeholder="请输入搜索关键字" onkeydown="if(event.keyCode==13)searchValue()" id="search"/>
+                        <a class="fe-font Hui-iconfont" href="#this" onclick="searchValue()">&#xe709;</a>
+                        &lt;!&ndash;<span class="fe-font Hui-iconfont"></span>&ndash;&gt;
+                    </div>-->
+                </td>
+                <td>
+                    <div>
+                        <ul class="toolbar_list">
+                            <li><a href="javascript:;" id="btn-save" onclick="btn_save()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i>保存</a></li>
+                        </ul>
+                    </div>
+                </td>
+                <td></td>
+            </table>
+        </div>
+        <div style="margin-top: 1%">
+            <!--<form class="layui-form layui-form-pane" id="form-user-add" method="post">
+                <input hidden="hidden" name="type" th:value="${user.type}"/>
+                <input hidden="hidden" name="id" th:value="${user.id}">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">登录名称：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="username" lay-verify="title" th:readonly="${action=='edit'}" th:value="${user.username}" autocomplete="off" placeholder="登录名称" class="layui-input" />
+                    </div>
+                    <label class="layui-form-label">用户名称：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="screenName" lay-verify="title" th:value="${user.screenName}" autocomplete="off" placeholder="用户名称" class="layui-input" />
+                    </div>
+                </div>
+                <div class="layui-form-item" th:if="${action=='add'}">
+                    <label class="layui-form-label">密码：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="password" lay-verify="title" value="123"  autocomplete="off" placeholder="请输入密码" class="layui-input" />
+                    </div>
+                    <label class="layui-form-label">确认密码：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="ensurePassword" lay-verify="title" value="123" autocomplete="off" placeholder="确认密码" class="layui-input" />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">电话号码：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="telephone" lay-verify="phone" th:value="${user.telephone}" autocomplete="off" placeholder="电话号码" class="layui-input" />
+                    </div>
+                    <label class="layui-form-label">邮箱：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="email" lay-verify="title" autocomplete="off" th:value="${user.email}" placeholder="邮箱" class="layui-input" />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">身份证号码：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="identification" lay-verify="title" autocomplete="off" th:value="${user.identification}" placeholder="身份证号码" class="layui-input" />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">家庭住址：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="address" lay-verify="title" autocomplete="off" th:value="${user.address}" placeholder="家庭住址" class="layui-input" />
+                    </div>
+                </div>
+                <div class="layui-form-item" pane="">
+                    <label class="layui-form-label">是否启用：</label>
+                    <ll:radio class="layui-input-block" defaultValue="0" radioName="status" th:value="${user.status}" dictType="是否启用"></ll:radio>
+                </div>
+                <div class="layui-form-item" pane="">
+                    <label class="layui-form-label">访问权限：</label>
+                    <input hidden="hidden" name="groupName" id="groupName" th:value="${user.groupName}" />
+                    <div class="layui-input-block">
+                        <input type="text" id="groupName-" name="groupName-" th:value="${group}" lay-verify="title" autocomplete="off" readonly="readonly"  onclick="checkBox('/admin/checkBox?leftTitle=1&rightTitle=2&src=/admin/role/getListRole','选择权限','groupName')"  placeholder="访问权限" class="layui-input" />
+                    </div>
+                </div>
+                &lt;!&ndash;<div style="height:30px">
+                </div>
+                <div>
+                    <div style="text-align: center">
+                        <HR style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="100%" color=#987cb9 SIZE=3 />
+                    </div>
+                    <div style="text-align: right;padding-right: 1%">
+                        <button type="button" onclick="submitUser()" class="layui-btn layui-btn-normal layui-btn-radius">确定</button>
+                        <button type="button" onclick="quxiao()" class="layui-btn layui-btn-warm layui-btn-radius">取消</button>
+                    </div>
+                </div>&ndash;&gt;
+            </form>-->
+            <table>
+                <tr>
+                    <td width="1%" align="left" valign="top">&nbsp;</td>
+                    <td width="63%" align="left" valign="top" bgcolor="#F0F0F0">
+                        <div align="center">
+                            <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td width="100%"><br>
+                                        <table width="970"  border="1" align="center" cellpadding="0" cellspacing="0">
+                                            <tr bgcolor="#FFFFFF">
+                                                <td height="68" colspan="4"><div align="center" class="title">首届浙江省护理创新大赛与护理创新人才评选活动申报表</div></td>
+                                            </tr>
+                                            <tr class="tab">
+                                                <td height="35" colspan="4"><div align="center">个人基本信息</div></td>
+                                            </tr>
+                                            <tr class="tab">
+                                                <td width="137" height="35"><div align="center">姓名</div></td>
+                                                <td width="396" height="35" bgcolor="#FFFFFF">
+                                                    <input type="text" name="username" lay-verify="title"  autocomplete="off" placeholder="姓名" class="layui-input" />
+                                                </td>
+                                                <td width="137"><div align="center">性别</div></td>
+                                                <td width="303" bgcolor="#FFFFFF">
+                                                    <ll:combo dictType="性别" class="layui-input select" id="sex" name="sex"></ll:combo>
+                                                </td>
+                                            </tr>
+                                            <tr class="tab">
+                                                <td height="35"><div align="center">年龄</div></td>
+                                                <td height="35" bgcolor="#FFFFFF">
+                                                    <input type="text" name="age" lay-verify="title"  autocomplete="off" placeholder="年龄" class="layui-input" />
+                                                </td>
+                                                <td><div align="center">身份证号码</div></td>
+                                                <td bgcolor="#FFFFFF">
+                                                    <input type="text" name="identity" lay-verify="title"  autocomplete="off" placeholder="身份证号码" class="layui-input" />
+                                                </td>
+                                            </tr>
+                                            <tr class="tab">
+                                                <td height="35"><div align="center">工作单位</div></td>
+                                                <td height="35" bgcolor="#FFFFFF">
+                                                    <input type="text" name="unit" lay-verify="title"  autocomplete="off" placeholder="工作单位" class="layui-input" />
+                                                </td>
+                                                <td><div align="center">部门/职务</div></td>
+                                                <td bgcolor="#FFFFFF">
+                                                    <input type="text" name="department" lay-verify="title"  autocomplete="off" placeholder="部门/职务" class="layui-input" />
+                                                </td>
+                                            </tr>
+                                            <tr class="tab">
+                                                <td height="35"><div align="center">职称</div></td>
+                                                <td height="35" bgcolor="#FFFFFF">
+                                                    <input type="text" name="office" lay-verify="title"  autocomplete="off" placeholder="职称" class="layui-input" />
+                                                </td>
+                                                <td><div align="center">电话号码</div></td>
+                                                <td bgcolor="#FFFFFF">
+                                                    <input type="text" name="telephone" lay-verify="title"  autocomplete="off" placeholder="电话号码" class="layui-input" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <br>
+                                    </td>
+                                </tr>
+                                <tr bgcolor="#FFFFFF" class="tab">
+                                    <td height="35" colspan="4"><div align="center">项目基本信息</div></td>
+                                </tr>
+                                <tr >
+                                    <td height="35" colspan="6">
+                                        <a href="javascript:;" onclick="addSubTable('baseInfo','checkBaseInfo')" >新增&nbsp;|</a>
+                                        <a href="javascript:;" onclick="deleteSubTable('checkBaseInfo','check1')" >删除&nbsp;|</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="100%">
+                                        <div style="width:800px;height: 100%;min-height: 200px; overflow-x:scroll;">
+                                            <table border="1" rules="all" style="width:1500px; text-align:center" id="baseInfo">
+                                                <tr valign="top">
+                                                    <th width="1%"><input id="check1" type="checkbox" name="" value="" onchange="chooseAll('check1','checkBaseInfo')"></th>
+                                                    <th width="11%"><div align="center">编号</div></th>
+                                                    <th width="14%"><div align="center">项目名称</div></th>
+                                                    <th width="14%"><div align="center"> 专利（或原创认证）号 </div></th>
+                                                    <th width="10%"><div align="center">专利(原创)发明人</div></th>
+                                                    <th width="25%"><div align="center">研发阶段</div></th>
+                                                    <th width="25%"><div align="center">介绍资料</div></th>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr bgcolor="#FFFFFF" class="tab">
+                                    <td height="35" colspan="4"><div align="center">获奖证书复印件(本条适用在全国医学创新赛事中获奖并申报本次“创新人才奖”者)</div></td>
+                                </tr>
+                                <tr>
+                                    <td height="35" colspan="6">
+                                        <a href="javascript:;" onclick="addSubTable2('certificate','checkCertificate')" >新增&nbsp;|</a>
+                                        <a href="javascript:;" onclick="deleteSubTable('checkCertificate','check2')" >删除&nbsp;|</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="100%">
+                                        <div style="width:800px;height: 100%;min-height: 200px; overflow-x:scroll;">
+                                            <table border="1" rules="all" style="width:800px; text-align:center" id="certificate">
+                                                <tr valign="top">
+                                                    <th width="2%"><input id="check2" type="checkbox" name="" value="" onchange="chooseAll('check2','checkCertificate')"></th>
+                                                    <th width="25%"><div align="center">编号</div></th>
+                                                    <th width="33%"><div align="center">证书名称</div></th>
+                                                    <th width="40%"><div align="center"> 附件上传 </div></th>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                    <td width="1%" align="left" valign="top" bgcolor="#FFFFFF">&nbsp;</td>
+                    <td width="35%" align="left" valign="top" bgcolor="#F0F0F0">
+                        <table width="98%"  border="1" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                            <tr bgcolor="#FFFFFF" class="tab">
+                                <td height="35" colspan="4"><div align="center">介绍资料上传</div></td>
+                            </tr>
+                            <tr>
+                                <td height="35" colspan="6">
+                                    <a href="javascript:;" onclick="addSubTable3('attachment','checkAttachment')" >新增&nbsp;|</a>
+                                    <a href="javascript:;" onclick="deleteSubTable('checkAttachment','check3')" >删除&nbsp;|</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="100%">
+                                    <div style="width:100%;height: 100%;min-height: 200px; overflow-x:scroll;">
+                                        <table border="1" rules="all" style="width:100%; text-align:center" id="attachment">
+                                            <tr valign="top">
+                                                <th width="2%"><input id="check3" type="checkbox" name="" value="" onchange="chooseAll('check3','checkAttachment')"></th>
+                                                <th width="25%"><div align="center">编号</div></th>
+                                                <th width="33%"><div align="center">证书名称</div></th>
+                                                <th width="40%"><div align="center"> 附件上传 </div></th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div th:replace="/admin/footer::footer_registration-manager"></div>
+<div th:replace="/admin/footer::footer-content(${copyright})"></div>
+<!--
+<div th:replace="/admin/footer::footer-content"></div>
+-->
+</body>
+</html>

@@ -251,5 +251,10 @@
     <div th:replace="/admin/footer::footer_common"></div>
     <div th:replace="/admin/footer::footer-np"></div>
     <script type="text/javascript" th:src="@{/static/admin/n_n/user/info.js}"></script>
-</div>>
+</div>
+<div th:fragment="footer_registration-manager">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <script type="text/javascript" th:src="@{/static/business/registration/manager.js}"></script>
+</div>
 </html>
