@@ -18,4 +18,6 @@ public interface AttachmentDao {
     int insertAttachment(AttachmentVo attachmentVo);
     List<AttachmentVo> getListAttachment();
     String getPathById(String id);
+    String getAbsPathById(String id);
+    AttachmentVo getAttachmentById(String id);
 }

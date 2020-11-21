@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title=${commons.getTitle()},active='home',logo=${commons.getLogo()},copyright=${commons.getCopyright()}">
+<header th:replace="/admin/header::headerFragment(${title},${active},${logo})"></header>
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/admin/n_n/loginPic/imageShow.css}"></link>
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+<div  style="overflow:hidden;zoom:1;">
+    <div class="cl pd-5 bg-1 bk-gray">
+        <table>
+            <td>
+                <div>
+                    <ul class="toolbar_list">
+                        <li><a href="javascript:;" id="btn-quxiao" onclick="btn_save()" class="btn btn-danger radius"><i class="Hui-iconfont"></i>确定</a></li>
+                        <li><a href="javascript:;" id="btn-save" onclick="quxiao()" class="btn btn-danger radius"><i class="Hui-iconfont"></i>取消</a></li>
+                    </ul>
+                </div>
+            </td>
+            <td></td>
+        </table>
+    </div>
+</div>
+    <div style="height: 50px;border:1px solid  #00b7ee;margin-bottom: 20px">
+        <p class="">提醒：上传多个文件，以最后一次上传的结果为准</p>
+    </div>
+    <div id="uploader" class="wu-example">
+        <div id="thelist" class="uploader-list"></div>
+        <div class="btns">
+            <div id="picker"></div><br/>
+            <button id="ctlBtn" class="btn btn-default">开始上传</button>
+            <button id="stopBtn" class="btn btn-default">暂停</button>
+            <button id="restart" class="btn btn-default">开始</button>
+        </div>
+    </div>
+</body>
+<div th:replace="/admin/footer::footer_registration-upload"></div>
+<div th:replace="/admin/footer::footer-content(${copyright})"></div>
+</html>

@@ -40,6 +40,7 @@ public class SysConfig {
 
     private String defaultPwd;
 
+
     public String getDefaultPwd() {
         return defaultPwd;
     }
@@ -144,5 +145,15 @@ public class SysConfig {
 
     public void setLoginPic(String loginPic) {
         this.loginPic = loginPic;
+    }
+
+    private String attachmentPath;
+
+    public String getAttachmentPath() {
+        return attachmentPath;
+    }
+
+    public void setAttachmentPath(String attachmentPath) {
+        this.attachmentPath = attachmentPath;
     }
 }

@@ -36,4 +36,11 @@ public class RegistrationController extends BaseController {
         return this.render("/business/registration/manager");
     }
 
+    @GetMapping("/upload")
+    public String uploadPage(HttpServletRequest request,
+                             HttpServletResponse response,
+                             Model model){
+        return "/business/registration/upload";
+    }
+
 }

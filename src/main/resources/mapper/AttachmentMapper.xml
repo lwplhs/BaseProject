@@ -101,4 +101,10 @@
     <select id="getPathById" parameterType="java.lang.String" resultType="java.lang.String">
         select url_path from attachment where id=#{id,jdbcType=VARCHAR}
     </select>
+    <select id="getAbsPathById" parameterType="java.lang.String" resultType="java.lang.String">
+        select save_path from attachment where id=#{id,jdbcType=VARCHAR}
+    </select>
+    <select id="getAttachmentById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from attachment where id = #{id,jdbcType=VARCHAR}
+    </select>
 </mapper>
