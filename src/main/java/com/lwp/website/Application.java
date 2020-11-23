@@ -14,7 +14,7 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.lwp.website","com.lwp.website.exception"})
 @EnableConfigurationProperties
 @EnableScheduling
 @EnableWebSocket

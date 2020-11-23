@@ -155,6 +155,31 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserVo> getAdminUserList(String searchKey) {
+        //获取管理员用户未删除的列表
+
+        Map<String,Object> map = new HashMap();
+        List<String> status = new ArrayList();
+        //正常启用
+        status.add("0");
+        //未启用的
+        status.add("1");
+        List<String> type = new ArrayList();
+        //普通用户
+        type.add("1");
+        map.put("status",status);
+        map.put("type",type);
+        if(StrUtil.isEmpty(searchKey)){
+            map.put("searchKey",null);
+        }else {
+            map.put("searchKey",searchKey);
+        }
+        List<UserVo> lists = userDao.getUserListByStatus(map);
+
+        return lists;
+    }
+
+    @Override
     public boolean updateUser(String ids, String type, UserVo userVo) {
         Boolean bool = false;
         if(type != null){
