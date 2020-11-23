@@ -211,7 +211,17 @@
 -->
     <script type="text/javascript" th:src="@{/static/admin/n_n/user/import.js}"></script>
 </div>
-
+<div th:fragment="footer_administrator-manager">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/administrator/manager.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/laypage/1.2/init.js}"></script>
+</div>
+<div th:fragment="footer_administrator-edit">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/administrator/edit.js}"></script>
+</div>
 <div th:fragment="footer_system-manager">
     <div th:replace="/admin/footer::footer_common"></div>
     <div th:replace="/admin/footer::footer-np"></div>

@@ -130,6 +130,10 @@ public class TaleUtils {
         return hexString.toString();
     }
 
+    public static void main(String str[]){
+        System.out.println(TaleUtils.MD5encode("adminadmin"));
+    }
+
     /**
      * 获取新的数据源
      *

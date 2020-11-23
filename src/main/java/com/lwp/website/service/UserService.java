@@ -56,6 +56,8 @@ public interface UserService {
 
     List<UserVo> getCommonUserList(String searchKey);
 
+    List<UserVo> getAdminUserList(String searchKey);
+
     boolean updateUser(String ids,String type,UserVo userVo);
 
     String saveUser(UserVo userVo,UserVo userLoginVo);
