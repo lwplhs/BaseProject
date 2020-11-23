@@ -109,7 +109,7 @@ function updateStatus(ids) {
 function updateDelete(ids) {
     $.ajax({
         type:"POST",
-        url:"/admin/login/updateLoginPicStatus",
+        url:"/admin/loginPic/updateLoginPicStatus",
         data:{
             "ids":ids,
             "type":"2"
