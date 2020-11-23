@@ -16,22 +16,7 @@ public class IndexController extends BaseController{
 
     @RequestMapping(value = {"/index","/"})
     public String index(){
-        return this.render("index");
-    }
-
-    @RequestMapping(value = "/2020/happyBirthday")
-    public String birthday(){
-        return this.render("/birthday/2020/index");
-    }
-    @RequestMapping(value = "/2020/happyBirthday-add")
-    public String birthday1(){
-        return this.render("/birthday/2020/index1");
-    }
-
-    @GetMapping(value = "/chat")
-    public String chat(){
-        LOGGER.info("跳转到聊天室");
-        return this.render("chat_room");
+        return this.render("/index");
     }
 
     @GetMapping(value={"/getPage/{name}", "/getPage/{name}.html"})

@@ -2,7 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title=${commons.getTitle()},active='home',logo=${commons.getLogo()},copyright=${commons.getCopyright()}">
 <header th:replace="/admin/header::headerFragment(${title},${active},${logo})"></header>
 <body>
-    <a th:href="@{/admin}">管理员界面</a>
+
 </body>
-<div th:replace="/admin/footer::footer-content(${copyright})"></div>
+<script type="text/javascript">
+    window.location.href="/admin/index";
+</script>
 </html>

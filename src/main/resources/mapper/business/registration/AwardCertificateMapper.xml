@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lwp.website.dao.business.registration.AwardCertificateDao">
+    <resultMap id="BaseResultMap" type="com.lwp.website.entity.Vo.business.registration.AwardCertificateVo">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="master_id" jdbcType="VARCHAR" property="masterId"/>
+        <result column="no" jdbcType="VARCHAR" property="no"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="attachment_id" jdbcType="VARCHAR" property="attachmentId"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.lwp.website.entity.Vo.business.registration.AwardCertificateVo">
+        insert into award_certificate
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">
+                id,
+            </if>
+            <if test="masterId != null ">
+                master_id,
+            </if>
+            <if test="no != null ">
+                no,
+            </if>
+            <if test="name != null ">
+                name,
+            </if>
+            <if test="attachmentId != null ">
+                attachment_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id ,jdbcType=VARCHAR},
+            </if>
+            <if test="masterId != null">
+                #{masterId ,jdbcType=VARCHAR},
+            </if>
+            <if test="no != null">
+                #{no ,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name ,jdbcType=VARCHAR},
+            </if>
+            <if test="attachmentId != null">
+                #{attachmentId ,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="update" parameterType="com.lwp.website.entity.Vo.business.registration.AwardCertificateVo">
+        update award_certificate
+        <set>
+            <if test="masterId != null">
+                master_id = #{masterId,jdbcType=VARCHAR}
+            </if>
+            <if test="no != null">
+                no = #{no,jdbcType=VARCHAR}
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR}
+            </if>
+            <if test="attachmentId != null">
+                attachment_id = #{attachmentId,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.String">
+        delete from award_certificate where id = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="deleteByMasterId" parameterType="java.lang.String">
+        delete from award_certificate where master_id = #{masterId,jdbcType=VARCHAR}
+    </delete>
+
+    <select id="getListData" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from award_certificate where master_id = #{masterId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getListId" parameterType="java.lang.String" resultType="java.lang.String">
+        select id from award_certificate where master_id = #{masterId,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

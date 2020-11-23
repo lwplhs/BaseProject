@@ -3,6 +3,7 @@
 <header th:replace="/admin/header::headerFragment(${title},${active},${logo})"></header>
 <head>
     <link rel="stylesheet" type="text/css" th:href="@{/static/admin/n_n/loginPic/imageShow.css}"></link>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/common/css/bootstrap.min.css}" />
     <style type="text/css">
 
     </style>
@@ -106,53 +107,54 @@
                             <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="100%"><br>
-                                        <table width="970"  border="1" align="center" cellpadding="0" cellspacing="0">
-                                            <tr bgcolor="#FFFFFF">
-                                                <td height="68" colspan="4"><div align="center" class="title">首届浙江省护理创新大赛与护理创新人才评选活动申报表</div></td>
-                                            </tr>
-                                            <tr class="tab">
-                                                <td height="35" colspan="4"><div align="center">个人基本信息</div></td>
-                                            </tr>
-                                            <tr class="tab">
-                                                <td width="137" height="35"><div align="center">姓名</div></td>
-                                                <td width="396" height="35" bgcolor="#FFFFFF">
-                                                    <input type="text" name="username" lay-verify="title"  autocomplete="off" placeholder="姓名" class="layui-input" />
-                                                </td>
-                                                <td width="137"><div align="center">性别</div></td>
-                                                <td width="303" bgcolor="#FFFFFF">
-                                                    <ll:combo dictType="性别" class="layui-input select" id="sex" name="sex"></ll:combo>
-                                                </td>
-                                            </tr>
-                                            <tr class="tab">
-                                                <td height="35"><div align="center">年龄</div></td>
-                                                <td height="35" bgcolor="#FFFFFF">
-                                                    <input type="text" name="age" lay-verify="title"  autocomplete="off" placeholder="年龄" class="layui-input" />
-                                                </td>
-                                                <td><div align="center">身份证号码</div></td>
-                                                <td bgcolor="#FFFFFF">
-                                                    <input type="text" name="identity" lay-verify="title"  autocomplete="off" placeholder="身份证号码" class="layui-input" />
-                                                </td>
-                                            </tr>
-                                            <tr class="tab">
-                                                <td height="35"><div align="center">工作单位</div></td>
-                                                <td height="35" bgcolor="#FFFFFF">
-                                                    <input type="text" name="unit" lay-verify="title"  autocomplete="off" placeholder="工作单位" class="layui-input" />
-                                                </td>
-                                                <td><div align="center">部门/职务</div></td>
-                                                <td bgcolor="#FFFFFF">
-                                                    <input type="text" name="department" lay-verify="title"  autocomplete="off" placeholder="部门/职务" class="layui-input" />
-                                                </td>
-                                            </tr>
-                                            <tr class="tab">
-                                                <td height="35"><div align="center">职称</div></td>
-                                                <td height="35" bgcolor="#FFFFFF">
-                                                    <input type="text" name="office" lay-verify="title"  autocomplete="off" placeholder="职称" class="layui-input" />
-                                                </td>
-                                                <td><div align="center">电话号码</div></td>
-                                                <td bgcolor="#FFFFFF">
-                                                    <input type="text" name="telephone" lay-verify="title"  autocomplete="off" placeholder="电话号码" class="layui-input" />
-                                                </td>
-                                            </tr>
+                                        <table width="970"  border="1" align="center" cellpadding="0" cellspacing="0" id="mainTable">
+                                                <tr bgcolor="#FFFFFF">
+                                                    <td height="68" colspan="4"><div align="center" class="title">首届浙江省护理创新大赛与护理创新人才评选活动申报表</div></td>
+                                                </tr>
+                                                <tr class="tab">
+                                                    <td height="35" colspan="4"><div align="center">个人基本信息</div></td>
+                                                </tr>
+                                                <tr class="tab">
+                                                    <td width="137" height="35"><div align="center">姓名</div></td>
+                                                    <td width="396" height="35" bgcolor="#FFFFFF">
+                                                        <input name="id" hidden="hidden" th:value="${reg.id}" />
+                                                        <input type="text" name="name" lay-verify="title" th:value="${reg.name}"  autocomplete="off" placeholder="姓名" class="layui-input" />
+                                                    </td>
+                                                    <td width="137"><div align="center">性别</div></td>
+                                                    <td width="303" bgcolor="#FFFFFF">
+                                                        <ll:combo dictType="性别" class="layui-input select" th:value="${reg.sex}" id="sex" name="sex"></ll:combo>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tab">
+                                                    <td height="35"><div align="center">年龄</div></td>
+                                                    <td height="35" bgcolor="#FFFFFF">
+                                                        <input type="text" name="age" lay-verify="title" th:value="${reg.age}"  autocomplete="off" placeholder="年龄" class="layui-input" />
+                                                    </td>
+                                                    <td><div align="center">身份证号码</div></td>
+                                                    <td bgcolor="#FFFFFF">
+                                                        <input type="text" name="identity" lay-verify="title" th:value="${reg.identity}"  autocomplete="off" placeholder="身份证号码" class="layui-input" />
+                                                    </td>
+                                                </tr>
+                                                <tr class="tab">
+                                                    <td height="35"><div align="center">工作单位</div></td>
+                                                    <td height="35" bgcolor="#FFFFFF">
+                                                        <input type="text" name="unit" lay-verify="title" th:value="${reg.unit}"  autocomplete="off" placeholder="工作单位" class="layui-input" />
+                                                    </td>
+                                                    <td><div align="center">部门/职务</div></td>
+                                                    <td bgcolor="#FFFFFF">
+                                                        <input type="text" name="department" lay-verify="title" th:value="${reg.department}"  autocomplete="off" placeholder="部门/职务" class="layui-input" />
+                                                    </td>
+                                                </tr>
+                                                <tr class="tab">
+                                                    <td height="35"><div align="center">职称</div></td>
+                                                    <td height="35" bgcolor="#FFFFFF">
+                                                        <input type="text" name="office" lay-verify="title" th:value="${reg.office}"  autocomplete="off" placeholder="职称" class="layui-input" />
+                                                    </td>
+                                                    <td><div align="center">电话号码</div></td>
+                                                    <td bgcolor="#FFFFFF">
+                                                        <input type="text" name="telephone" lay-verify="title" th:value="${reg.telephone}" autocomplete="off" placeholder="电话号码" class="layui-input" />
+                                                    </td>
+                                                </tr>
                                         </table>
                                         <br>
                                     </td>
@@ -180,6 +182,38 @@
                                                     <th width="25%"><div align="center">研发阶段</div></th>
                                                     <th width="25%"><div align="center">介绍资料</div></th>
                                                 </tr>
+                                                <th:block th:each="base : ${baseList}">
+                                                    <tr>
+                                                        <td>
+                                                            <input type="text" name="id" hidden="hidden" th:value="${base.id}"/>
+                                                            <input type='checkbox' name='checkBaseInfo' value=""/>
+                                                        </td>
+                                                        <td>
+                                                            <input type='text' name='no' lay-verify='title' th:value="${base.no}"  autocomplete='off' placeholder='' class='layui-input' />
+                                                        </td>
+                                                        <td>
+                                                            <input type='text' name='name' lay-verify='title' th:value="${base.name}"  autocomplete='off' placeholder='' class='layui-input' />
+                                                        </td>
+                                                        <td>
+                                                            <input type='text' name='patentNo' lay-verify='title' th:value="${base.patentNo}"  autocomplete='off' placeholder='' class='layui-input' />
+                                                        </td>
+                                                        <td>
+                                                            <input type='text' name='inventor' lay-verify='title' th:value="${base.inventor}"  autocomplete='off' placeholder='' class='layui-input' />
+                                                        </td>
+                                                        <td>
+                                                            <input type='checkbox' th:checked="${base.stage1=='1'}" name='stage1' value='0' />技术设计&nbsp;
+                                                            <input type='checkbox' th:checked="${base.stage2=='1'}" name='stage2' value='1' />原理机&nbsp;
+                                                            <input type='checkbox' th:checked="${base.stage3=='1'}" name='stage3' value='2' />原型机&nbsp;
+                                                            <input type='checkbox' th:checked="${base.stage4=='1'}" name='stage4' value='2' />原型机&nbsp;
+                                                        </td>
+                                                        <td>
+                                                            <input type='checkbox' th:checked="${base.introduction1=='1'}" name='introduction1' value='0' />ppt&nbsp;
+                                                            <input type='checkbox' th:checked="${base.introduction2=='1'}" name='introduction2' value='1' />视频&nbsp;
+                                                            <input type='checkbox' th:checked="${base.introduction3=='1'}" name='introduction3' value='2' />动效&nbsp;
+                                                            <input type='checkbox' th:checked="${base.introduction4=='1'}" name='introduction4' value='3' />其它&nbsp;
+                                                        </td>
+                                                    </tr>
+                                                </th:block>
                                             </table>
                                         </div>
                                     </td>
@@ -203,6 +237,27 @@
                                                     <th width="33%"><div align="center">证书名称</div></th>
                                                     <th width="40%"><div align="center"> 附件上传 </div></th>
                                                 </tr>
+                                                <th:block th:each="award :${awardList}">
+                                                    <tr>
+                                                        <td>
+                                                            <input type='text' name='id' hidden='hidden' th:value="${award.id}"/>
+                                                            <input type='checkbox' name='check2' value=''/>
+                                                        </td>
+                                                        <td>
+                                                            <input type='text' name='zsNo' lay-verify='title' th:value="${award.no}"  autocomplete='off' placeholder='编号' class='layui-input' />
+                                                        </td>
+                                                        <td>
+                                                            <input type='text' name='zsName' lay-verify='title' th:value="${award.name}"  autocomplete='off' placeholder='证书名称' class='layui-input' />
+                                                        </td>
+                                                        <td>
+                                                            <input type='text' name='zsAid' hidden='hidden' lay-verify='title' th:value="${award.aId}"  class='layui-input' />
+                                                            <label type='text' style='width: 60%;float:left;' name='zsAid-' >
+                                                                <a href='#' onclick='downLoadFile(this,"zsAid")'><th:block th:text="${award.aName}"></th:block></a>
+                                                            </label>
+                                                            <button style='width: 30%' onclick='upload("/admin/registration/upload",this,"zsAid")'>上传附件</button>
+                                                        </td>
+                                                    </tr>
+                                                </th:block>
                                             </table>
                                         </div>
                                     </td>
@@ -229,9 +284,30 @@
                                             <tr valign="top">
                                                 <th width="2%"><input id="check3" type="checkbox" name="" value="" onchange="chooseAll('check3','checkAttachment')"></th>
                                                 <th width="25%"><div align="center">编号</div></th>
-                                                <th width="33%"><div align="center">证书名称</div></th>
+                                                <th width="33%"><div align="center">介绍资料名称</div></th>
                                                 <th width="40%"><div align="center"> 附件上传 </div></th>
                                             </tr>
+                                            <th:block th:each="intr :${intrList}">
+                                                <tr>
+                                                    <td>
+                                                        <input type='text' name='id' hidden='hidden' th:value='${intr.id}'/>
+                                                        <input type='checkbox' name='check3' value=''/>
+                                                    </td>
+                                                    <td>
+                                                        <input type='text' name='zlNo' lay-verify='title' th:value="${intr.no}"  autocomplete='off' placeholder='编号' class='layui-input' />
+                                                    </td>
+                                                    <td>
+                                                        <input type='text' name='zlName' lay-verify='title' th:value="${intr.name}"  autocomplete='off' placeholder='证书名称' class='layui-input' />
+                                                    </td>
+                                                    <td>
+                                                        <input type='text' name='zlAid' hidden='hidden' lay-verify='title' th:value="${intr.aId}"  class='layui-input' />
+                                                        <label type='text' style='width: 60%;float:left;' name='zlAid-' >
+                                                            <a href='#' onclick='downLoadFile(this,"zlAid")'><th:block th:text="${intr.aName}"></th:block></a>
+                                                        </label>
+                                                        <button style='width: 30%' onclick='upload("/admin/registration/upload",this,"zlAid")'>上传附件</button>
+                                                    </td>
+                                                </tr>
+                                            </th:block>
                                         </table>
                                     </div>
                                 </td>

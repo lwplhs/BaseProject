@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lwp.website.dao.business.registration.ProjectBaseInfoDao">
+    <resultMap id="BaseResultMap" type="com.lwp.website.entity.Vo.business.registration.ProjectBaseInfoVo">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="master_id" jdbcType="VARCHAR" property="masterId"/>
+        <result column="no" jdbcType="VARCHAR" property="no"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="patent_no" jdbcType="VARCHAR" property="patentNo"/>
+        <result column="inventor" jdbcType="VARCHAR" property="inventor"/>
+        <result column="stage" jdbcType="VARCHAR" property="stage"/>
+        <result column="introduction" jdbcType="VARCHAR" property="introduction"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.lwp.website.entity.Vo.business.registration.ProjectBaseInfoVo">
+        insert into project_base_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="masterId != null">
+                master_id,
+            </if>
+            <if test="no != null">
+                no,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="patentNo != null">
+                patent_no,
+            </if>
+            <if test="inventor != null">
+                inventor,
+            </if>
+            <if test="stage != null">
+                stage,
+            </if>
+            <if test="introduction != null">
+                introduction
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id ,jdbcType=VARCHAR},
+            </if>
+            <if test="masterId != null">
+                #{masterId ,jdbcType=VARCHAR},
+            </if>
+            <if test="no != null">
+                #{no ,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name ,jdbcType=VARCHAR},
+            </if>
+            <if test="patentNo != null">
+                #{patentNo ,jdbcType=VARCHAR},
+            </if>
+            <if test="inventor != null">
+                #{inventor ,jdbcType=VARCHAR},
+            </if>
+            <if test="stage != null">
+                #{stage ,jdbcType=VARCHAR},
+            </if>
+            <if test="introduction != null">
+                #{introduction ,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.lwp.website.entity.Vo.business.registration.ProjectBaseInfoVo">
+        update project_base_info
+        <set>
+            <if test="masterId != null">
+                master_id = #{masterId ,jdbcType=VARCHAR},
+            </if>
+            <if test="no != null">
+               no = #{no ,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+               name = #{name ,jdbcType=VARCHAR},
+            </if>
+            <if test="patentNo != null">
+               patentNo = #{patentNo ,jdbcType=VARCHAR},
+            </if>
+            <if test="inventor != null">
+               inventor = #{inventor ,jdbcType=VARCHAR},
+            </if>
+            <if test="stage != null">
+               stage = #{stage ,jdbcType=VARCHAR},
+            </if>
+            <if test="introduction != null">
+                introduction = #{introduction ,jdbcType=VARCHAR},
+            </if>
+        </set>
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.String">
+        delete from project_base_info where id = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="deleteByMasterId" parameterType="java.lang.String">
+        delete from project_base_info where master_id = #{masterId,jdbcType=VARCHAR}
+    </delete>
+
+    <select id="getListData" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from project_base_info where master_id = #{masterId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getListId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select id from project_base_info where master_id = #{masterId,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

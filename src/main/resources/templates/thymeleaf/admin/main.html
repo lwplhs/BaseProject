@@ -2,8 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title=${commons.getTitle()},active='home',logo=${commons.getLogo()},copyright=${commons.getCopyright()}">
 <header th:replace="/admin/header::headerFragment(${title},${active},${logo})"></header>
 <body style="overflow: auto">
-<div class="page-container" style="height:100%;overflow:auto">
-    <p class="f-20 text-success">欢迎使用admin后台管理</p>
+<div class="page-container" style="height:100%;min-height:400px;overflow:auto;background:url('/static/business/pic/w.jpg') center / cover no-repeat;">
+<!--    <p class="f-20 text-success">欢迎使用admin后台管理</p>
     <p>登录次数：18 </p>
     <p>上次登录IP：222.35.131.79.1  上次登录时间：2014-6-14 11:19:55</p>
     <table class="table table-border table-bordered table-bg">
@@ -163,7 +163,7 @@
             <td>NETWORK SERVICE</td>
         </tr>
         </tbody>
-    </table>
+    </table>-->
 </div>
 <div th:replace="/admin/footer::footer_main"></div>
 <div th:replace="/admin/footer::footer-content(${copyright})"></div>
