@@ -1,5 +1,6 @@
 package com.lwp.website.utils;
 
+import cn.hutool.core.util.StrUtil;
 import com.lwp.website.config.SysConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -190,6 +191,68 @@ public class UploadUtil {
         url = url + name;
 
         if(!suffix.startsWith(".")){
+            url = url+".";
+        }
+        url = url + suffix;
+        if(path.endsWith("/")){
+            path = path.substring(0,path.length()-2);
+        }
+        path = path + url;
+        map.put("path",path);
+        map.put("url",url);
+        map.put("name",name);
+        return map;
+    }
+
+    public static String getAttachmentPath(){
+        Map map = new HashMap();
+        String content = "";
+        try {
+            content = sysConfig.getAttachmentPath();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        if(StringUtil.isNull(content)){
+            content = "/media/Carousel/upload/attachment";
+        }
+        String path = System.getProperty("user.dir");
+        String url = content;
+        path = path.replaceAll("\\\\","/");
+
+
+        url = addSeparator(0,"/",url);
+
+        return path+url;
+    }
+    //获取附件的请求路径、存放路径、名称等
+    public static Map getPathMap(String suffix){
+        Map map = new HashMap();
+        String content = "";
+        try {
+            content = sysConfig.getAttachmentPath();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        if(StringUtil.isNull(content)){
+            content = "/media/Carousel/upload/attachment";
+        }
+        String path = System.getProperty("user.dir");
+        String url = content;
+        path = path.replaceAll("\\\\","/");
+
+
+        url = addSeparator(0,"/",url);
+        url = addSeparator(1,"/",url);
+
+        String date = StringUtil.getDate(new Date(),"yyyyMMdd");
+        url = url + date;
+
+        url = addSeparator(1,"/",url);
+
+        String name = UUID.UU32();
+        url = url + name;
+
+        if(StrUtil.isNotEmpty(suffix) && !suffix.startsWith(".")){
             url = url+".";
         }
         url = url + suffix;

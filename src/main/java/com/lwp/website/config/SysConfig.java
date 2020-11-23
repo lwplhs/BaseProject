@@ -20,6 +20,8 @@ public class SysConfig {
 
     private String upload_path;
 
+    private String attachmentPath;
+
     private String upload_error_path;
 
     private String defaultCookie;
@@ -144,5 +146,13 @@ public class SysConfig {
 
     public void setLoginPic(String loginPic) {
         this.loginPic = loginPic;
+    }
+
+    public String getAttachmentPath() {
+        return attachmentPath;
+    }
+
+    public void setAttachmentPath(String attachmentPath) {
+        this.attachmentPath = attachmentPath;
     }
 }
