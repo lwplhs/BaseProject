@@ -29,6 +29,8 @@ public class RegistrationVo {
 
     private String telephone;
 
+    private String area;
+
     private String userId;
 
     private Date createTime;
@@ -105,6 +107,14 @@ public class RegistrationVo {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
     }
 
     public String getUserId() {

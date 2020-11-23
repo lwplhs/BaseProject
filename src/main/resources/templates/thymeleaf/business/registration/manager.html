@@ -107,7 +107,7 @@
                             <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td width="100%"><br>
-                                        <table width="970"  border="1" align="center" cellpadding="0" cellspacing="0" id="mainTable">
+                                        <table width="100%"  border="1" align="center" cellpadding="0" cellspacing="0" id="mainTable">
                                                 <tr bgcolor="#FFFFFF">
                                                     <td height="68" colspan="4"><div align="center" class="title">首届浙江省护理创新大赛与护理创新人才评选活动申报表</div></td>
                                                 </tr>
@@ -155,6 +155,12 @@
                                                         <input type="text" name="telephone" lay-verify="title" th:value="${reg.telephone}" autocomplete="off" placeholder="电话号码" class="layui-input" />
                                                     </td>
                                                 </tr>
+                                                <tr class="tab">
+                                                    <td height="35"><div align="center">所属地区</div></td>
+                                                    <td height="35" bgcolor="#FFFFFF">
+                                                        <ll:combo dictType="所属地区" class="layui-input select" th:value="${reg.area}" id="area" name="area"></ll:combo>
+                                                    </td>
+                                                </tr>
                                         </table>
                                         <br>
                                     </td>
@@ -171,7 +177,7 @@
                                 <tr>
                                     <td width="100%">
                                         <!--table 1500px-->
-                                        <div style="width:800px;height: 100%;min-height: 200px; overflow-x:hidden;">
+                                        <div style="width: 100%;height: 100%;min-height: 200px; overflow-x:hidden;">
                                             <table border="1" rules="all" style="width:100%; text-align:center" id="baseInfo">
                                                 <tr valign="top">
                                                     <th width="1%"><input id="check1" type="checkbox" name="" value="" onchange="chooseAll('check1','checkBaseInfo')"></th>
@@ -229,7 +235,7 @@
                                 </tr>
                                 <tr>
                                     <td width="100%">
-                                        <div style="width:800px;height: 100%;min-height: 200px; overflow-x:scroll;">
+                                        <div style="width:100%;height: 100%;min-height: 200px; overflow-x:scroll;">
                                             <table border="1" rules="all" style="width:800px; text-align:center" id="certificate">
                                                 <tr valign="top">
                                                     <th width="2%"><input id="check2" type="checkbox" name="" value="" onchange="chooseAll('check2','checkCertificate')"></th>

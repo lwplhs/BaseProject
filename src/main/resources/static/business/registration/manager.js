@@ -141,6 +141,7 @@ function btn_save() {
     var department = $("#mainTable").find("[name='department']").val();
     var office = $("#mainTable").find("[name='office']").val();
     var telephone = $("#mainTable").find("[name='telephone']").val();
+    var area = $("#mainTable").find("[name='area']").val();
     var jsondata={
         "id":id,
         "name":name,
@@ -150,7 +151,8 @@ function btn_save() {
         "unit":unit,
         "department":department,
         "office":office,
-        "telephone":telephone
+        "telephone":telephone,
+        "area":area
     };
     //获取子表数据
     //项目基本信息

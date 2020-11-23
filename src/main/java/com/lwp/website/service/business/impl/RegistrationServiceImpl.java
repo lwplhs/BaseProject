@@ -74,6 +74,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         reg.put("department", StrUtil.isEmpty(registrationVo.getDepartment())?"":registrationVo.getDepartment());
         reg.put("office", StrUtil.isEmpty(registrationVo.getOffice())?"":registrationVo.getOffice());
         reg.put("telephone", StrUtil.isEmpty(registrationVo.getTelephone())?"":registrationVo.getTelephone());
+        reg.put("area", StrUtil.isEmpty(registrationVo.getArea())?"":registrationVo.getArea());
         return reg;
     }
 
@@ -237,6 +238,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         String department = jsonObject.getString("department");
         String office = jsonObject.getString("office");
         String telephone = jsonObject.getString("telephone");
+        String area = jsonObject.getString("area");
         registrationVo.setName(name);
         registrationVo.setSex(sex);
         registrationVo.setAge(age);
@@ -245,6 +247,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         registrationVo.setDepartment(department);
         registrationVo.setOffice(office);
         registrationVo.setTelephone(telephone);
+        registrationVo.setArea(area);
         if(StrUtil.isEmpty(id)){
             id = UUID.createID();
             registrationVo.setId(id);
