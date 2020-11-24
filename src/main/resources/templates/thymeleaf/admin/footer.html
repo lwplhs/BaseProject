@@ -13,7 +13,7 @@
         /*        .footer{background-color: #ffc0cb;}*/
 
         /* 动态为footer添加类fixed-bottom */
-        .fixed-bottom {position: fixed;bottom: -15px;width:100%;}
+        .fixed-bottom {position: fixed;bottom: -10px;width:100%;}
     </style>
 
 
@@ -270,5 +270,11 @@
 <div th:fragment="footer_registration-upload">
     <div th:replace="/admin/footer::footer_common"></div>
     <script type="text/javascript" th:src="@{/static/business/registration/upload.js}"></script>
+</div>
+<div th:fragment="footer_report1-manager">
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <script type="text/javascript" th:src="@{/static/business/registration/report1.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/laypage/1.2/init.js}"></script>
 </div>
 </html>

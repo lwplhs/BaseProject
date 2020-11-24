@@ -16,15 +16,14 @@ import com.lwp.website.entity.Vo.business.registration.IntroductionVo;
 import com.lwp.website.entity.Vo.business.registration.ProjectBaseInfoVo;
 import com.lwp.website.entity.Vo.business.registration.RegistrationVo;
 import com.lwp.website.service.business.RegistrationService;
+import com.lwp.website.utils.DictUtil;
 import com.lwp.website.utils.StringUtil;
 import com.lwp.website.utils.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -226,7 +225,6 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Override
     public String saveRegistration(String jsondata, UserVo userVo) {
-
         JSONObject jsonObject = JSONObject.parseObject(jsondata);
         RegistrationVo registrationVo = new RegistrationVo();
         String id = jsonObject.getString("id");
@@ -249,6 +247,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         registrationVo.setTelephone(telephone);
         registrationVo.setArea(area);
         if(StrUtil.isEmpty(id)){
+            registrationDao.delete(userVo.getId());
             id = UUID.createID();
             registrationVo.setId(id);
             registrationVo.setUserId(userVo.getId());
@@ -376,5 +375,88 @@ public class RegistrationServiceImpl implements RegistrationService {
             introductionVo.setNo(no);
             introductionDao.insert(introductionVo);
         }
+    }
+
+    /**
+     * 获取report1数据
+     * @param searchKey
+     * @return
+     */
+    @Override
+    public List<JSONObject> getListReport1(String searchKey) {
+
+        List<RegistrationVo> list = registrationDao.getRegistrationByCommonUser();
+        Map<String,JSONObject> map = new HashMap();
+        List<JSONObject> list1 = new ArrayList();
+        for (int i = 0; i < list.size(); i++) {
+            RegistrationVo registrationVo = list.get(i);
+            JSONObject jsonObject = new JSONObject();
+            String rId = registrationVo.getId();
+            String area = registrationVo.getArea();
+            area = DictUtil.getDictValue("所属地区",area);
+            String name = registrationVo.getName();
+            String unit = registrationVo.getUnit();
+            String department = registrationVo.getDepartment();
+            String telephone = registrationVo.getTelephone();
+            jsonObject.put("area",area);
+            jsonObject.put("name",name);
+            jsonObject.put("unit",unit);
+            jsonObject.put("department",department);
+            jsonObject.put("telephone",telephone);
+            //获取子表数据
+            List<ProjectBaseInfoVo> projectBaseInfoVos = projectBaseInfoDao.getListData(rId);
+            if(null != projectBaseInfoVos && projectBaseInfoVos.size() > 0){
+                jsonObject.put("yangji",projectBaseInfoVos.size());
+                jsonObject.put("xiangmu",projectBaseInfoVos.size());
+                jsonObject.put("wanzheng","Y");
+                int zhuanhua = 0;
+                for (int j = 0; j < projectBaseInfoVos.size(); j++) {
+                    ProjectBaseInfoVo projectBaseInfoVo = projectBaseInfoVos.get(j);
+                    String s = projectBaseInfoVo.getStage();
+                    if(s.contains("3")){
+                        zhuanhua ++;
+                    }
+                }
+                jsonObject.put("zhuanhua",zhuanhua);
+            }else {
+                jsonObject.put("yangji","0");
+                jsonObject.put("xiangmu","0");
+                jsonObject.put("wanzheng","N");
+                jsonObject.put("zhuanhua","0");
+            }
+            if(null == map || map.size() <=0){
+                map.put(area,jsonObject);
+            }else {
+                if(map.containsKey(area)){
+                    JSONObject temp = map.get(area);
+                    if(temp.containsKey("list")){
+                        JSONArray list2 = temp.getJSONArray("list");
+                        list2.add(jsonObject);
+                        temp.put("list",list2);
+                        map.put(area,temp);
+                    }else {
+                        JSONArray list2 = new JSONArray();
+                        list2.add(jsonObject);
+                        temp.put("list",list2);
+                        map.put(area,temp);
+                    }
+                }else {
+                    map.put(area,jsonObject);
+                }
+            }
+        }
+
+        for(String key:map.keySet()){
+            JSONObject jsonObject = map.get(key);
+            if(!jsonObject.containsKey("list")){
+                jsonObject.put("list",new ArrayList());
+                jsonObject.put("value",1);
+            }else {
+                JSONArray jsonArray = jsonObject.getJSONArray("list");
+                jsonObject.put("value",jsonArray.size()+1);
+            }
+            list1.add(jsonObject);
+        }
+        return list1;
     }
 }

@@ -242,7 +242,7 @@ function btn_save() {
             if(data && data.success){
                 layer.msg(data.msg);
                 setTimeout(function (){
-                    parent.layer.close(index);
+                    window.location.href=window.location.href;
                 },500);
             }else {
                 layer.alert(data.msg || "保存失败，请刷新后重试");

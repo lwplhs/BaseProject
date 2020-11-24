@@ -32,4 +32,6 @@ public interface RegistrationService {
 
     void savIntroduction(String jsondata,String masterId);
 
+    List<JSONObject> getListReport1(String searchKey);
+
 }

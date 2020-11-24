@@ -149,4 +149,12 @@
     <select id="getDataByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
         select * from registration where user_id = #{userId,jdbcType=VARCHAR}
     </select>
+
+    <select id="getRegistrationByCommonUser" resultMap="BaseResultMap">
+        select * from registration where user_id in (select id from t_users where type = '0' and status = '0')
+    </select>
+
+    <delete id="delete" parameterType="java.lang.String">
+        delete from registration where user_id = #{userId,jdbcType=VARCHAR}
+    </delete>
 </mapper>

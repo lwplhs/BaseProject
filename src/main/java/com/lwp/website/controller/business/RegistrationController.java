@@ -6,6 +6,7 @@ import com.lwp.website.entity.Bo.RestResponseBo;
 import com.lwp.website.entity.Vo.UserVo;
 import com.lwp.website.service.business.RegistrationService;
 import com.lwp.website.utils.TaleUtils;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -69,6 +70,13 @@ public class RegistrationController extends BaseController {
         return "/business/registration/upload";
     }
 
+    @GetMapping("/report1")
+    public String report1(HttpServletRequest request,
+                          HttpServletResponse response,
+                          Model model){
+        return this.render("/business/registration/report1");
+    }
+
 
     @PostMapping("/save")
     @ResponseBody
@@ -80,7 +88,6 @@ public class RegistrationController extends BaseController {
                                    @RequestParam(value = "intrList") String intrList){
 
 
-        System.out.println("1111111111");
         //主表数据
         UserVo userVo = TaleUtils.getLoginUser(request);
         String masterId = registrationService.saveRegistration(jsondata,userVo);
@@ -89,5 +96,22 @@ public class RegistrationController extends BaseController {
         registrationService.savIntroduction(intrList,masterId);
 
         return RestResponseBo.ok(1,"保存成功");
+    }
+
+
+    @PostMapping("/getReport1")
+    public String getReport1(HttpServletRequest request,
+                                     HttpServletResponse response,
+                                     Model model,
+                                     @RequestParam(value = "searchKey") String searchKey){
+
+        List<JSONObject> list = registrationService.getListReport1(searchKey);
+        model.addAttribute("info",list);
+        if(null != list && list.size() >0){
+            model.addAttribute("total",list.size());
+        }else {
+            model.addAttribute("total","0");
+        }
+        return this.render("/business/registration/report1::list");
     }
 }
