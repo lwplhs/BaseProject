@@ -213,7 +213,7 @@
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <select id="selectUserByName" resultMap="BaseResultMap" parameterType="java.lang.String">
-        select * from t_users where username = #{userName,jdbcType=VARCHAR}
+        select * from t_users where username = #{userName,jdbcType=VARCHAR} and status !='2'
     </select>
   <update id="updatePwd">
         update t_users set password = #{pwd,jdbcType=VARCHAR} where id = #{id,jdbcType=VARCHAR}
