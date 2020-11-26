@@ -15,7 +15,8 @@
         <tbody id="list">
         </tbody>
     </table>
-    <div th:replace="/admin/footer::footer_dict-subDetail"></div>
+    <div th:replace="/admin/footer::footer_common"/>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/dict/subDetail.js}"></script>
     <div th:hidden="hidden" id="reflush"></div>
     <script type="text/javascript">
         $("#subDetail").niceScroll({

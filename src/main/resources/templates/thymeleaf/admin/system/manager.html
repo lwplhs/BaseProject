@@ -64,7 +64,9 @@
 
     </div>
 </div>
-<div th:replace="/admin/footer::footer_system-manager"></div>
+<div th:replace="/admin/footer::footer_common"></div>
+<div th:replace="/admin/footer::footer-np"></div>
+<script type="text/javascript" th:src="@{/static/admin/n_n/system/manager.js}"></script>
 <div th:replace="/admin/footer::footer-content(${copyright})"></div>
 
 </body>

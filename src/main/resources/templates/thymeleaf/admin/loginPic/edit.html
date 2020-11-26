@@ -100,7 +100,10 @@
 
 
 
-<div th:replace="/admin/footer::footer_loginPic-edit"></div>
+<div th:replace="/admin/footer::footer_common"></div>
+<div th:replace="/admin/footer::footer-np"></div>
+<!--carousel-edit页面业务相关的自定义脚本-->
+<script type="text/javascript" th:src="@{/static/admin/n_n/loginPic/edit.js}"></script>
 <div th:replace="/admin/footer::footer-content(${copyright})"></div>
 </body>
 </html>

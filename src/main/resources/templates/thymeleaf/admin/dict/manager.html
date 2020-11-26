@@ -87,7 +87,11 @@
         </ul>
     </div>
 
-    <div th:replace="/admin/footer::footer_dict-manager"></div>
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <!--业务脚本-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/dict/manager.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/dict/subDetail.js}"></script>
     <div th:replace="/admin/footer::footer-content(${copyright})"></div>
 </body>
 <script type="text/javascript">

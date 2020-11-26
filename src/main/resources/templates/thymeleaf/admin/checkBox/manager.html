@@ -20,7 +20,8 @@
         <button type="button" onclick="quxiao()" class="layui-btn layui-btn-warm layui-btn-radius">取消</button>
     </div>
 </div>
-<div th:replace="/admin/footer::footer_checkBox-manager"></div>
+<div th:replace="/admin/footer::footer_common"></div>
+<script type="text/javascript" th:src="@{/static/admin/n_n/checkBox/manager.js}"></script>
 <div th:replace="/admin/footer::footer-content(${copyright})"></div>
 </body>
 </html>

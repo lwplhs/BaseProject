@@ -51,7 +51,9 @@
             <button type="button" onclick="quxiao()" class="layui-btn layui-btn-warm layui-btn-radius">取消</button>
         </div>
     </form>
-    <div th:replace="/admin/footer::footer_dict-add"></div>
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/dict/add.js}"></script>
     <div th:replace="/admin/footer::footer-content(${copyright})"></div>
 </body>
 <script type="text/javascript">

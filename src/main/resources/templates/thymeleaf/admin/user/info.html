@@ -30,7 +30,9 @@
             </div>
         </form>
     </div>
-    <div th:replace="/admin/footer::footer_info"></div>
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/user/info.js}"></script>
     <div th:replace="/admin/footer::footer-content(${copyright})"></div>
 </body>
 <script type="text/javascript">

@@ -70,7 +70,9 @@
         <img width="300px" height="300px" th:src="@{/static/admin/images/dataNull.png}"/>
     </div>
 </div>
-<div th:replace="/admin/footer::footer_role-manager"></div>
+<div th:replace="/admin/footer::footer_common"></div>
+<div th:replace="/admin/footer::footer-np"></div>
+<script type="text/javascript" th:src="@{/static/admin/n_n/role/manager.js}"></script>
 <div th:replace="/admin/footer::footer-content(${copyright})"></div>
 </body>
 </html>

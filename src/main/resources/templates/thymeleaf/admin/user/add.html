@@ -84,7 +84,9 @@
             </div>
         </div>
     </form>
-    <div th:replace="/admin/footer::footer_user-add"></div>
+    <div th:replace="/admin/footer::footer_common"></div>
+    <div th:replace="/admin/footer::footer-np"></div>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/user/add.js}"></script>
     <div th:replace="/admin/footer::footer-content(${copyright})"></div>
 </body>
 <script type="text/javascript">

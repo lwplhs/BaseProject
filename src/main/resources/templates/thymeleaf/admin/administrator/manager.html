@@ -86,7 +86,9 @@
     </ul>
 </div>-->
 
-<div th:replace="/admin/footer::footer_administrator-manager"></div>
+<div th:replace="/admin/footer::footer_common"></div>
+<div th:replace="/admin/footer::footer-np"></div>
+<script type="text/javascript" th:src="@{/static/admin/n_n/administrator/manager.js}"></script>
 <div th:replace="/admin/footer::footer-content(${copyright})"></div>
 <!--
 <div th:replace="/admin/footer::footer-content"></div>

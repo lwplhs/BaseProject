@@ -12,6 +12,7 @@
         <div style="padding-top:5% "><a href="javascript:void(0)" onclick="downloadMould()">下载模板</a></div>
     </form>
 </body>
-<div th:replace="/admin/footer::footer_user-import"></div>
+<div th:replace="/admin/footer::footer_common"></div>
+<script type="text/javascript" th:src="@{/static/admin/n_n/user/import.js}"></script>
 <div th:replace="/admin/footer::footer-content(${copyright})"></div>
 </html>

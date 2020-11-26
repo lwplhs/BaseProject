@@ -76,7 +76,10 @@
     </ul>
 </div>
 
-<div th:replace="/admin/footer::footer_LoginPic-manager"></div>
+<div th:replace="/admin/footer::footer_common"></div>
+<div th:replace="/admin/footer::footer-np"></div>
+<!--自定义业务-->
+<script type="text/javascript" th:src="@{/static/admin/n_n/loginPic/list.js}"></script>
 <div th:replace="/admin/footer::footer-content(${copyright})"></div>
 </body>
 </html>
