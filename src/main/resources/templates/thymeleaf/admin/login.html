@@ -92,10 +92,8 @@
                     } else {
                         $("#userNmsg").html(result.msg||'登录失败');
                         //tale.alertError(result.msg || '登录失败');
-                    }
-                    setTimeout(function () {
                         $("#loading").html("登录");
-                    },100)
+                    }
                 },400);
 
             }

@@ -111,4 +111,13 @@
         select id from project_base_info where master_id = #{masterId,jdbcType=VARCHAR}
     </select>
 
+    <select id="getListByArea" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from project_base_info where master_id in
+            (
+                select id from registration where area = #{area,jdbcType=VARCHAR} and user_id in
+                    (
+                        select id from t_users where status = '0' and type ='0'
+                    )
+            )
+    </select>
 </mapper>

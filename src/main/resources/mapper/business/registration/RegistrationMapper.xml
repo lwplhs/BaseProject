@@ -154,6 +154,10 @@
         select * from registration where user_id in (select id from t_users where type = '0' and status = '0')
     </select>
 
+    <select id="getRegistrationByCommonUserAndArea" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from registration where user_id in (select id from t_users where type = '0' and status = '0') and area =#{area,jdbcType=VARCHAR}
+    </select>
+
     <delete id="delete" parameterType="java.lang.String">
         delete from registration where user_id = #{userId,jdbcType=VARCHAR}
     </delete>

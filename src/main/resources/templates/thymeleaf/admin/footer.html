@@ -18,24 +18,24 @@
 
 
     <script type="text/javascript">
-        $(function(){
-            function footerPosition(){
+        function footerPosition(){
+            $("footer").removeClass("fixed-bottom");
+            var contentHeight = document.body.scrollHeight,//网页正文全文高度
+                winHeight = window.innerHeight;//可视窗口高度，不包括浏览器顶部工具栏
+            if(!(contentHeight > winHeight)){
+                //当网页正文高度小于可视窗口高度时，为footer添加类fixed-bottom
+                $("footer").addClass("fixed-bottom");
+            } else {
                 $("footer").removeClass("fixed-bottom");
-                var contentHeight = document.body.scrollHeight,//网页正文全文高度
-                    winHeight = window.innerHeight;//可视窗口高度，不包括浏览器顶部工具栏
-                if(!(contentHeight > winHeight)){
-                    //当网页正文高度小于可视窗口高度时，为footer添加类fixed-bottom
-                    $("footer").addClass("fixed-bottom");
-                } else {
-                    $("footer").removeClass("fixed-bottom");
-                }
             }
+        }
+        $(function(){
             footerPosition();
             $(window).resize(footerPosition);
             $(document.body).resize(footerPosition());
         });
     </script>
-    <footer class="footer text-right" >
+    <footer class="footer text-center" >
         <th:block th:text="${copyright}"></th:block><div class=""></div>
     </footer>
     <div hidden="hidden" id="reflush"></div>
@@ -83,6 +83,9 @@
     <script type="text/javascript" th:src="@{/static/admin/n_n/zTree/v3/js/jquery.ztree.exedit-3.5.js}"></script>
     <!--cookie-->
     <script type="text/javascript" th:src="@{/static/admin/n_n/jquery.cookie.1.4.1/jquery.cookie.js}"></script>
+    <!--xlsx导出excel-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/xlsx/xlsx.core.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/xlsx/xlsxUtils.js}"></script>
     <!--nicescroll-->
     <script type="text/javascript" th:src="@{/static/admin/n_n/jquery.nicescroll/jquery.nicescroll.js}"></script>
     <!---plug-->

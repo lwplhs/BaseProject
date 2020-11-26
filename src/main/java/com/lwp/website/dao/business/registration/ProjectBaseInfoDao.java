@@ -26,4 +26,6 @@ public interface ProjectBaseInfoDao  {
 
     List<String> getListId(String masterId);
 
+    List<ProjectBaseInfoVo> getListByArea(String area);
+
 }

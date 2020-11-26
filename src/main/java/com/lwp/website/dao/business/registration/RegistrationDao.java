@@ -23,4 +23,6 @@ public interface RegistrationDao {
 
     List<RegistrationVo> getRegistrationByCommonUser();
 
+    List<RegistrationVo> getRegistrationByCommonUserAndArea(String area);
+
 }

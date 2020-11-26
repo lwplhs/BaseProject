@@ -34,4 +34,8 @@ public interface RegistrationService {
 
     List<JSONObject> getListReport1(String searchKey);
 
+    List<JSONObject> getListReport2(String searchKey);
+
+    List<JSONObject> getListReport3(String searchKey);
+
 }

@@ -22,7 +22,13 @@
                 <td>
                     <div>
                         <ul class="toolbar_list">
-                            <li><a class="btn btn-primary radius" onclick="exportExcel('report','报表1.xlsx')" href="javascript:;"><i class="Hui-iconfont">&#xe644;</i>导出</a></li>
+                           <!-- <li><a href="javascript:;" id="btn-delete" onclick="btn_delete()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i>删除</a></li>
+                            <li><a href="javascript:;" id="btn-default" onclick="btn_default()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i>初始化密码</a></li>
+                            <li><a href="javascript:;" id="btn-update" onclick="btn_update()"  class="btn btn-warning radius"><i class="Hui-iconfont">&#xe601;</i>启用/停用</a></li>
+                            <li><a class="btn btn-primary radius" onclick="user_add('添加','/admin/user/add')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i>新增</a></li>
+                            <li><a class="btn btn-primary radius" onclick="btn_edit('编辑','/admin/user/edit')" href="javascript:;"><i class="Hui-iconfont">&#xe60c;</i>编辑</a></li>
+                            <li><a class="btn btn-primary radius" onclick="user_import('导入','/admin/user/import')" href="javascript:;"><i class="Hui-iconfont">&#xe645;</i>导入</a></li>-->
+                            <li><a class="btn btn-primary radius" onclick="exportExcel('report','报表2.xlsx')" href="javascript:;"><i class="Hui-iconfont">&#xe644;</i>导出</a></li>
                         </ul>
                     </div>
                 </td>
@@ -33,44 +39,24 @@
             <input th:hidden="true" id="total" th:value="${total}" />
             <table id="report" class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
                 <thead>
-                <tr class="text-c">
-                    <th width="120">所属地区</th>
-                    <th width="120">姓名</th>
-                    <th width="120">单位</th>
-                    <th width="120">部门职务</th>
-                    <th width="120">电话号码</th>
-                    <th width="120">资料完整</th>
-                    <th width="120">项目</th>
-                    <th width="80">样机</th>
-                    <th width="80">转化</th>
-                </tr>
+                    <tr class="text-c">
+                        <th width="120">所属地区</th>
+                        <th width="120">项目</th>
+                        <th width="120">报名人数</th>
+                        <th width="120">有机样</th>
+                        <th width="120">转化</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <th:block th:each="temp : ${info}">
-                    <tr class="text-c">
-                        <td th:title="${temp.area}" th:rowspan="${temp.value}"><th:block th:text="${temp.area}"></th:block></td>
-                        <td><th:block th:text="${temp.name}"></th:block></td>
-                        <td><th:block th:text="${temp.unit}"></th:block></td>
-                        <td><th:block th:text="${temp.department}"></th:block></td>
-                        <td><th:block th:text="${temp.telephone}"></th:block></td>
-                        <td><th:block th:text="${temp.wanzheng}"></th:block></td>
-                        <td><th:block th:text="${temp.xiangmu}"></th:block></td>
-                        <td><th:block th:text="${temp.yangji}"></th:block></td>
-                        <td><th:block th:text="${temp.zhuanhua}"></th:block></td>
-                    </tr>
-                    <th:block th:each="list:${temp.list}">
+                    <th:block th:each="temp : ${info}">
                         <tr class="text-c">
-                            <td><th:block th:text="${list.name}"></th:block></td>
-                            <td><th:block th:text="${list.unit}"></th:block></td>
-                            <td><th:block th:text="${list.department}"></th:block></td>
-                            <td><th:block th:text="${list.telephone}"></th:block></td>
-                            <td><th:block th:text="${list.wanzheng}"></th:block></td>
-                            <td><th:block th:text="${list.xiangmu}"></th:block></td>
-                            <td><th:block th:text="${list.yangji}"></th:block></td>
-                            <td><th:block th:text="${list.zhuanhua}"></th:block></td>
+                            <td><th:block th:text="${temp.area}"></th:block></td>
+                            <td><th:block th:text="${temp.project}"></th:block></td>
+                            <td><th:block th:text="${temp.people}"></th:block></td>
+                            <td><th:block th:text="${temp.yjy}"></th:block></td>
+                            <td><th:block th:text="${temp.zh}"></th:block></td>
                         </tr>
                     </th:block>
-                </th:block>
                 </tbody>
             </table>
         </div>
@@ -89,7 +75,9 @@
     </ul>
 </div>-->
 
-<div th:replace="/admin/footer::footer_report1-manager"></div>
+<div th:replace="/admin/footer::footer_common"></div>
+<div th:replace="/admin/footer::footer-np"></div>
+<script type="text/javascript" th:src="@{/static/business/registration/report2.js}" ></script>
 <div th:replace="/admin/footer::footer-content(${copyright})"></div>
 <!--
 <div th:replace="/admin/footer::footer-content"></div>

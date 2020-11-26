@@ -76,7 +76,19 @@ public class RegistrationController extends BaseController {
                           Model model){
         return this.render("/business/registration/report1");
     }
+    @GetMapping("/report2")
+    public String report2(HttpServletRequest request,
+                          HttpServletResponse response,
+                          Model model){
+        return this.render("/business/registration/report2");
+    }
 
+    @GetMapping("/report3")
+    public String report3(HttpServletRequest request,
+                          HttpServletResponse response,
+                          Model model){
+        return this.render("/business/registration/report3");
+    }
 
     @PostMapping("/save")
     @ResponseBody
@@ -113,5 +125,35 @@ public class RegistrationController extends BaseController {
             model.addAttribute("total","0");
         }
         return this.render("/business/registration/report1::list");
+    }
+
+    @PostMapping("/getReport2")
+    public String getReport2(HttpServletRequest request,
+                             HttpServletResponse response,
+                             Model model,
+                             @RequestParam(value = "searchKey") String searchKey){
+        List<JSONObject> list = registrationService.getListReport2(searchKey);
+        model.addAttribute("info",list);
+        if(null != list && list.size() >0){
+            model.addAttribute("total",list.size());
+        }else {
+            model.addAttribute("total","0");
+        }
+        return this.render("/business/registration/report2::list");
+    }
+    @PostMapping("/getReport3")
+    public String getReport3(HttpServletRequest request,
+                             HttpServletResponse response,
+                             Model model,
+                             @RequestParam(value = "searchKey") String searchKey){
+
+        List<JSONObject> list = registrationService.getListReport3(searchKey);
+        model.addAttribute("info",list);
+        if(null != list && list.size() >0){
+            model.addAttribute("total",list.size());
+        }else {
+            model.addAttribute("total","0");
+        }
+        return this.render("/business/registration/report3::list");
     }
 }

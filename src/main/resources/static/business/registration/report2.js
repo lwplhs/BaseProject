@@ -10,7 +10,7 @@ function loadData() {
     NProgress.start();
     $.ajax({
         type: "POST",
-        url: "/admin/registration/getReport1",
+        url: "/admin/registration/getReport2",
         data:{
             "searchKey":searchKey
         },

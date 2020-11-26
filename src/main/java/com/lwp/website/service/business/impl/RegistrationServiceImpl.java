@@ -459,4 +459,122 @@ public class RegistrationServiceImpl implements RegistrationService {
         }
         return list1;
     }
+
+    @Override
+    public List<JSONObject> getListReport2(String searchKey) {
+
+        List<JSONObject> list = new ArrayList();
+        List<Map<String,Object>> areaList = DictUtil.getDictByType("所属地区");
+        for (int i = 0; i < areaList.size() ; i++) {
+            Map<String,Object> map = areaList.get(i);
+            JSONObject jsonObject = new JSONObject();
+            String areaId = map.get("key").toString();
+            String areaName = map.get("value").toString();
+            //获取该地区项目个数
+            List<ProjectBaseInfoVo> projectBaseInfoVoList = projectBaseInfoDao.getListByArea(areaId);
+            String project = String.valueOf(projectBaseInfoVoList.size());
+            //有机样
+            String yjy = project;
+            //转化
+            int num = 0;
+            for (int j = 0; j < projectBaseInfoVoList.size(); j++) {
+                ProjectBaseInfoVo projectBaseInfoVo = projectBaseInfoVoList.get(j);
+                String stage = projectBaseInfoVo.getStage();
+                if(stage.contains("3")){
+                    num++;
+                }
+            }
+            List<RegistrationVo> registrationVoList = registrationDao.getRegistrationByCommonUserAndArea(areaId);
+            String people = String.valueOf(registrationVoList.size());
+            String zh = String.valueOf(num);
+            jsonObject.put("area",areaName);
+            jsonObject.put("people",people);
+            jsonObject.put("project",project);
+            jsonObject.put("yjy",yjy);
+            jsonObject.put("zh",zh);
+
+            jsonObject.put("areaId",areaId);
+            jsonObject.put("areaName",areaName);
+            list.add(jsonObject);
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<JSONObject> getListReport3(String searchKey) {
+
+        List<RegistrationVo> registrationVoList = registrationDao.getRegistrationByCommonUser();
+        List<JSONObject> result = new ArrayList();
+        for (int i = 0; i < registrationVoList.size(); i++) {
+            RegistrationVo registrationVo = registrationVoList.get(i);
+            String username = registrationVo.getName();
+            String unit = registrationVo.getUnit();
+            String office = registrationVo.getOffice();
+            String department = registrationVo.getDepartment();
+            String telephone = registrationVo.getTelephone();
+            String masterId = registrationVo.getId();
+            List<ProjectBaseInfoVo> projectBaseInfoVoList = projectBaseInfoDao.getListData(masterId);
+            String no = "";
+            String name = "";
+            String patentsNo = "";
+            String inventor = "";
+            String stage = "";
+            String introduction = "";
+            if(null != projectBaseInfoVoList && projectBaseInfoVoList.size() > 0){
+                for (int j = 0; j < projectBaseInfoVoList.size(); j++) {
+                    ProjectBaseInfoVo projectBaseInfoVo = projectBaseInfoVoList.get(j);
+                    no = projectBaseInfoVo.getNo();
+                    name = projectBaseInfoVo.getName();
+                    patentsNo = projectBaseInfoVo.getPatentNo();
+                    inventor = projectBaseInfoVo.getInventor();
+                    stage = projectBaseInfoVo.getStage();
+                    stage = this.getValues(stage,"研发阶段");
+                    introduction = projectBaseInfoVo.getIntroduction();
+                    introduction = this.getValues(introduction,"介绍资料");
+                    JSONObject jsonObject = toJSON(username,unit,office,department,telephone,no,name,patentsNo,inventor,stage,introduction);
+                    result.add(jsonObject);
+                }
+            }else {
+                JSONObject jsonObject = toJSON(username,unit,office,department,telephone,no,name,patentsNo,inventor,stage,introduction);
+                result.add(jsonObject);
+            }
+        }
+
+
+        return result;
+    }
+    private String getValues(String key,String type){
+        if(StrUtil.isNotEmpty(key)){
+            String[] strs = key.split(",");
+            String temp = "";
+            for (int k = 0; k < strs.length; k++) {
+                String str = strs[k];
+                String stageName = DictUtil.getDictValue(type,str);
+                if(StrUtil.isNotEmpty(stageName)) {
+                    temp = temp + stageName +",";
+                }
+            }
+            if(StrUtil.isNotEmpty(temp) && temp.endsWith(",")){
+                key = temp.substring(0,temp.length()-1);
+            }
+        }
+        return key;
+    }
+
+    private JSONObject toJSON(String username,String unit,String office,String department,String telephone,String no,String name,String patentsNo,String inventor,String stage,String introduction){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("username",username);
+        jsonObject.put("unit",unit);
+        jsonObject.put("office",office);
+        jsonObject.put("department",department);
+        jsonObject.put("telephone",telephone);
+        jsonObject.put("no",no);
+        jsonObject.put("name",name);
+        jsonObject.put("patentsNo",patentsNo);
+        jsonObject.put("inventor",inventor);
+        jsonObject.put("stage",stage);
+        jsonObject.put("introduction",introduction);
+        return jsonObject;
+    }
 }
