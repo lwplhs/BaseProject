@@ -42,6 +42,7 @@ public class LoginPicController extends BaseController {
 
     /**
      * 添加登录背景图
+     *
      * @param request
      * @param response
      * @param loginPicVo
