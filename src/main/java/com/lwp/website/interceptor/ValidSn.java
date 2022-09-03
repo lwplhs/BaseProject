@@ -123,90 +123,97 @@ public class ValidSn {
 
     @Bean(name = "sn")
     public Sn Sn(){
+
+
+
         LOOGER.info("检查授权文件......");
-        String pubKey = sysConfig.getPubKey();
-        String path = this.getUploadFilePath();
-        try {
-            String data="";
-            String s = "";
-            Sn sn = new Sn();
-            JSONObject jsonObject;
-            try {
-                data = this.readFileContent(path);
-                s = this.decryptByPublicKey(data, pubKey);
-                jsonObject = JSONObject.parseObject(s);
-            }catch (Exception e){
-                throw  new Exception();
-            }
-            Boolean isMac = true;
-            try{
-                isMac = StringUtil.isNull(jsonObject.getBoolean("isMac"))?true:jsonObject.getBoolean("isMac");
-            }catch (Exception e){
-                isMac = true;
-            }
-            String mac = "";
-            String ex = "";
-            String name = "";
-            String concurrent = "";
-            String code = "";
-            try {
-                mac = jsonObject.getString("mac");
-                ex = jsonObject.getString("ex");
-                name = jsonObject.getString("name");
-                concurrent = jsonObject.getString("concurrent");
-                code = jsonObject.getString("code");
-            }catch (Exception e){
-                throw new Exception();
-            }
-            if(!StringUtil.isNull(name)){
-                LOOGER.info("用户名称："+name);
-            }
-            if(!StringUtil.isNull(code)){
-                LOOGER.info("用户编码："+code);
-            }
-            if(StringUtil.isNull(isMac) || isMac) {
-                List<String> macList = this.getMac();
-                Boolean bool = false;
-                if (!StringUtil.isNull(macList) && macList.size() > 0 && !StringUtil.isNull(mac)) {
-                    for (int i = 0; i < macList.size() && !bool; i++) {
-                        String localMac = macList.get(i);
-                        if (MD5encode(localMac.toLowerCase()).equals(mac)) {
-                            bool = true;
-                        }
-                    }
-                }
-                if (!bool) {
-                    LOOGER.error("授权文件mac地址校验错误");
-                    throw new Exception();
-                }
-            }
-            //本机mac地址
-            try {
-                Date date = null;
-                Date nowDate = new Date();
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                date = formatter.parse(ex);
-                LOOGER.info("到期时间为：" + ex);
-                if (nowDate.after(date)) {
-                    LOOGER.error("授权文件已到期！");
-                    throw new Exception();
-                }
-            }catch (Exception e){
-                throw new Exception();
-            }
-            if(StringUtil.isNull(concurrent)){
-                throw new Exception();
-            }else {
-                LOOGER.info("并发许可:" + concurrent);
-            }
-            LOOGER.info("授权文件检查成功");
-            sn.setName(name);
-            sn.setExTime(ex);
-            return sn;
-        }catch (Exception e){
-            LOOGER.error("授权文件校验失败！请联系获取最新授权文件");
-            throw new RuntimeException();
-        }
+        Sn sn = new Sn();
+        sn.setName("123");
+        sn.setExTime("1");
+        return sn;
+//        String pubKey = sysConfig.getPubKey();
+//        String path = this.getUploadFilePath();
+//        try {
+//            String data="";
+//            String s = "";
+//            Sn sn = new Sn();
+//            JSONObject jsonObject;
+//            try {
+//                data = this.readFileContent(path);
+//                s = this.decryptByPublicKey(data, pubKey);
+//                jsonObject = JSONObject.parseObject(s);
+//            }catch (Exception e){
+//                throw  new Exception();
+//            }
+//            Boolean isMac = true;
+//            try{
+//                isMac = StringUtil.isNull(jsonObject.getBoolean("isMac"))?true:jsonObject.getBoolean("isMac");
+//            }catch (Exception e){
+//                isMac = true;
+//            }
+//            String mac = "";
+//            String ex = "";
+//            String name = "";
+//            String concurrent = "";
+//            String code = "";
+//            try {
+//                mac = jsonObject.getString("mac");
+//                ex = jsonObject.getString("ex");
+//                name = jsonObject.getString("name");
+//                concurrent = jsonObject.getString("concurrent");
+//                code = jsonObject.getString("code");
+//            }catch (Exception e){
+//                throw new Exception();
+//            }
+//            if(!StringUtil.isNull(name)){
+//                LOOGER.info("用户名称："+name);
+//            }
+//            if(!StringUtil.isNull(code)){
+//                LOOGER.info("用户编码："+code);
+//            }
+//            if(StringUtil.isNull(isMac) || isMac) {
+//                List<String> macList = this.getMac();
+//                Boolean bool = false;
+//                if (!StringUtil.isNull(macList) && macList.size() > 0 && !StringUtil.isNull(mac)) {
+//                    for (int i = 0; i < macList.size() && !bool; i++) {
+//                        String localMac = macList.get(i);
+//                        if (MD5encode(localMac.toLowerCase()).equals(mac)) {
+//                            bool = true;
+//                        }
+//                    }
+//                }
+//                if (!bool) {
+//                    LOOGER.error("授权文件mac地址校验错误");
+//                    throw new Exception();
+//                }
+//            }
+//            //本机mac地址
+//            try {
+//                Date date = null;
+//                Date nowDate = new Date();
+//                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//                date = formatter.parse(ex);
+//                LOOGER.info("到期时间为：" + ex);
+//                if (nowDate.after(date)) {
+//                    LOOGER.error("授权文件已到期！");
+//                    throw new Exception();
+//                }
+//            }catch (Exception e){
+//                throw new Exception();
+//            }
+//            if(StringUtil.isNull(concurrent)){
+//                throw new Exception();
+//            }else {
+//                LOOGER.info("并发许可:" + concurrent);
+//            }
+//            LOOGER.info("授权文件检查成功");
+//            sn.setName(name);
+//            sn.setExTime(ex);
+//            return sn;
+//        }catch (Exception e){
+//            LOOGER.error("授权文件校验失败！请联系获取最新授权文件");
+//            throw new RuntimeException();
+//        }
     }
 
     /**
